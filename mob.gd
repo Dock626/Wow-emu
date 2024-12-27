@@ -5,6 +5,7 @@ signal targeted(value)
 @export var SPEED = 8
 @export var stop_distance: float = 2.5  # Distance to stop near the player
 @export var Target : Node
+@export var attacking = false
 
 @onready var box = $Selected
 @onready var portrait = $Control/Portrait2D
@@ -14,7 +15,8 @@ signal targeted(value)
 @onready var Agro_table : Array
 @onready var Attack = preload("res://Attack_area.tscn")
 
-var attacking = false
+var in_range
+
 var Looking_around : bool
 var mouse_on = false
 var closest #'do wymiany'
@@ -25,14 +27,21 @@ func _ready():
 		i.select_pressed.connect(self._on_player_select_pressed)
 		i.Looking_around.connect(self._on_player_looking_around)
 		self.targeted.connect(i._on_targeted)
-	var Area_stuff = Attack.instantiate()
-	add_child(Area_stuff)
+	
 	
 	#var stuffik = get_node("Area_stuff")
 	#stuffik.in_range.connect(self._on_attack_area_in_range)
 	
 func _process(delta: float) -> void:
 	
+	if is_instance_valid(Target):
+		in_range = global_transform.origin.distance_to(Target.global_transform.origin)
+		if in_range <= 3.5 and attacking == false:
+			attacking = true
+			var Area_stuff = Attack.instantiate()
+			add_child(Area_stuff)
+			Area_stuff.attack()
+			
 	die()
 	
 	set_selected(selected)
@@ -51,7 +60,7 @@ func _process(delta: float) -> void:
 			#najblizszego
 			if is_instance_valid(player):
 				var check = global_transform.origin.distance_to(player.global_transform.origin)
-				if closest == null or check < closest : #mob zawsze ma target, do zmiany
+				if closest == null or check < closest : #mob zawsze ma target, nawet poza rangem, do zmiany
 					closest = check
 					Target = player
 		
@@ -105,17 +114,3 @@ func _on_player_looking_around(value) -> void:
 	Looking_around = value
 func _on_fireball_hit(value) -> void:
 	Health.value -= value
-func on_attack_area_inrange() -> void:
-	
-	if attacking == false:
-		attacking = true
-		var cast_time = Timer.new()
-		cast_time.timeout.connect(self._on_cast_time_timeout)
-		cast_time.one_shot = true
-		cast_time.wait_time = 2
-		cast_time.start()
-		SPEED = 0
-		
-func _on_cast_time_timeout():
-	SPEED = 8
-	print("Yep")

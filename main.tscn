@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dv3mndf7jo61u"]
+[gd_scene load_steps=8 format=3 uid="uid://dv3mndf7jo61u"]
 
 [ext_resource type="Script" path="res://global.gd" id="1_jrf87"]
 [ext_resource type="PackedScene" uid="uid://dirfldwnnfamh" path="res://PlayerOriented/player.tscn" id="1_kyeka"]
 [ext_resource type="PackedScene" uid="uid://dwf0wftfinjum" path="res://mob.tscn" id="2_x5ufh"]
+[ext_resource type="Texture2D" uid="uid://dypw132t3hpgs" path="res://pobrane.jpg" id="4_d1yno"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f1bto"]
 size = Vector3(60, 2, 60)
@@ -50,3 +51,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.12075, 0.711755, 10.9091)
 
 [node name="Mob3" parent="Mobs_library" instance=ExtResource("2_x5ufh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7258, 0.927909, -9.25596)
+
+[node name="wina" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(575, 259)
+texture = ExtResource("4_d1yno")
