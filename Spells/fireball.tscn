@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqbmpyk8sfcmg"]
+
+[ext_resource type="Script" path="res://Spells/fireball.gd" id="1_kda32"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0w21"]
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture_force_srgb = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_2sl8p"]
+radius = 0.52
+height = 1.015
+
+[sub_resource type="Skin" id="Skin_j5f4v"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dg3ws"]
+radius = 0.845
+
+[node name="Projectile" type="RigidBody3D"]
+gravity_scale = 0.0
+contact_monitor = true
+script = ExtResource("1_kda32")
+
+[node name="Fireball" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_overlay = SubResource("StandardMaterial3D_p0w21")
+mesh = SubResource("SphereMesh_2sl8p")
+skin = SubResource("Skin_j5f4v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.645, 0, 0, 0, -2.81938e-08, -0.645, 0, 0.645, -2.81938e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_dg3ws")
+disabled = true
