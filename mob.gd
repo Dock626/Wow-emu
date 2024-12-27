@@ -49,10 +49,11 @@ func _process(delta: float) -> void:
 		for player in Players:
 			#przejscie po wszystkich playerach, wyciagniecie dystansu do kazdego a potem przyblizanie sie do
 			#najblizszego
-			var check = global_transform.origin.distance_to(player.global_transform.origin)
-			if closest == null or check < closest : #mob zawsze ma target, do zmiany
-				closest = check
-				Target = player
+			if is_instance_valid(player):
+				var check = global_transform.origin.distance_to(player.global_transform.origin)
+				if closest == null or check < closest : #mob zawsze ma target, do zmiany
+					closest = check
+					Target = player
 		
 
 	
@@ -104,16 +105,17 @@ func _on_player_looking_around(value) -> void:
 	Looking_around = value
 func _on_fireball_hit(value) -> void:
 	Health.value -= value
-'func _on_attack_area_inrange(value) -> void:
-	print("Yep")
+func on_attack_area_inrange() -> void:
+	
 	if attacking == false:
 		attacking = true
 		var cast_time = Timer.new()
-		cast_time.time_out.connect(self._on_cast_time_timeout)
+		cast_time.timeout.connect(self._on_cast_time_timeout)
 		cast_time.one_shot = true
 		cast_time.wait_time = 2
 		cast_time.start()
-		SPEED = 0'
+		SPEED = 0
 		
-'func _on_cast_time_timeout():
-	SPEED = 8'
+func _on_cast_time_timeout():
+	SPEED = 8
+	print("Yep")

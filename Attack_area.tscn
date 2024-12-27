@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://fudwxplqkxve"]
+[gd_scene load_steps=6 format=3 uid="uid://fudwxplqkxve"]
 
 [ext_resource type="Script" path="res://attack_area.gd" id="1_ll8rp"]
 
@@ -9,6 +9,9 @@ albedo_color = Color(1, 0, 0, 1)
 material = SubResource("StandardMaterial3D_lijq6")
 size = Vector3(3.555, 3.075, 0.05)
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xqht4"]
+data = PackedVector3Array(0, 1.5375, 0.025, 1.7775, -1.5375, 0.025, -1.7775, -1.5375, 0.025, 0, 1.5375, -0.025, -1.7775, -1.5375, -0.025, 1.7775, -1.5375, -0.025, 0, 1.5375, 0.025, 0, 1.5375, -0.025, 1.7775, -1.5375, 0.025, 0, 1.5375, -0.025, 1.7775, -1.5375, -0.025, 1.7775, -1.5375, 0.025, 0, 1.5375, -0.025, 0, 1.5375, 0.025, -1.7775, -1.5375, -0.025, 0, 1.5375, 0.025, -1.7775, -1.5375, 0.025, -1.7775, -1.5375, -0.025, -1.7775, -1.5375, 0.025, 1.7775, -1.5375, 0.025, -1.7775, -1.5375, -0.025, 1.7775, -1.5375, 0.025, 1.7775, -1.5375, -0.025, -1.7775, -1.5375, -0.025)
+
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vvils"]
 data = PackedVector3Array(0, 1.5375, 0.3775, 1.7775, -1.5375, 0.3775, -1.7775, -1.5375, 0.3775, 0, 1.5375, -0.3775, -1.7775, -1.5375, -0.3775, 1.7775, -1.5375, -0.3775, 0, 1.5375, 0.3775, 0, 1.5375, -0.3775, 1.7775, -1.5375, 0.3775, 0, 1.5375, -0.3775, 1.7775, -1.5375, -0.3775, 1.7775, -1.5375, 0.3775, 0, 1.5375, -0.3775, 0, 1.5375, 0.3775, -1.7775, -1.5375, -0.3775, 0, 1.5375, 0.3775, -1.7775, -1.5375, 0.3775, -1.7775, -1.5375, -0.3775, -1.7775, -1.5375, 0.3775, 1.7775, -1.5375, 0.3775, -1.7775, -1.5375, -0.3775, 1.7775, -1.5375, 0.3775, 1.7775, -1.5375, -0.3775, -1.7775, -1.5375, -0.3775)
 
@@ -17,11 +20,19 @@ script = ExtResource("1_ll8rp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1.535, 2.31779e-07, 1.01314e-14, 0, -6.7097e-08, 1.535, 2.31779e-07, 1.535, 6.7097e-08, 0, 0.17, -2.39442)
-transparency = 1.0
 mesh = SubResource("PrismMesh_k7lur")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1.535, 2.31779e-07, 1.01314e-14, 0, -6.7097e-08, 1.535, 2.31779e-07, 1.535, 6.7097e-08, 0, 0.17, -2.39442)
+shape = SubResource("ConcavePolygonShape3D_xqht4")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1.535, 2.31779e-07, 1.01314e-14, 0, -6.7097e-08, 1.535, 2.31779e-07, 1.535, 6.7097e-08, 0, 0.709077, -2.39442)
 shape = SubResource("ConcavePolygonShape3D_vvils")
+disabled = true
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
