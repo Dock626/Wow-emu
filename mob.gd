@@ -11,8 +11,10 @@ signal targeted(value)
 @onready var portrait = $Control/Portrait2D
 @onready var Players = get_tree().get_nodes_in_group("Players")
 @onready var Health = $Control/HealthBar
-@onready var Agro_range = $Area3D
-@onready var Agro_table : Array
+
+#@onready var Agro_range = $Area3D
+#@onready var Agro_table : Array
+
 @onready var Attack = preload("res://Attack_area.tscn")
 
 var in_range

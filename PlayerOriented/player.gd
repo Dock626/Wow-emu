@@ -14,13 +14,14 @@ enum ANIMATIONS {JUMP_UP, JUMP_DOWN, STRAFE, WALK}
 @export var JUMP_VELOCITY = 6
 @export var current_animation := ANIMATIONS.WALK
 @export var sensitivity = 0.4
+@export var health = 100
 
 @onready var Mobs = get_tree().get_nodes_in_group("Mobs")
 @onready var Looking_from = $CameraBase/CameraRot
 @onready var animation_tree = $AnimationTree
 @onready var SpellCasting = $CastTimer
 @onready var UI = $UI
-
+@onready var health_bar = $UI/ProgressBar
 var rotated = Vector3()
 var is_jumping = false
 var target_velocity = Vector3.ZERO
@@ -36,12 +37,14 @@ func _ready():
 	pass
 	
 func _process(_delta):
+	die()
 	if Casting:
 		var Castbar = UI.get_node("CastBar")
 		Castbar.visible = true
 		Castbar.value = (1 - SpellCasting.time_left / SpellCasting.wait_time) * 100
 	else:
 		UI.get_node("CastBar").visible = false
+	health_bar.value = health
 func _physics_process(delta):
 	if velocity.z != 0 or velocity.x != 0 and is_on_floor():
 		animation_tree["parameters/state/transition_request"] = "move"
@@ -126,13 +129,14 @@ func _input(event):
 	if Input.is_action_pressed("zoom_out") and Looking_from.position.z != -2.5:
 		Looking_from.position.y += 0.25
 		Looking_from.position.z -= 0.5
+		#var result = lerp(start, end, weight)
 	if Input.is_action_just_pressed("Action_1") and current_target != null:
 		if !Casting:
 			Casting_started.emit
 			Casting = true
 			SpellCasting.start()
 			Cast_target = current_target
-		
+		$UI/GridContainer/Button.button_pressed = true
 		
 		'var Casted = fireball.instantiate()
 		Casted.spawnPos = position
@@ -157,7 +161,11 @@ func _input(event):
 		was_targeted +=1
 		
 	
-
+func die():
+	if health <= 0:
+		$Pivot.rotation.x = 90
+		SPEED = 0
+		Casting = true
 func _on_targeted(value: Variant) -> void:
 	current_target = value
 
