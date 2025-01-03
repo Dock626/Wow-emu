@@ -22,6 +22,8 @@ enum ANIMATIONS {JUMP_UP, JUMP_DOWN, STRAFE, WALK}
 @onready var SpellCasting = $CastTimer
 @onready var UI = $UI
 @onready var health_bar = $UI/ProgressBar
+@onready var camera = $CameraBase/CameraRot/SpringArm3D/Camera3D
+
 var rotated = Vector3()
 var is_jumping = false
 var target_velocity = Vector3.ZERO
@@ -32,20 +34,31 @@ var fireball = preload("res://Spells/fireball.tscn")
 var has_slowed_down := false
 var was_targeted : int
 var in_sight = []
+var mob = preload("res://mob.tscn")
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
-	pass
+	if not is_multiplayer_authority(): return
+	add_to_group("Players")
+	
+	camera.current = true
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority(): return
 	
 func _process(_delta):
+	if not is_multiplayer_authority(): return
 	die()
 	if Casting:
 		var Castbar = UI.get_node("CastBar")
 		Castbar.visible = true
 		Castbar.value = (1 - SpellCasting.time_left / SpellCasting.wait_time) * 100
 	else:
-		UI.get_node("CastBar").visible = false
+		UI.get_node("CastBar").hide()
 	health_bar.value = health
 func _physics_process(delta):
+	if not is_multiplayer_authority(): return
 	if velocity.z != 0 or velocity.x != 0 and is_on_floor():
 		animation_tree["parameters/state/transition_request"] = "move"
 		animation_tree["parameters/move/blend_position"] = 1
@@ -111,6 +124,7 @@ func animate(anim: int, delta:=0.0):
 	
 
 func _input(event):
+	if not is_multiplayer_authority(): return
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		Looking_around.emit(true)
@@ -138,10 +152,8 @@ func _input(event):
 			Cast_target = current_target
 		$UI/GridContainer/Button.button_pressed = true
 		
-		'var Casted = fireball.instantiate()
-		Casted.spawnPos = position
-		Casted.target = current_target
-		get_parent().add_child(Casted)'
+	if Input.is_action_just_pressed("Action_2"):
+		pass
 	
 	if Input.is_action_just_released("Tab_target"):
 		#was_targeted
@@ -169,6 +181,8 @@ func die():
 func _on_targeted(value: Variant) -> void:
 	current_target = value
 
+
+
 func _on_cast_timer_timeout() -> void:
 	if Casting == false:
 		return
@@ -176,4 +190,19 @@ func _on_cast_timer_timeout() -> void:
 	Casted.spawnPos = position
 	Casted.target = Cast_target
 	get_parent().add_child(Casted)
+	_sync_cast_fireball.rpc(Casted.spawnPos, Cast_target.get_instance_id())
+	test.rpc()
 	Casting = false
+
+@rpc("any_peer", "call_remote", "unreliable")
+func _sync_cast_fireball(spawn_pos, id) -> void:
+	# Recreate the fireball on clients for synchronization
+	var Casted = fireball.instantiate()
+	Casted.spawnPos = spawn_pos
+	Casted.target = instance_from_id(id)
+	print(id)
+	get_parent().add_child(Casted)
+
+@rpc("call_remote")
+func test():
+	print("essa")

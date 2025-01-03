@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwf0wftfinjum"]
+[gd_scene load_steps=10 format=3 uid="uid://dwf0wftfinjum"]
 
 [ext_resource type="PackedScene" uid="uid://c8qitepmbdxgj" path="res://Models/Barbarian.glb" id="1_cwnmw"]
 [ext_resource type="Script" path="res://mob.gd" id="1_nh8ue"]
@@ -20,6 +20,14 @@ albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_r1koe"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n7qet"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Mob" type="CharacterBody3D" groups=["Mobs"]]
 script = ExtResource("1_nh8ue")
@@ -83,5 +91,8 @@ offset_right = 516.0
 offset_bottom = 54.0
 value = 100.0
 show_percentage = false
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_n7qet")
 
 [connection signal="targeted" from="." to="." method="_on_targeted"]

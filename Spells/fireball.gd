@@ -5,7 +5,7 @@ signal hit(value : int)
 
 @export var speed = 20
 @export var spawnPos : Vector3
-@export var target : Node
+var target
 
 var dir : float
 

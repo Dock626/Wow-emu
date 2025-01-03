@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dv3mndf7jo61u"]
+[gd_scene load_steps=5 format=3 uid="uid://dv3mndf7jo61u"]
 
 [ext_resource type="Script" path="res://global.gd" id="1_jrf87"]
-[ext_resource type="PackedScene" uid="uid://dirfldwnnfamh" path="res://PlayerOriented/player.tscn" id="1_kyeka"]
 [ext_resource type="PackedScene" uid="uid://dwf0wftfinjum" path="res://mob.tscn" id="2_x5ufh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f1bto"]
@@ -9,11 +8,6 @@ size = Vector3(60, 2, 60)
 
 [sub_resource type="BoxMesh" id="BoxMesh_yk2vf"]
 size = Vector3(60, 2, 60)
-
-[sub_resource type="GDScript" id="GDScript_qp73c"]
-script/source = "
-extends Node3D
-"
 
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4008, -0.299022, 0.201945)
@@ -33,20 +27,49 @@ skeleton = NodePath("../..")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.122753, 0.992437, 0, -0.992437, 0.122753, 1.0359, 46.371, 4.14766)
 
-[node name="Player" parent="." instance=ExtResource("1_kyeka")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24491, -17.9612)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Mobs_library" type="Node3D" parent="."]
-script = SubResource("GDScript_qp73c")
+[node name="MainMenu" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 421.0
+offset_top = 147.0
+offset_right = -421.0
+offset_bottom = -147.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Mob" parent="Mobs_library" instance=ExtResource("2_x5ufh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.59854, 0.938271, -1.22992)
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
 
-[node name="Mob2" parent="Mobs_library" instance=ExtResource("2_x5ufh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.707646, 21.1302)
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer"]
+layout_mode = 2
 
-[node name="Mob4" parent="Mobs_library" instance=ExtResource("2_x5ufh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.12075, 0.711755, 10.9091)
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu
+"
 
-[node name="Mob3" parent="Mobs_library" instance=ExtResource("2_x5ufh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7258, 0.927909, -9.25596)
+[node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="AddressEnter" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enter Addres to join"
+alignment = 1
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://PlayerOriented/player.tscn")
+spawn_path = NodePath("..")
+
+[node name="Mob" parent="." instance=ExtResource("2_x5ufh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26.3511)
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
