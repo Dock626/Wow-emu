@@ -2,7 +2,7 @@ extends CharacterBody3D
 signal targeted(value)
 
 @export var selected = false
-@export var SPEED = 0
+@export var SPEED = 8
 @export var stop_distance: float = 2.5  # Distance to stop near the player
 @export var Target : Node
 @export var attacking = false
@@ -34,12 +34,12 @@ func _ready():
 func _process(delta: float) -> void:
 	
 	Players = get_tree().get_nodes_in_group("Players")
-	'for i in Players:
+	for i in Players:
 		var callable = Callable(self, "_on_player_select_pressed")
 		if !self.is_connected("_on_player_select_pressed", callable):
 			i.select_pressed.connect(self._on_player_select_pressed)
 			i.Looking_around.connect(self._on_player_looking_around)
-			self.targeted.connect(i._on_targeted)'
+			self.targeted.connect(i._on_targeted)
 	if Players.size() > 0:
 		# Calculate the direction to the player
 		for player in Players:
@@ -50,14 +50,13 @@ func _process(delta: float) -> void:
 				if closest == null or check < closest : #mob zawsze ma target, nawet poza rangem, do zmiany
 					closest = check
 					Target = player
-					print(Target, " ", check)
-	'if is_instance_valid(Target):
+	if is_instance_valid(Target):
 		in_range = global_transform.origin.distance_to(Target.global_transform.origin)
 		if in_range <= 3.5 and attacking == false:
 			attacking = true
 			var Area_stuff = Attack.instantiate()
 			add_child(Area_stuff)
-			Area_stuff.attack()'
+			Area_stuff.attack()
 			
 	
 	

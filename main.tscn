@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://dwf0wftfinjum" path="res://mob.tscn" id="2_x5ufh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f1bto"]
-size = Vector3(60, 2, 60)
+size = Vector3(150, 2, 150)
 
 [sub_resource type="BoxMesh" id="BoxMesh_yk2vf"]
-size = Vector3(60, 2, 60)
+size = Vector3(150, 2, 150)
 
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4008, -0.299022, 0.201945)
@@ -69,7 +69,16 @@ _spawnable_scenes = PackedStringArray("res://PlayerOriented/player.tscn")
 spawn_path = NodePath("..")
 
 [node name="Mob" parent="." instance=ExtResource("2_x5ufh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26.3511)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.0223, 0, 26.3511)
+
+[node name="Mob2" parent="." instance=ExtResource("2_x5ufh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 43.3396)
+
+[node name="Mob3" parent="." instance=ExtResource("2_x5ufh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 49.7115)
+
+[node name="Mob4" parent="." instance=ExtResource("2_x5ufh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.3542, 0, 34.666)
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

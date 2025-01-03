@@ -190,8 +190,7 @@ func _on_cast_timer_timeout() -> void:
 	Casted.spawnPos = position
 	Casted.target = Cast_target
 	get_parent().add_child(Casted)
-	_sync_cast_fireball.rpc(Casted.spawnPos, Cast_target.get_instance_id())
-	test.rpc()
+	_sync_cast_fireball.rpc(Casted.spawnPos, Cast_target.get_path())
 	Casting = false
 
 @rpc("any_peer", "call_remote", "unreliable")
@@ -199,7 +198,7 @@ func _sync_cast_fireball(spawn_pos, id) -> void:
 	# Recreate the fireball on clients for synchronization
 	var Casted = fireball.instantiate()
 	Casted.spawnPos = spawn_pos
-	Casted.target = instance_from_id(id)
+	Casted.target = get_node(id)
 	print(id)
 	get_parent().add_child(Casted)
 
