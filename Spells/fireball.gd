@@ -19,6 +19,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	pass
+func _physics_process(delta: float) -> void:
 	if is_instance_valid(target):
 		var height = target.get_node("CollisionShape3D")
 		var target_height = Vector3(0, height.shape.size.y / 2, 0) 
@@ -30,5 +32,3 @@ func _process(delta: float) -> void:
 			queue_free()  # Remove the missile
 	else:
 		queue_free()
-func _physics_process(delta: float) -> void:
-	pass

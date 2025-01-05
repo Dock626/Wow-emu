@@ -40,34 +40,6 @@ func _process(delta: float) -> void:
 			i.select_pressed.connect(self._on_player_select_pressed)
 			i.Looking_around.connect(self._on_player_looking_around)
 			self.targeted.connect(i._on_targeted)
-	if Players.size() > 0:
-		# Calculate the direction to the player
-		for player in Players:
-			#przejscie po wszystkich playerach, wyciagniecie dystansu do kazdego a potem przyblizanie sie do
-			#najblizszego
-			if is_instance_valid(player):
-				var check = global_transform.origin.distance_to(player.global_transform.origin)
-				if closest == null or check < closest : #mob zawsze ma target, nawet poza rangem, do zmiany
-					closest = check
-					Target = player
-	if is_instance_valid(Target):
-		in_range = global_transform.origin.distance_to(Target.global_transform.origin)
-		if in_range <= 3.5 and attacking == false:
-			attacking = true
-			var Area_stuff = Attack.instantiate()
-			add_child(Area_stuff)
-			Area_stuff.attack()
-			
-	
-	
-	if mouse_on and not selected:
-		box.transparency = 0.75
-	elif selected:
-		box.transparency = 0.25
-	else:
-		box.transparency = 1
-	
-	
 	die()
 	set_selected(selected)
 
@@ -75,6 +47,9 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	
+	Target = check_closest()
+
 	if is_on_floor() and is_instance_valid(Target):
 		
 		var direction = (Target.global_transform.origin - global_transform.origin).normalized()
@@ -88,7 +63,19 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity = Vector3.ZERO
 		look_at(Target.global_transform.origin, Vector3.UP)
-	
+	if is_instance_valid(Target):
+		in_range = global_transform.origin.distance_to(Target.global_transform.origin)
+		if in_range <= 3.5 and attacking == false:
+			attacking = true
+			var Area_stuff = Attack.instantiate()
+			add_child(Area_stuff)
+			Area_stuff.attack()
+	if mouse_on and not selected:
+		box.transparency = 0.75
+	elif selected:
+		box.transparency = 0.25
+	else:
+		box.transparency = 1
 	move_and_slide()	
 	
 func _input_event(camera: Camera3D, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int):
@@ -111,7 +98,20 @@ func die() -> void:
 
 func attack() -> void:
 	pass
+func check_closest():
+	var list_of_players = []
+	if Players.size() > 0:
+		# Calculate the direction to the player
+		
+		for player in Players:
+			var check_distance = global_transform.origin.distance_to(player.global_transform.origin)
+			list_of_players.append([player, check_distance])
 
+		list_of_players.sort()
+		return list_of_players[0][0]
+
+		
+		
 
 func _on_player_select_pressed() -> void:
 	if mouse_on == false and Looking_around == false:

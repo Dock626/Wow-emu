@@ -201,7 +201,3 @@ func _sync_cast_fireball(spawn_pos, id) -> void:
 	Casted.target = get_node(id)
 	print(id)
 	get_parent().add_child(Casted)
-
-@rpc("call_remote")
-func test():
-	print("essa")

@@ -27,4 +27,7 @@ func _on_timer_timeout() -> void:
 	for body in bodies:
 		if body.is_in_group("Players"):
 			body.health -= 15
+			#deal_damage.rpc(15)
 	queue_free()
+#@rpc("call_remote")
+#func deal_damage(damage):

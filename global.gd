@@ -42,7 +42,7 @@ func _on_join_button_pressed():
 	main_menu.hide()
 	#hud.show()
 	
-	enet_peer.create_client("0.0.0.0", PORT)
+	enet_peer.create_client("localhost", PORT)
 	multiplayer.multiplayer_peer = enet_peer
 # Replace with function body.
 
