@@ -17,12 +17,11 @@ signal targeted(value)
 
 @onready var Attack = preload("res://Attack_area.tscn")
 
-var in_range
 
 var Looking_around : bool
 var mouse_on = false
-var closest #'do wymiany'
 var check_players : int
+
 func _ready():
 	add_to_group("Mobs")
 	
@@ -32,24 +31,16 @@ func _ready():
 	#stuffik.in_range.connect(self._on_attack_area_in_range)
 	
 func _process(delta: float) -> void:
-	
-	Players = get_tree().get_nodes_in_group("Players")
-	for i in Players:
-		var callable = Callable(self, "_on_player_select_pressed")
-		if !self.is_connected("_on_player_select_pressed", callable):
-			i.select_pressed.connect(self._on_player_select_pressed)
-			i.Looking_around.connect(self._on_player_looking_around)
-			self.targeted.connect(i._on_targeted)
 	die()
 	set_selected(selected)
 
-	
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
 	Target = check_closest()
-
+	Players = get_tree().get_nodes_in_group("Players")
+	print(Players)
 	if is_on_floor() and is_instance_valid(Target):
 		
 		var direction = (Target.global_transform.origin - global_transform.origin).normalized()
@@ -64,6 +55,7 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector3.ZERO
 		look_at(Target.global_transform.origin, Vector3.UP)
 	if is_instance_valid(Target):
+		var in_range
 		in_range = global_transform.origin.distance_to(Target.global_transform.origin)
 		if in_range <= 3.5 and attacking == false:
 			attacking = true
@@ -76,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		box.transparency = 0.25
 	else:
 		box.transparency = 1
-	move_and_slide()	
+	move_and_slide()
 	
 func _input_event(camera: Camera3D, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int):
 	if event.is_action_released("select") and Looking_around == false:
@@ -95,9 +87,6 @@ func die() -> void:
 	if Health.value <= 0:
 		remove_from_group("Mobs")
 		queue_free()
-
-func attack() -> void:
-	pass
 func check_closest():
 	var list_of_players = []
 	if Players.size() > 0:
@@ -110,9 +99,8 @@ func check_closest():
 		list_of_players.sort()
 		return list_of_players[0][0]
 
-		
-		
 
+#signals
 func _on_player_select_pressed() -> void:
 	if mouse_on == false and Looking_around == false:
 		selected = false

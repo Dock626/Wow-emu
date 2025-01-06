@@ -1,6 +1,6 @@
 extends Node
-signal held(value)
-var time_pressed
+
+
 @onready var main_menu = $CanvasLayer/MainMenu
 @onready var address_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEnter
 
@@ -8,21 +8,13 @@ const Player = preload("res://PlayerOriented/player.tscn")
 const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
 
-
-@onready var winner = $wina
-
+@onready var Players = get_tree().get_nodes_in_group("Players")
+@onready var Mobs = get_tree().get_nodes_in_group("Mobs")
 
 func _ready():
 	pass
 func _process(delta):
 	pass
-
-
-func win():
-	var mobs_size = get_tree().get_nodes_in_group("Mobs")
-	if mobs_size.size() == 0 and winner:
-		winner.visible = true
-
 
 func _on_host_button_pressed():
 	main_menu.hide()
@@ -51,7 +43,12 @@ func add_player(peer_id):
 	player.name = str(peer_id)
 	add_child(player)
 	player.add_to_group("Players")
-	
+	Mobs = get_tree().get_nodes_in_group("Mobs")
+	for mob in Mobs:
+		print(mob, player)
+		player.select_pressed.connect(mob._on_player_select_pressed)
+		player.Looking_around.connect(mob._on_player_looking_around)
+		mob.targeted.connect(player._on_targeted)
 	
 	
 	

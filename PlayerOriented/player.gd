@@ -5,18 +5,14 @@ signal Casting_started
 signal select_pressed
 signal Looking_around
 
-enum ANIMATIONS {JUMP_UP, JUMP_DOWN, STRAFE, WALK}
 
-
-@export var SPEED = 11
 @export var Fly_manouver = 0.1
 @export var fall_acceleration = 75
 @export var JUMP_VELOCITY = 6
-@export var current_animation := ANIMATIONS.WALK
 @export var sensitivity = 0.4
 @export var health = 100
+@export var SPEED = 11
 
-@onready var Mobs = get_tree().get_nodes_in_group("Mobs")
 @onready var Looking_from = $CameraBase/CameraRot
 @onready var animation_tree = $AnimationTree
 @onready var SpellCasting = $CastTimer
@@ -59,12 +55,6 @@ func _process(_delta):
 	health_bar.value = health
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
-	if velocity.z != 0 or velocity.x != 0 and is_on_floor():
-		animation_tree["parameters/state/transition_request"] = "move"
-		animation_tree["parameters/move/blend_position"] = 1
-	else:
-		animation_tree["parameters/state/transition_request"] = "move"
-		animation_tree["parameters/move/blend_position"] = -1
 	if Input.is_action_just_released("select"):
 		select_pressed.emit()
 	# Add the gravity.
@@ -85,7 +75,6 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		current_animation = ANIMATIONS.JUMP_UP
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	if is_on_floor():
@@ -104,23 +93,6 @@ func _physics_process(delta):
 	if velocity != Vector3(0, 0, 0):
 		Casting = false #breaking Casting spells
 	move_and_slide()
-	
-func animate(anim: int, delta:=0.0):
-
-	if anim == ANIMATIONS.JUMP_UP:
-		animation_tree["parameters/state/transition_request"] = "jump_up"
-
-	elif anim == ANIMATIONS.JUMP_DOWN:
-		animation_tree["parameters/state/transition_request"] = "jump_down"
-
-	elif anim == ANIMATIONS.STRAFE:
-		animation_tree["parameters/state/transition_request"] = "strafe"
-
-	#elif anim == ANIMATIONS.WALK:
-		# Change state to walk.
-#		animation_tree["parameters/state/transition_request"] = "walk"
-
-#func apply_input(delta: float):
 	
 
 func _input(event):
