@@ -9,10 +9,9 @@ func _ready() -> void:
 	$MeshInstance3D.transparency = 1
 
 func _process(delta: float) -> void:
-	
 	if parent.attacking == true:
 		$MeshInstance3D.transparency = (Attack_timer.time_left / Attack_timer.wait_time)
-
+	var bodies = get_overlapping_bodies()
 
 func attack():
 	parent.SPEED = 0
@@ -25,9 +24,8 @@ func _on_timer_timeout() -> void:
 	parent.attacking = false
 	var bodies = get_overlapping_bodies()
 	for body in bodies:
+		print(self, body, body.is_in_group("Players"))
 		if body.is_in_group("Players"):
+			print(body)
 			body.health -= 15
-			#deal_damage.rpc(15)
 	queue_free()
-#@rpc("call_remote")
-#func deal_damage(damage):

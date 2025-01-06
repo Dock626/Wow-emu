@@ -37,10 +37,9 @@ func _enter_tree():
 
 func _ready():
 	if not is_multiplayer_authority(): return
-	add_to_group("Players")
-	
 	camera.current = true
 	$UI.show()
+	self.add_to_group("Players")
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return
 	
@@ -135,8 +134,9 @@ func _input(event):
 			current_target = yea
 		was_targeted +=1
 		
-	
-	
+@rpc("call_local")
+func get_damage(value):
+	health.value -= value
 func die():
 	if health <= 0:
 		$Pivot.rotation.x = 90

@@ -7,12 +7,15 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Action_1") and Player.current_target != null:
-			if !Player.Casting:
-				Player.Casting_started.emit
-				Player.Casting = true
-				Player.SpellCasting.start()
-				Player.Cast_target = Player.current_target
+			use_skill()
 			
+
+func use_skill():
+	if !Player.Casting:
+		Player.Casting_started.emit
+		Player.Casting = true
+		Player.SpellCasting.start()
+		Player.Cast_target = Player.current_target
 
 func _on_cast_timer_timeout() -> void:
 	if Player.Casting == false:
@@ -31,5 +34,4 @@ func _sync_cast_fireball(spawn_pos, id) -> void:
 	var Casted = fireball.instantiate()
 	Casted.spawnPos = spawn_pos
 	Casted.target = get_node(id)
-	print(id)
 	Player.get_parent().add_child(Casted)
