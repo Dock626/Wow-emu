@@ -15,7 +15,7 @@ signal Looking_around
 
 @onready var Looking_from = $CameraBase/CameraRot
 @onready var animation_tree = $AnimationTree
-@onready var SpellCasting = $CastTimer
+@onready var SpellCasting = $Skills/CastTimer
 @onready var UI = $UI
 @onready var health_bar = $UI/ProgressBar
 @onready var camera = $CameraBase/CameraRot/SpringArm3D/Camera3D
@@ -26,11 +26,12 @@ var target_velocity = Vector3.ZERO
 var current_target : Node
 var Casting = false
 var Cast_target
-var fireball = preload("res://Spells/fireball.tscn")
 var has_slowed_down := false
 var was_targeted : int
 var in_sight = []
 var mob = preload("res://mob.tscn")
+
+
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
@@ -39,7 +40,7 @@ func _ready():
 	add_to_group("Players")
 	
 	camera.current = true
-	
+	$UI.show()
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return
 	
@@ -116,16 +117,6 @@ func _input(event):
 		Looking_from.position.y += 0.25
 		Looking_from.position.z -= 0.5
 		#var result = lerp(start, end, weight)
-	if Input.is_action_just_pressed("Action_1") and current_target != null:
-		if !Casting:
-			Casting_started.emit
-			Casting = true
-			SpellCasting.start()
-			Cast_target = current_target
-		$UI/GridContainer/Button.button_pressed = true
-		
-	if Input.is_action_just_pressed("Action_2"):
-		pass
 	
 	if Input.is_action_just_released("Tab_target"):
 		#was_targeted
@@ -145,6 +136,7 @@ func _input(event):
 		was_targeted +=1
 		
 	
+	
 func die():
 	if health <= 0:
 		$Pivot.rotation.x = 90
@@ -152,24 +144,3 @@ func die():
 		Casting = true
 func _on_targeted(value: Variant) -> void:
 	current_target = value
-
-
-
-func _on_cast_timer_timeout() -> void:
-	if Casting == false:
-		return
-	var Casted = fireball.instantiate()
-	Casted.spawnPos = position
-	Casted.target = Cast_target
-	get_parent().add_child(Casted)
-	_sync_cast_fireball.rpc(Casted.spawnPos, Cast_target.get_path())
-	Casting = false
-
-@rpc("any_peer", "call_remote", "unreliable")
-func _sync_cast_fireball(spawn_pos, id) -> void:
-	# Recreate the fireball on clients for synchronization
-	var Casted = fireball.instantiate()
-	Casted.spawnPos = spawn_pos
-	Casted.target = get_node(id)
-	print(id)
-	get_parent().add_child(Casted)

@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 	
 	Target = check_closest()
 	Players = get_tree().get_nodes_in_group("Players")
-	print(Players)
+	
 	if is_on_floor() and is_instance_valid(Target):
 		
 		var direction = (Target.global_transform.origin - global_transform.origin).normalized()
