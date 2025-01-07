@@ -43,7 +43,6 @@ func add_player(peer_id):
 	player.name = str(peer_id)
 	add_child(player)
 	player.add_to_group("Players")
-	print(player.is_in_group("Players"))
 	
 	Mobs = get_tree().get_nodes_in_group("Mobs")
 	for mob in Mobs:

@@ -12,14 +12,14 @@ signal Looking_around
 @export var sensitivity = 0.4
 @export var health = 100
 @export var SPEED = 11
-
-@onready var Looking_from = $CameraBase/CameraRot
+var vertical_limit = 1.0
+@onready var Looking_from = $CameraBase/Pivot
 @onready var animation_tree = $AnimationTree
 @onready var SpellCasting = $Skills/CastTimer
 @onready var UI = $UI
 @onready var health_bar = $UI/ProgressBar
-@onready var camera = $CameraBase/CameraRot/SpringArm3D/Camera3D
-
+@onready var camera = $CameraBase/Pivot/Camera3D
+@onready var player_model = $PlayerModel
 var rotated = Vector3()
 var is_jumping = false
 var target_velocity = Vector3.ZERO
@@ -98,7 +98,18 @@ func _physics_process(delta):
 func _input(event):
 	if not is_multiplayer_authority(): return
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and event is InputEventMouseMotion:
+		
+		
 		rotate_y(deg_to_rad(-event.relative.x * sensitivity))
+		Looking_around.emit(true)
+		if Looking_from.rotation.x <= 1:
+			Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
+		else:
+			Looking_from.rotation.x = 1
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event is InputEventMouseMotion:
+		
+		
+		$CameraBase.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		Looking_around.emit(true)
 		if Looking_from.rotation.x <= 1:
 			Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
