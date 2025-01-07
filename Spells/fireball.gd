@@ -15,7 +15,6 @@ func _ready() -> void:
 	position = spawnPos + Vector3(0, 1, 0)
 	if is_instance_valid(target):
 		self.hit.connect(target._on_fireball_hit)
-	print(position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -24,8 +24,6 @@ func _on_timer_timeout() -> void:
 	parent.attacking = false
 	var bodies = get_overlapping_bodies()
 	for body in bodies:
-		print(self, body, body.is_in_group("Players"))
 		if body.is_in_group("Players"):
-			print(body)
 			body.health -= 15
 	queue_free()
