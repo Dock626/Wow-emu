@@ -1,10 +1,10 @@
 #<source object>.<signal>.connect(<target_object>.<name of function on the target object>)
 #self.select_pressed.connect(self._on_player_select_pressed)
 extends CharacterBody3D
+
 signal Casting_started
 signal select_pressed
 signal Looking_around
-
 
 @export var Fly_manouver = 0.1
 @export var fall_acceleration = 75
@@ -12,7 +12,7 @@ signal Looking_around
 @export var sensitivity = 0.4
 @export var health = 100
 @export var SPEED = 11
-var vertical_limit = 1.0
+
 @onready var Looking_from = $CameraBase/Pivot
 @onready var animation_tree = $AnimationTree
 @onready var SpellCasting = $Skills/CastTimer
@@ -20,6 +20,8 @@ var vertical_limit = 1.0
 @onready var health_bar = $UI/ProgressBar
 @onready var camera = $CameraBase/Pivot/Camera3D
 @onready var player_model = $PlayerModel
+@onready var spellbook = $SpellBook
+
 var rotated = Vector3()
 var is_jumping = false
 var target_velocity = Vector3.ZERO
@@ -40,7 +42,7 @@ func _ready():
 	camera.current = true
 	$UI.show()
 	self.add_to_group("Players")
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return
 	
 func _process(_delta):
@@ -154,10 +156,16 @@ func _input(event):
 			yea.selected = true
 			current_target = yea
 		was_targeted +=1
-		
+	
+	if Input.is_action_just_pressed("Spellbook"):
+		if not spellbook.visible:
+			spellbook.show()
+		else:
+			spellbook.hide()
 @rpc("call_local")
 func get_damage(value):
 	health.value -= value
+
 func die():
 	if health <= 0:
 		$Pivot.rotation.x = 90

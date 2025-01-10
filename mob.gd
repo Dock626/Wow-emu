@@ -71,8 +71,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _input_event(camera: Camera3D, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int):
-	if event.is_action_released("select") and Looking_around == false:
-		selected = not selected
+	if event.is_action_released("select"): #and Looking_around == false:
+		for i in get_tree().get_nodes_in_group("Mobs"):
+			i.selected = false
+		selected = true
 		targeted.emit(self)
 func _mouse_enter() -> void:
 	mouse_on = true
