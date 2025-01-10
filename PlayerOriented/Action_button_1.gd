@@ -1,7 +1,7 @@
 extends Button
 
 func _can_drop_data(position, data):
-	# Ensure data is a Dictionary with a "color" key
+	
 	return typeof(data) == TYPE_DICTIONARY and data.has("icon")
 
 func _drop_data(position, data):

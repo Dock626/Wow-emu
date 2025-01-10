@@ -18,7 +18,7 @@ signal Looking_around
 @onready var SpellCasting = $Skills/CastTimer
 @onready var UI = $UI
 @onready var health_bar = $UI/ProgressBar
-@onready var camera = $CameraBase/Pivot/Camera3D
+@onready var camera = $CameraBase/Pivot/SpringArm3D/Camera3D
 @onready var player_model = $PlayerModel
 @onready var spellbook = $SpellBook
 
@@ -122,10 +122,10 @@ func _input(event):
 		Looking_around.emit(false)
 		was_targeted = 0
 		
-	if Input.is_action_pressed("zoom_in") and Looking_from.position.z != 4.5:
+	if Input.is_action_pressed("zoom_in") and Looking_from.position.z != 3.5:
 		Looking_from.position.y -= 0.25
 		Looking_from.position.z += 0.5
-	if Input.is_action_pressed("zoom_out") and Looking_from.position.z != -2.5:
+	if Input.is_action_pressed("zoom_out") and Looking_from.position.z != -5.5:
 		Looking_from.position.y += 0.25
 		Looking_from.position.z -= 0.5
 		#var result = lerp(start, end, weight)
