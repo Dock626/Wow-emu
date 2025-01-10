@@ -10,11 +10,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	mouse_position = shoot_ray()
-	print(mouse_position)
+	
+
 func _input(event: InputEvent) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		shoot_ray()
+		shoot_ray() # mouse tracking
 		
+
 func shoot_ray():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var ray_length = 1000

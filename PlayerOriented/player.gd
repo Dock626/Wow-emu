@@ -137,10 +137,20 @@ func _input(event):
 			if check_distance < 300:
 				in_sight.append([i, check_distance])
 				in_sight.sort()
+				
 		if was_targeted >= in_sight.size():
 			was_targeted = 0
-		if in_sight.size() > 0:
+		
+		if in_sight[was_targeted][0] == current_target:
+			was_targeted += 1
+			
+		if was_targeted >= in_sight.size():
+			was_targeted = 0
+			
+		if in_sight.size() > 0:	
 			var yea = in_sight[was_targeted][0]
+			if yea == current_target:
+				yea = in_sight[was_targeted+1][0]
 			yea.selected = true
 			current_target = yea
 		was_targeted +=1
