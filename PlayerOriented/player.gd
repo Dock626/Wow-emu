@@ -5,6 +5,7 @@ extends CharacterBody3D
 signal Casting_started
 signal select_pressed
 signal Looking_around
+signal action_pressed
 
 @export var Fly_manouver = 0.1
 @export var fall_acceleration = 75
@@ -21,6 +22,7 @@ signal Looking_around
 @onready var camera = $CameraBase/Pivot/SpringArm3D/Camera3D
 @onready var player_model = $PlayerModel
 @onready var spellbook = $SpellBook
+@onready var test = $AoE
 
 var rotated = Vector3()
 var is_jumping = false
@@ -32,7 +34,7 @@ var has_slowed_down := false
 var was_targeted : int
 var in_sight = []
 var mob = preload("res://mob.tscn")
-
+var mouse_position = Vector3(0,0,0)
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -95,7 +97,8 @@ func _physics_process(delta):
 	if velocity != Vector3(0, 0, 0):
 		Casting = false #breaking Casting spells
 	move_and_slide()
-	
+	if test:
+		test.global_transform.origin = mouse_position
 
 func _input(event):
 	if not is_multiplayer_authority(): return

@@ -16,9 +16,6 @@ func _ready() -> void:
 	if is_instance_valid(target):
 		self.hit.connect(target._on_fireball_hit)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(target):
 		var height = target.get_node("CollisionShape3D")

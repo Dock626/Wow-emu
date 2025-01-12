@@ -1,16 +1,14 @@
 extends Camera3D
 
-
 # Called when the node enters the scene tree for the first time.
-var mouse_position
-func _ready() -> void:
-	pass # Replace with function body.
-
-
+@onready var player = $"../../../.."
+@onready var shootray = Vector3(0,0,0)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	mouse_position = shoot_ray()
-	
+	shootray = shoot_ray()
+	if shootray.has("position"):
+		var hit_position = shootray["position"]
+		player.mouse_position = hit_position
 
 func _input(event: InputEvent) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -27,5 +25,4 @@ func shoot_ray():
 	ray_query.from = from
 	ray_query.to = to
 	var raycast_result = space.intersect_ray(ray_query)
-	print(raycast_result)
 	return raycast_result

@@ -7,16 +7,9 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Action_1") and Player.current_target != null:
-			use_skill()
+		use_skill()
 	if Input.is_action_just_pressed("Action_2"):
-		var maus_posyszyn = get_viewport().get_mouse_position()
-		var aoe = preload("res://Spells/aoe.tscn")
-		var kupa = aoe.instantiate()
-		var convert: Vector3
-		convert.x = maus_posyszyn.x
-		convert.z = maus_posyszyn.y
-		kupa.spawnPos = convert
-		Player.get_parent().add_child(kupa)
+		pass
 
 func use_skill():
 	if !Player.Casting:
