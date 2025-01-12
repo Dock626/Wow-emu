@@ -176,3 +176,7 @@ func die():
 		Casting = true
 func _on_targeted(value: Variant) -> void:
 	current_target = value
+func _mouse_enter() -> void:
+	$Selected.transparency = .5
+func _mouse_exit() -> void:
+	$Selected.transparency = 1

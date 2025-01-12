@@ -8,7 +8,8 @@ func _process(delta: float) -> void:
 	shootray = shoot_ray()
 	if shootray.has("position"):
 		var hit_position = shootray["position"]
-		player.mouse_position = hit_position
+		player.mouse_position.z = hit_position.z
+		player.mouse_position.x = hit_position.x
 
 func _input(event: InputEvent) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

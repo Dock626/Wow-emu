@@ -7,16 +7,16 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_m21oj"]
 size = Vector3(1, 2.005, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yle87"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnuji"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wwdba"]
-material = SubResource("StandardMaterial3D_yle87")
+material = SubResource("StandardMaterial3D_nnuji")
 top_radius = 1.0
 bottom_radius = 2.15
 height = 0.001
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6lqy"]
-albedo_color = Color(0, 1, 0, 1)
+albedo_color = Color(1, 0, 0.0166664, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_r1koe"]
 viewport_path = NodePath("SubViewport")
@@ -31,6 +31,7 @@ properties/1/replication_mode = 1
 
 [node name="Mob" type="CharacterBody3D" groups=["Mobs"]]
 collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_nh8ue")
 
 [node name="SubViewport" type="SubViewport" parent="."]

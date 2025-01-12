@@ -23,7 +23,7 @@ func _physics_process(delta: float) -> void:
 		var to_target = (target.global_transform.origin + target_height - global_transform.origin).normalized()
 		global_transform.origin += to_target * speed * delta
 		var distance_to_target = global_transform.origin.distance_to(target.global_transform.origin + target_height)
-		if distance_to_target < 0.1:  # Adjust the threshold as needed
+		if distance_to_target < 1:  # Adjust the threshold as needed
 			hit.emit(60)
 			queue_free()  # Remove the missile
 	else:
