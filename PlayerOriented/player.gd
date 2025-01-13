@@ -35,7 +35,8 @@ var was_targeted : int
 var in_sight = []
 var mob = preload("res://mob.tscn")
 var mouse_position = Vector3(0,0,0)
-
+var selected = false
+var mouse_on: bool
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
@@ -80,7 +81,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	if is_on_floor():
 		has_slowed_down = false
 		var input_dir := Input.get_vector("move_right", "move_left", "move_back", "move_forward")
@@ -97,8 +97,6 @@ func _physics_process(delta):
 	if velocity != Vector3(0, 0, 0):
 		Casting = false #breaking Casting spells
 	move_and_slide()
-	if test:
-		test.global_transform.origin = mouse_position
 
 func _input(event):
 	if not is_multiplayer_authority(): return
@@ -168,7 +166,9 @@ func _input(event):
 @rpc("call_local")
 func get_damage(value):
 	health.value -= value
-
+func set_selecteD():
+	if Input.is_action_just_released("select"):
+		selected = !selected
 func die():
 	if health <= 0:
 		$Pivot.rotation.x = 90
@@ -177,6 +177,8 @@ func die():
 func _on_targeted(value: Variant) -> void:
 	current_target = value
 func _mouse_enter() -> void:
+	mouse_on = true
 	$Selected.transparency = .5
 func _mouse_exit() -> void:
+	mouse_on = false
 	$Selected.transparency = 1

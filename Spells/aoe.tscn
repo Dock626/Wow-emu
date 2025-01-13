@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Spells/aoe.gd" id="1_8onxr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ts75"]
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(0, 1, 0.233333, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_2cyl2"]
 material = SubResource("StandardMaterial3D_1ts75")

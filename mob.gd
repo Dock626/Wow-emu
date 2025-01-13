@@ -83,7 +83,7 @@ func _mouse_exit() -> void:
 
 
 func set_selected(value):
-	portrait.visible = value
+	#portrait.visible = value
 	Health.visible = value
 func die() -> void:
 	if Health.value <= 0:

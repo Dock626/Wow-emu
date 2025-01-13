@@ -1,6 +1,7 @@
 extends Node
 @onready var Player = get_parent()
 var fireball = preload("res://Spells/fireball.tscn")
+var aoe_indicator = preload("res://Spells/aoe.tscn")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -9,7 +10,11 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Action_1") and Player.current_target != null:
 		use_skill()
 	if Input.is_action_just_pressed("Action_2"):
-		pass
+		if !Player.get_node("AoE"):
+			var aoe = aoe_indicator.instantiate()
+			Player.add_child(aoe)
+		else:
+			Player.get_node("AoE").queue_free()
 
 func use_skill():
 	if !Player.Casting:
