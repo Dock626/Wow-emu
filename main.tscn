@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://global.gd" id="1_jrf87"]
 [ext_resource type="PackedScene" uid="uid://dwf0wftfinjum" path="res://mob.tscn" id="2_x5ufh"]
-[ext_resource type="Script" path="res://spell_handler.gd" id="3_y5ruj"]
+[ext_resource type="Script" path="res://Resources/SpellDatabase.gd" id="4_o8sg2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f1bto"]
 size = Vector3(150, 2, 150)
@@ -80,8 +80,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 49.7115)
 [node name="Mob4" parent="." instance=ExtResource("2_x5ufh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.3542, 0, 34.666)
 
-[node name="Spell_handler" type="Node" parent="."]
-script = ExtResource("3_y5ruj")
+[node name="Spell_database" type="Node" parent="."]
+script = ExtResource("4_o8sg2")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

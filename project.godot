@@ -22,6 +22,10 @@ config/icon="res://icon.svg"
 Global="*res://global.gd"
 SpellDatabase="*res://Resources/SpellDatabase.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdscript_formatter/plugin.cfg")
+
 [global_group]
 
 Mobs=""

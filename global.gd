@@ -3,13 +3,15 @@ extends Node
 
 @onready var main_menu = $CanvasLayer/MainMenu
 @onready var address_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEnter
-
+const Spelldb = preload("res://Resources/SpellDatabase.gd")
 const Player = preload("res://PlayerOriented/player.tscn")
 const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
 
 @onready var Players = get_tree().get_nodes_in_group("Players")
 @onready var Mobs = get_tree().get_nodes_in_group("Mobs")
+@onready var Spell_database : SpellDatabase = $Spell_database
+
 
 func _ready():
 	pass

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b1wnx0m0gccvw" path="res://Spells/spell_book.tscn" id="1_fcxv7"]
 [ext_resource type="Script" path="res://PlayerOriented/ui.gd" id="1_vgyi0"]
-[ext_resource type="Script" path="res://PlayerOriented/Action_button_1.gd" id="2_o7mbp"]
+[ext_resource type="Script" path="res://PlayerOriented/action_container.gd" id="2_81fa8"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -34,37 +34,7 @@ offset_top = 557.0
 offset_right = 731.0
 offset_bottom = 605.0
 columns = 16
-
-[node name="Button" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-text = "1"
-script = ExtResource("2_o7mbp")
-
-[node name="Button2" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-text = "2"
-
-[node name="Button3" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-text = "3"
-
-[node name="Button4" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-text = "4"
-
-[node name="Button5" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-text = "5"
-
-[node name="Button6" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-text = "6"
+script = ExtResource("2_81fa8")
 
 [node name="SpellBook" parent="." instance=ExtResource("1_fcxv7")]
 visible = false

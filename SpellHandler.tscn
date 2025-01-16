@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfnhkcbu4khdx"]
+
+[ext_resource type="Script" path="res://PlayerOriented/skills.gd" id="1_yc17j"]
+
+[node name="SpellHandler" type="Node"]
+script = ExtResource("1_yc17j")
+
+[node name="CastTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="CastTimer" to="." method="_on_cast_timer_timeout"]

@@ -2,6 +2,8 @@
 #self.select_pressed.connect(self._on_player_select_pressed)
 extends CharacterBody3D
 
+class_name Player_Base
+
 signal Casting_started
 signal select_pressed
 signal Looking_around
@@ -16,57 +18,71 @@ signal action_pressed
 
 @onready var Looking_from = $CameraBase/Pivot
 @onready var animation_tree = $AnimationTree
-@onready var SpellCasting = $Skills/CastTimer
+#@onready var SpellCasting = $Skills/CastTimer
 @onready var UI = $UI
 @onready var health_bar = $UI/ProgressBar
 @onready var camera = $CameraBase/Pivot/SpringArm3D/Camera3D
 @onready var player_model = $PlayerModel
 @onready var spellbook = $SpellBook
 @onready var test = $AoE
+@onready var spell_handler: Node = $SpellHandler
 
-var rotated = Vector3()
-var is_jumping = false
-var target_velocity = Vector3.ZERO
-var current_target : Node
-var Casting = false
+
+
+var rotated := Vector3()
+var is_jumping := false
+var target_velocity := Vector3.ZERO
+var current_target: Node
 var Cast_target
 var has_slowed_down := false
-var was_targeted : int
+var was_targeted: int
 var in_sight = []
 var mob = preload("res://mob.tscn")
-var mouse_position = Vector3(0,0,0)
-var selected = false
+var mouse_position := Vector3(0, 0, 0)
+var selected := false
 var mouse_on: bool
+
+
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
+
 func _ready():
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority():
+		return
 	camera.current = true
 	$UI.show()
 	self.add_to_group("Players")
+
+
 func _unhandled_input(_event: InputEvent) -> void:
-	if not is_multiplayer_authority(): return
-	
+	if not is_multiplayer_authority():
+		return
+
+
 func _process(_delta):
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority():
+		return
 	die()
-	if Casting:
+	if spell_handler._casting:
 		var Castbar = UI.get_node("CastBar")
 		Castbar.visible = true
-		Castbar.value = (1 - SpellCasting.time_left / SpellCasting.wait_time) * 100
+		Castbar.value = spell_handler.progress()
 	else:
 		UI.get_node("CastBar").hide()
 	health_bar.value = health
+
+
 func _physics_process(delta):
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority():
+		return
 	if Input.is_action_just_released("select"):
 		select_pressed.emit()
 	# Add the gravity.
 
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
+
 		# Handle changing direction midair.
 		var input_dir := Input.get_vector("move_right", "move_left", "move_back", "move_forward")
 		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -94,15 +110,15 @@ func _physics_process(delta):
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
-	if velocity != Vector3(0, 0, 0):
-		Casting = false #breaking Casting spells
+	#if velocity != Vector3(0, 0, 0):
+	#	casting = false  #breaking casting spells
 	move_and_slide()
 
+
 func _input(event):
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority():
+		return
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and event is InputEventMouseMotion:
-		
-		
 		rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		Looking_around.emit(true)
 		if Looking_from.rotation.x <= 1:
@@ -110,8 +126,6 @@ func _input(event):
 		else:
 			Looking_from.rotation.x = 1
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event is InputEventMouseMotion:
-		
-		
 		$CameraBase.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		Looking_around.emit(true)
 		if Looking_from.rotation.x <= 1:
@@ -122,7 +136,7 @@ func _input(event):
 	if Input.is_action_just_pressed("select") and event is not InputEventMouseMotion:
 		Looking_around.emit(false)
 		was_targeted = 0
-		
+
 	if Input.is_action_pressed("zoom_in") and Looking_from.position.z != 3.5:
 		Looking_from.position.y -= 0.25
 		Looking_from.position.z += 0.5
@@ -130,55 +144,70 @@ func _input(event):
 		Looking_from.position.y += 0.25
 		Looking_from.position.z -= 0.5
 		#var result = lerp(start, end, weight)
-	
+
 	if Input.is_action_just_released("Tab_target"):
 		#was_targeted
 		in_sight = []
 		for i in get_tree().get_nodes_in_group("Mobs"):
-			i.selected =false
+			i.selected = false
 			var check_distance = global_transform.origin.distance_to(i.global_transform.origin)
 			if check_distance < 300:
 				in_sight.append([i, check_distance])
 				in_sight.sort()
-				
+
 		if was_targeted >= in_sight.size():
 			was_targeted = 0
-		
+
 		if in_sight[was_targeted][0] == current_target:
 			was_targeted += 1
-			
+
 		if was_targeted >= in_sight.size():
 			was_targeted = 0
-			
-		if in_sight.size() > 0:	
+
+		if in_sight.size() > 0:
 			var yea = in_sight[was_targeted][0]
 			if yea == current_target:
-				yea = in_sight[was_targeted+1][0]
+				yea = in_sight[was_targeted + 1][0]
 			yea.selected = true
 			current_target = yea
-		was_targeted +=1
-	
+		was_targeted += 1
+
 	if Input.is_action_just_pressed("Spellbook"):
 		if not spellbook.visible:
 			spellbook.show()
 		else:
 			spellbook.hide()
+
+
 @rpc("call_local")
 func get_damage(value):
 	health.value -= value
+
+
 func set_selecteD():
 	if Input.is_action_just_released("select"):
 		selected = !selected
+
+
 func die():
 	if health <= 0:
 		$Pivot.rotation.x = 90
 		SPEED = 0
-		Casting = true
+		spell_handler.casting = true
+
+
 func _on_targeted(value: Variant) -> void:
 	current_target = value
+
+
 func _mouse_enter() -> void:
 	mouse_on = true
 	$Selected.transparency = .5
+
+
 func _mouse_exit() -> void:
 	mouse_on = false
 	$Selected.transparency = 1
+
+func _on_ui_action_used(button_number: int) -> void:
+	pass # Replace with function body.

@@ -5,8 +5,8 @@ signal hit(value : int)
 
 @export var speed = 20
 @export var spawnPos : Vector3
-var target
 
+var target
 var dir : float
 
 # Called when the node enters the scene tree for the first time.

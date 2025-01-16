@@ -4,7 +4,7 @@ extends Button
 func _get_drag_data(position):
 	var drag_data = {
 		"icon": icon,
-		"id": 1
+		"name": "Firebolt"
 	}
 	var preview = TextureRect.new()
 	preview.texture = icon

@@ -1,39 +1,43 @@
 extends Node
 @onready var Player = get_parent()
+@onready var _spell_timer = $CastTimer
 var fireball = preload("res://Spells/fireball.tscn")
 var aoe_indicator = preload("res://Spells/aoe.tscn")
+var _casting := false
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
-func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Action_1") and Player.current_target != null:
-		use_skill()
-	if Input.is_action_just_pressed("Action_2"):
-		if !Player.get_node("AoE"):
-			var aoe = aoe_indicator.instantiate()
-			Player.add_child(aoe)
-		else:
-			Player.get_node("AoE").queue_free()
 
-func use_skill():
-	if !Player.Casting:
-		Player.Casting_started.emit
-		Player.Casting = true
-		Player.SpellCasting.start()
-		Player.Cast_target = Player.current_target
+
+
+
+func use_skill(spell: SpellResource) -> void:
+	if _casting:
+		return
+		
+	Player.Casting_started.emit
+	_casting = true
+	Player.Cast_target = Player.current_target
+	
+	_spell_timer.wait_time(spell.cast_time)
+	_spell_timer.start()
+
 
 func _on_cast_timer_timeout() -> void:
-	if Player.Casting == false:
+	if _casting == false or !is_instance_valid(Player.Cast_target):
 		return
-	if is_instance_valid(Player.Cast_target):
-		var Casted = fireball.instantiate()
-		Casted.spawnPos = Player.global_transform.origin
-		Casted.target = Player.Cast_target
-		Player.get_parent().add_child(Casted)
-		_sync_cast_fireball.rpc(Casted.spawnPos, Player.Cast_target.get_path())
-	Player.Casting = false
-	
+
+	var Casted = fireball.instantiate()
+	Casted.spawnPos = Player.global_transform.origin
+	Casted.target = Player.Cast_target
+	Player.get_parent().add_child(Casted)
+	_sync_cast_fireball.rpc(Casted.spawnPos, Player.Cast_target.get_path())
+	_casting = false
+
+
 @rpc("any_peer", "call_remote", "unreliable")
 func _sync_cast_fireball(spawn_pos, id) -> void:
 	# Recreate the fireball on clients for synchronization
@@ -41,3 +45,7 @@ func _sync_cast_fireball(spawn_pos, id) -> void:
 	Casted.spawnPos = spawn_pos
 	Casted.target = get_node(id)
 	Player.get_parent().add_child(Casted)
+
+
+func progress() -> float:
+	return (1 - _spell_timer.time_left / _spell_timer.wait_time) * 100

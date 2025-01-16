@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b1wnx0m0gccvw"]
 
 [ext_resource type="Texture2D" uid="uid://c4x74ft0jblcl" path="res://Spells/scroll.jpg" id="1_f7n28"]
-[ext_resource type="Script" path="res://Spells/button.gd" id="2_opgvu"]
+[ext_resource type="Script" path="res://Spells/Spell_Book_button.gd" id="2_opgvu"]
 [ext_resource type="Texture2D" uid="uid://blq2ay1hj27yd" path="res://Spells/fajerbol.png" id="2_w8tr5"]
 
 [node name="SpellBook" type="Control"]
