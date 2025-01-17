@@ -53,7 +53,7 @@ func _ready():
 	camera.current = true
 	$UI.show()
 	self.add_to_group("Players")
-	self.Casting_started.connect(spell_handler._on_cast_started)
+	self.Casting_started.connect(spell_handler.use_skill)
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -77,6 +77,13 @@ func _physics_process(delta):
 		return
 	if Input.is_action_just_released("select"):
 		select_pressed.emit()
+		var is_any_selected = false
+		var mobs = get_tree().get_nodes_in_group("Mobs")
+		for mob in mobs:
+			if mob.selected == true:
+				is_any_selected = true
+		if is_any_selected == false:
+			current_target = null
 	# Add the gravity.
 
 	if not is_on_floor():

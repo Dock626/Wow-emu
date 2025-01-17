@@ -11,12 +11,9 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_cast_started(spell):
-	use_skill(spell)
-
 
 func use_skill(spell: SpellResource) -> void:
-	if _casting or spell == null:
+	if _casting or spell == null or Player.current_target == null:
 		return
 	_casting = true
 	Player.Cast_target = Player.current_target
@@ -27,6 +24,7 @@ func use_skill(spell: SpellResource) -> void:
 
 func _on_cast_timer_timeout() -> void:
 	if _casting == false or !is_instance_valid(Player.Cast_target):
+		_casting = false
 		return
 
 	var Casted = fireball.instantiate()
