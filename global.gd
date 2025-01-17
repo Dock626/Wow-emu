@@ -55,3 +55,6 @@ func add_player(peer_id):
 	
 	
 	
+'func get_player():
+	var tree = get_tree()
+	return tree.'

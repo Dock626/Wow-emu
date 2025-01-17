@@ -9,6 +9,7 @@ signal select_pressed
 signal Looking_around
 signal action_pressed
 
+
 @export var Fly_manouver = 0.1
 @export var fall_acceleration = 75
 @export var JUMP_VELOCITY = 6
@@ -18,7 +19,6 @@ signal action_pressed
 
 @onready var Looking_from = $CameraBase/Pivot
 @onready var animation_tree = $AnimationTree
-#@onready var SpellCasting = $Skills/CastTimer
 @onready var UI = $UI
 @onready var health_bar = $UI/ProgressBar
 @onready var camera = $CameraBase/Pivot/SpringArm3D/Camera3D
@@ -28,7 +28,7 @@ signal action_pressed
 @onready var spell_handler: Node = $SpellHandler
 
 
-
+var current_spell
 var rotated := Vector3()
 var is_jumping := false
 var target_velocity := Vector3.ZERO
@@ -41,11 +41,11 @@ var mob = preload("res://mob.tscn")
 var mouse_position := Vector3(0, 0, 0)
 var selected := false
 var mouse_on: bool
-
+var Spell_list = []
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
-
+	
 
 func _ready():
 	if not is_multiplayer_authority():
@@ -53,7 +53,7 @@ func _ready():
 	camera.current = true
 	$UI.show()
 	self.add_to_group("Players")
-
+	self.Casting_started.connect(spell_handler._on_cast_started)
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -71,7 +71,6 @@ func _process(_delta):
 	else:
 		UI.get_node("CastBar").hide()
 	health_bar.value = health
-
 
 func _physics_process(delta):
 	if not is_multiplayer_authority():
@@ -125,13 +124,13 @@ func _input(event):
 			Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
 		else:
 			Looking_from.rotation.x = 1
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event is InputEventMouseMotion:
+	'if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event is InputEventMouseMotion:
 		$CameraBase.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		Looking_around.emit(true)
 		if Looking_from.rotation.x <= 1:
 			Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
 		else:
-			Looking_from.rotation.x = 1
+			Looking_from.rotation.x = 1'
 
 	if Input.is_action_just_pressed("select") and event is not InputEventMouseMotion:
 		Looking_around.emit(false)
@@ -193,7 +192,7 @@ func die():
 	if health <= 0:
 		$Pivot.rotation.x = 90
 		SPEED = 0
-		spell_handler.casting = true
+		spell_handler._casting = true
 
 
 func _on_targeted(value: Variant) -> void:
@@ -209,5 +208,11 @@ func _mouse_exit() -> void:
 	mouse_on = false
 	$Selected.transparency = 1
 
-func _on_ui_action_used(button_number: int) -> void:
-	pass # Replace with function body.
+func _on_Action_pressed(spell : SpellResource):
+	current_spell = spell
+	Casting_started.emit(spell)
+func _on_input_action(id : int):
+	for spell in Spell_list:
+		if spell[0] == id:
+			current_spell = spell[1]
+			Casting_started.emit(spell[1])

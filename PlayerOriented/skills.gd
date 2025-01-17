@@ -11,18 +11,17 @@ func _process(delta: float) -> void:
 	pass
 
 
-
+func _on_cast_started(spell):
+	use_skill(spell)
 
 
 func use_skill(spell: SpellResource) -> void:
-	if _casting:
+	if _casting or spell == null:
 		return
-		
-	Player.Casting_started.emit
 	_casting = true
 	Player.Cast_target = Player.current_target
 	
-	_spell_timer.wait_time(spell.cast_time)
+	_spell_timer.set_wait_time(spell.cast_time)
 	_spell_timer.start()
 
 
