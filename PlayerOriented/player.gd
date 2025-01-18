@@ -28,7 +28,7 @@ signal action_pressed
 @onready var spell_handler: Node = $SpellHandler
 
 
-var current_spell
+var current_spell : SpellResource
 var rotated := Vector3()
 var is_jumping := false
 var target_velocity := Vector3.ZERO
@@ -53,7 +53,7 @@ func _ready():
 	camera.current = true
 	$UI.show()
 	self.add_to_group("Players")
-	self.Casting_started.connect(spell_handler.use_skill)
+	self.Casting_started.connect(spell_handler._on_player_casting_started)
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -216,10 +216,8 @@ func _mouse_exit() -> void:
 	$Selected.transparency = 1
 
 func _on_Action_pressed(spell : SpellResource):
-	current_spell = spell
 	Casting_started.emit(spell)
 func _on_input_action(id : int):
 	for spell in Spell_list:
 		if spell[0] == id:
-			current_spell = spell[1]
 			Casting_started.emit(spell[1])

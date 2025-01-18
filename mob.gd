@@ -6,11 +6,12 @@ signal targeted(value)
 @export var stop_distance: float = 2.5  # Distance to stop near the player
 @export var Target : Node
 @export var attacking = false
-
+@export var Health := 100
+@onready var _Health_bar = $Control/HealthBar
 @onready var box = $Selected
 @onready var portrait = $Control/Portrait2D
 @onready var Players = get_tree().get_nodes_in_group("Players")
-@onready var Health = $Control/HealthBar
+
 
 #@onready var Agro_range = $Area3D
 #@onready var Agro_table : Array
@@ -33,7 +34,7 @@ func _ready():
 func _process(delta: float) -> void:
 	die()
 	set_selected(selected)
-
+	_Health_bar.value = Health
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -84,9 +85,9 @@ func _mouse_exit() -> void:
 
 func set_selected(value):
 	#portrait.visible = value
-	Health.visible = value
+	_Health_bar.visible = value
 func die() -> void:
-	if Health.value <= 0:
+	if Health <= 0:
 		remove_from_group("Mobs")
 		queue_free()
 func check_closest():
@@ -108,5 +109,6 @@ func _on_player_select_pressed() -> void:
 		selected = false
 func _on_player_looking_around(value) -> void:
 	Looking_around = value
-func _on_fireball_hit(value) -> void:
-	Health.value -= value
+func _on_actions_received(actions) -> void:
+	for action in actions:
+		action.use(self)

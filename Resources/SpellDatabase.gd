@@ -11,7 +11,7 @@ var Spell_List : Array [SpellResource] = [
 	2,  #charge
 	preload("res://Spells/fajerbol.png"), #icon
 	[
-		HealAction.new()
+		HealAction.new(20)
 	]),
 	SpellResource.new("Firebolt",
 	"A quick bolt of fire",
@@ -19,7 +19,7 @@ var Spell_List : Array [SpellResource] = [
 	2,
 	preload("res://Spells/fajerbol.png"),
 	[
-		DamageAction.new()
+		DamageAction.new(20)
 	])
 ]
 

@@ -10,14 +10,12 @@ var _casting := false
 func _process(delta: float) -> void:
 	pass
 
-
-
-func use_skill(spell: SpellResource) -> void:
+func _on_player_casting_started(spell: SpellResource) -> void:
 	if _casting or spell == null or Player.current_target == null:
 		return
 	_casting = true
 	Player.Cast_target = Player.current_target
-	
+	Player.current_spell = spell
 	_spell_timer.set_wait_time(spell.cast_time)
 	_spell_timer.start()
 
@@ -26,12 +24,13 @@ func _on_cast_timer_timeout() -> void:
 	if _casting == false or !is_instance_valid(Player.Cast_target):
 		_casting = false
 		return
-
+	
 	var Casted = fireball.instantiate()
+	Casted.Spell = Player.current_spell
 	Casted.spawnPos = Player.global_transform.origin
 	Casted.target = Player.Cast_target
 	Player.get_parent().add_child(Casted)
-	_sync_cast_fireball.rpc(Casted.spawnPos, Player.Cast_target.get_path())
+	#_sync_cast_fireball.rpc(Casted.spawnPos, Player.Cast_target.get_path())
 	_casting = false
 
 
