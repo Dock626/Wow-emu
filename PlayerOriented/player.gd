@@ -14,23 +14,23 @@ signal action_pressed
 @export var fall_acceleration = 75
 @export var JUMP_VELOCITY = 6
 @export var sensitivity = 0.4
-@export var health = 100
+@export var Health = 100
 @export var SPEED = 11
 
-@onready var Looking_from = $CameraBase/Pivot
-@onready var animation_tree = $AnimationTree
+@onready var _Looking_from = $CameraBase/Pivot
+@onready var _animation_tree = $AnimationTree
 @onready var UI = $UI
 @onready var health_bar = $UI/ProgressBar
 @onready var camera = $CameraBase/Pivot/SpringArm3D/Camera3D
-@onready var player_model = $PlayerModel
-@onready var spellbook = $SpellBook
+@onready var _player_model = $PlayerModel
+@onready var _spellbook = $SpellBook
 @onready var test = $AoE
-@onready var spell_handler: Node = $SpellHandler
+@onready var _spell_handler: Node = $SpellHandler
 
 
 var current_spell : SpellResource
 var rotated := Vector3()
-var is_jumping := false
+var _is_jumping := false
 var target_velocity := Vector3.ZERO
 var current_target: Node
 var Cast_target
@@ -53,7 +53,7 @@ func _ready():
 	camera.current = true
 	$UI.show()
 	self.add_to_group("Players")
-	self.Casting_started.connect(spell_handler._on_player_casting_started)
+	self.Casting_started.connect(_spell_handler._on_player_casting_started)
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -64,13 +64,13 @@ func _process(_delta):
 	if not is_multiplayer_authority():
 		return
 	die()
-	if spell_handler._casting:
+	if _spell_handler._casting:
 		var Castbar = UI.get_node("CastBar")
 		Castbar.visible = true
-		Castbar.value = spell_handler.progress()
+		Castbar.value = _spell_handler.progress()
 	else:
 		UI.get_node("CastBar").hide()
-	health_bar.value = health
+	health_bar.value = Health
 
 func _physics_process(delta):
 	if not is_multiplayer_authority():
@@ -127,28 +127,28 @@ func _input(event):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		Looking_around.emit(true)
-		if Looking_from.rotation.x <= 1:
-			Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
+		if _Looking_from.rotation.x <= 1:
+			_Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
 		else:
-			Looking_from.rotation.x = 1
+			_Looking_from.rotation.x = 1
 	'if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event is InputEventMouseMotion:
 		$CameraBase.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		Looking_around.emit(true)
-		if Looking_from.rotation.x <= 1:
-			Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
+		if _Looking_from.rotation.x <= 1:
+			_Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
 		else:
-			Looking_from.rotation.x = 1'
+			_Looking_from.rotation.x = 1'
 
 	if Input.is_action_just_pressed("select") and event is not InputEventMouseMotion:
 		Looking_around.emit(false)
 		was_targeted = 0
 
-	if Input.is_action_pressed("zoom_in") and Looking_from.position.z != 3.5:
-		Looking_from.position.y -= 0.25
-		Looking_from.position.z += 0.5
-	if Input.is_action_pressed("zoom_out") and Looking_from.position.z != -5.5:
-		Looking_from.position.y += 0.25
-		Looking_from.position.z -= 0.5
+	if Input.is_action_pressed("zoom_in") and _Looking_from.position.z != 3.5:
+		_Looking_from.position.y -= 0.25
+		_Looking_from.position.z += 0.5
+	if Input.is_action_pressed("zoom_out") and _Looking_from.position.z != -5.5:
+		_Looking_from.position.y += 0.25
+		_Looking_from.position.z -= 0.5
 		#var result = lerp(start, end, weight)
 
 	if Input.is_action_just_released("Tab_target"):
@@ -179,15 +179,15 @@ func _input(event):
 		was_targeted += 1
 
 	if Input.is_action_just_pressed("Spellbook"):
-		if not spellbook.visible:
-			spellbook.show()
+		if not _spellbook.visible:
+			_spellbook.show()
 		else:
-			spellbook.hide()
+			_spellbook.hide()
 
 
 @rpc("call_local")
 func get_damage(value):
-	health.value -= value
+	Health -= value
 
 
 func set_selecteD():
@@ -196,10 +196,10 @@ func set_selecteD():
 
 
 func die():
-	if health <= 0:
+	if Health <= 0:
 		$Pivot.rotation.x = 90
 		SPEED = 0
-		spell_handler._casting = true
+		_spell_handler._casting = true
 
 
 func _on_targeted(value: Variant) -> void:
@@ -221,3 +221,7 @@ func _on_input_action(id : int):
 	for spell in Spell_list:
 		if spell[0] == id:
 			Casting_started.emit(spell[1])
+
+func _on_actions_received(actions) -> void:
+	for action in actions:
+		action.use(self)

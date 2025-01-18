@@ -20,8 +20,8 @@ signal targeted(value)
 
 
 var Looking_around : bool
-var mouse_on = false
-var check_players : int
+var _mouse_on = false
+var _check_players : int
 
 func _ready():
 	add_to_group("Mobs")
@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 			var Area_stuff = Attack.instantiate()
 			add_child(Area_stuff)
 			Area_stuff.attack()
-	if mouse_on and not selected:
+	if _mouse_on and not selected:
 		box.transparency = 0.75
 	elif selected:
 		box.transparency = 0.25
@@ -78,9 +78,9 @@ func _input_event(camera: Camera3D, event: InputEvent, event_position: Vector3, 
 		selected = true
 		targeted.emit(self)
 func _mouse_enter() -> void:
-	mouse_on = true
+	_mouse_on = true
 func _mouse_exit() -> void:
-	mouse_on = false
+	_mouse_on = false
 
 
 func set_selected(value):
@@ -105,7 +105,7 @@ func check_closest():
 
 #signals
 func _on_player_select_pressed() -> void:
-	if mouse_on == false and Looking_around == false:
+	if _mouse_on == false and Looking_around == false:
 		selected = false
 func _on_player_looking_around(value) -> void:
 	Looking_around = value
