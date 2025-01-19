@@ -7,7 +7,7 @@ signal targeted(value)
 @export var Target : Node
 @export var attacking = false
 @export var Health := 100
-@onready var _Health_bar = $Control/HealthBar
+@onready var _Health_bar = $SubViewport/HealthBar
 @onready var box = $Selected
 @onready var portrait = $Control/Portrait2D
 @onready var Players = get_tree().get_nodes_in_group("Players")
@@ -85,7 +85,7 @@ func _mouse_exit() -> void:
 
 func set_selected(value):
 	#portrait.visible = value
-	_Health_bar.visible = value
+	$HealthBar.visible = value
 func die() -> void:
 	if Health <= 0:
 		remove_from_group("Mobs")

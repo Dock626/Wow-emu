@@ -3,7 +3,7 @@ extends Button
 signal Action_pressed(value)
 
 @onready var UI = $"../..".get_parent()
-var Spell : SpellResource
+var Spell : SpellResource = SpellDatabase.get_spell("FireBolt")
 var spell_name : String
 var button_id : int
 

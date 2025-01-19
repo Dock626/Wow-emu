@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://6tlpu42ody0v"]
+
+[node name="HealthBar" type="ProgressBar"]
+anchors_preset = -1
+anchor_left = 1.008
+anchor_right = 3.124
+anchor_bottom = 0.447
+offset_left = -1157.22
+offset_top = 3.0
+offset_right = -2450.85
+offset_bottom = 358.344
+value = 100.0
+show_percentage = false

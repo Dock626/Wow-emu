@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwf0wftfinjum"]
+[gd_scene load_steps=12 format=3 uid="uid://dwf0wftfinjum"]
 
 [ext_resource type="PackedScene" uid="uid://c8qitepmbdxgj" path="res://Models/Barbarian.glb" id="1_cwnmw"]
 [ext_resource type="Script" path="res://mob.gd" id="1_nh8ue"]
+[ext_resource type="PackedScene" uid="uid://6tlpu42ody0v" path="res://health_bar.tscn" id="3_oofvw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m21oj"]
 size = Vector3(1, 2.005, 1)
@@ -25,6 +26,18 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_ry6b1"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ro3ub"]
+resource_local_to_scene = true
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = SubResource("ViewportTexture_ry6b1")
+
+[sub_resource type="QuadMesh" id="QuadMesh_bbi13"]
+resource_local_to_scene = true
+size = Vector2(2.05, 0.48)
+
 [node name="Mob" type="CharacterBody3D" groups=["Mobs"]]
 collision_layer = 4
 collision_mask = 3
@@ -46,23 +59,20 @@ transparency = 1.0
 mesh = SubResource("CylinderMesh_wwdba")
 surface_material_override/0 = SubResource("StandardMaterial3D_s6lqy")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-
-[node name="HealthBar" type="ProgressBar" parent="Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.008
-anchor_right = 3.124
-anchor_bottom = 0.447
-offset_left = 337.0
-offset_right = 516.0
-offset_bottom = 54.0
-value = 100.0
-show_percentage = false
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_n7qet")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1157, 447)
+
+[node name="HealthBar" parent="SubViewport" instance=ExtResource("3_oofvw")]
+
+[node name="HealthBar" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.998685, 0.0512727, 0, -0.0512727, -0.998685, 0, 2.93127, 0)
+material_override = SubResource("StandardMaterial3D_ro3ub")
+transparency = 0.25
+mesh = SubResource("QuadMesh_bbi13")
+skeleton = NodePath("")
 
 [connection signal="targeted" from="." to="." method="_on_targeted"]

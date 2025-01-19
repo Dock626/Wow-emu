@@ -1,6 +1,6 @@
 extends Button
 @onready var name_display = $TextEdit
-var spell : SpellResource
+var spell : SpellResource = SpellDatabase.get_spell("FireBolt")
 var button_id : int
 
 func _ready() -> void:
