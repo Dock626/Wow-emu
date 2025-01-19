@@ -1,12 +1,12 @@
 extends Button
-@onready var name_display = $TextEdit
-var spell : SpellResource
-var button_id : int
+
+var spell : SpellResource = SpellDatabase.get_spell("Firebolt")
+
 
 func _ready() -> void:
 	self.icon = spell.icon
 	self.tooltip_text = spell.description
-	name_display.text = spell.name
+	
 
 func _get_drag_data(position):
 	var drag_data = spell

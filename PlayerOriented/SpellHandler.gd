@@ -4,7 +4,7 @@ extends Node
 var fireball = preload("res://Spells/fireball.tscn")
 var aoe_indicator = preload("res://Spells/aoe.tscn")
 var _casting := false
-
+var Spells := [SpellDatabase.get_spell("Firebolt")]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -45,3 +45,11 @@ func _sync_cast_fireball(spawn_pos, id) -> void:
 
 func progress() -> float:
 	return (1 - _spell_timer.time_left / _spell_timer.wait_time) * 100
+
+func return_spell(spell_name):
+	for spell in Spells:
+		if spell.name == spell_name:
+			return spell
+	return null
+func add_spell(Spell):
+	Spells.append(Spell)

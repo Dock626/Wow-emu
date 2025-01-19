@@ -9,7 +9,6 @@ signal select_pressed
 signal Looking_around
 signal action_pressed
 
-
 @export var Fly_manouver = 0.1
 @export var fall_acceleration = 75
 @export var JUMP_VELOCITY = 6
@@ -17,31 +16,27 @@ signal action_pressed
 @export var Health = 100
 @export var SPEED = 11
 
-@onready var _Looking_from = $CameraBase/Pivot
+
 @onready var _animation_tree = $AnimationTree
 @onready var UI = $UI
 @onready var health_bar = $UI/ProgressBar
 @onready var camera = $CameraBase/Pivot/SpringArm3D/Camera3D
 @onready var _player_model = $PlayerModel
-@onready var _spellbook = $SpellBook
+@onready var _spellbook = $SpellHandler/SpellBook
 @onready var test = $AoE
 @onready var _spell_handler: Node = $SpellHandler
 
-
 var current_spell : SpellResource
-var rotated := Vector3()
 var _is_jumping := false
-var target_velocity := Vector3.ZERO
 var current_target: Node
 var Cast_target
 var has_slowed_down := false
 var was_targeted: int
 var in_sight = []
-var mob = preload("res://mob.tscn")
 var mouse_position := Vector3(0, 0, 0)
 var selected := false
 var mouse_on: bool
-var Spell_list = []
+var Spell_list = [] #spells on action bars
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -124,32 +119,10 @@ func _physics_process(delta):
 func _input(event):
 	if not is_multiplayer_authority():
 		return
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(-event.relative.x * sensitivity))
-		Looking_around.emit(true)
-		if _Looking_from.rotation.x <= 1:
-			_Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
-		else:
-			_Looking_from.rotation.x = 1
-	'if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event is InputEventMouseMotion:
-		$CameraBase.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
-		Looking_around.emit(true)
-		if _Looking_from.rotation.x <= 1:
-			_Looking_from.rotate_x(deg_to_rad(event.relative.y * sensitivity))
-		else:
-			_Looking_from.rotation.x = 1'
 
 	if Input.is_action_just_pressed("select") and event is not InputEventMouseMotion:
 		Looking_around.emit(false)
 		was_targeted = 0
-
-	if Input.is_action_pressed("zoom_in") and _Looking_from.position.z != 3.5:
-		_Looking_from.position.y -= 0.25
-		_Looking_from.position.z += 0.5
-	if Input.is_action_pressed("zoom_out") and _Looking_from.position.z != -5.5:
-		_Looking_from.position.y += 0.25
-		_Looking_from.position.z -= 0.5
-		#var result = lerp(start, end, weight)
 
 	if Input.is_action_just_released("Tab_target"):
 		#was_targeted
@@ -190,8 +163,8 @@ func get_damage(value):
 	Health -= value
 
 
-func set_selecteD():
-	if Input.is_action_just_released("select"):
+func set_selected():
+	if Input.is_action_just_released("select") and mouse_on:
 		selected = !selected
 
 
@@ -217,6 +190,7 @@ func _mouse_exit() -> void:
 
 func _on_Action_pressed(spell : SpellResource):
 	Casting_started.emit(spell)
+
 func _on_input_action(id : int):
 	for spell in Spell_list:
 		if spell[0] == id:

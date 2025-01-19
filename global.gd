@@ -53,8 +53,3 @@ func add_player(peer_id):
 		player.Looking_around.connect(mob._on_player_looking_around)
 		mob.targeted.connect(player._on_targeted)
 	
-	
-	
-'func get_player():
-	var tree = get_tree()
-	return tree.'

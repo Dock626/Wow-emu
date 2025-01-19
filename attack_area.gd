@@ -3,7 +3,7 @@ extends Area3D
 @onready var parent = self.get_parent()
 @onready var Attack_timer = $Timer
 var attacking = false
-
+var _parent_speed : int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$MeshInstance3D.transparency = 1
@@ -14,16 +14,17 @@ func _process(delta: float) -> void:
 	var bodies = get_overlapping_bodies()
 
 func attack():
+	_parent_speed = parent.SPEED
 	parent.SPEED = 0
 	parent.attacking = true
 	Attack_timer.start()
 
 func _on_timer_timeout() -> void:
-	parent.SPEED = 8
+	parent.SPEED = _parent_speed
 	$MeshInstance3D.transparency = 1
 	parent.attacking = false
 	var bodies = get_overlapping_bodies()
 	for body in bodies:
 		if body.is_in_group("Players"):
-			body.health -= 15
+			body.Health -= 15
 	queue_free()
