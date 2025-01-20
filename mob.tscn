@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwf0wftfinjum"]
+[gd_scene load_steps=13 format=3 uid="uid://dwf0wftfinjum"]
 
 [ext_resource type="PackedScene" uid="uid://c8qitepmbdxgj" path="res://Models/Barbarian.glb" id="1_cwnmw"]
 [ext_resource type="Script" path="res://mob.gd" id="1_nh8ue"]
 [ext_resource type="PackedScene" uid="uid://6tlpu42ody0v" path="res://health_bar.tscn" id="3_oofvw"]
+[ext_resource type="Script" path="res://health_bar.gd" id="4_c5ca4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m21oj"]
 size = Vector3(1, 2.005, 1)
@@ -31,12 +32,12 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ro3ub"]
 resource_local_to_scene = true
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(0, 1, 0, 1)
 albedo_texture = SubResource("ViewportTexture_ry6b1")
 
 [sub_resource type="QuadMesh" id="QuadMesh_bbi13"]
 resource_local_to_scene = true
-size = Vector2(2.05, 0.48)
+size = Vector2(2.36, 0.315)
 
 [node name="Mob" type="CharacterBody3D" groups=["Mobs"]]
 collision_layer = 4
@@ -69,10 +70,12 @@ size = Vector2i(1157, 447)
 [node name="HealthBar" parent="SubViewport" instance=ExtResource("3_oofvw")]
 
 [node name="HealthBar" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.998685, 0.0512727, 0, -0.0512727, -0.998685, 0, 2.93127, 0)
+transform = Transform3D(1, 0, 0, 0, -0.999658, 0.0261769, 0, -0.0261769, -0.999658, 0, 3.33452, 0)
+top_level = true
 material_override = SubResource("StandardMaterial3D_ro3ub")
-transparency = 0.25
+transparency = 0.1
 mesh = SubResource("QuadMesh_bbi13")
 skeleton = NodePath("")
+script = ExtResource("4_c5ca4")
 
 [connection signal="targeted" from="." to="." method="_on_targeted"]

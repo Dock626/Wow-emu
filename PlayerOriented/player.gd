@@ -8,6 +8,7 @@ signal Casting_started
 signal select_pressed
 signal Looking_around
 signal action_pressed
+signal camera_position
 
 @export var Fly_manouver = 0.1
 @export var fall_acceleration = 75
@@ -70,6 +71,7 @@ func _process(_delta):
 func _physics_process(delta):
 	if not is_multiplayer_authority():
 		return
+	camera_position.emit(get_camera_position())
 	if Input.is_action_just_released("select"):
 		select_pressed.emit()
 		var is_any_selected = false
@@ -199,3 +201,9 @@ func _on_input_action(id : int):
 func _on_actions_received(actions) -> void:
 	for action in actions:
 		action.use(self)
+
+func get_id():
+	return self.name
+func get_camera_position():
+	return camera.global_transform.origin
+	 

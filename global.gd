@@ -51,5 +51,6 @@ func add_player(peer_id):
 		
 		player.select_pressed.connect(mob._on_player_select_pressed)
 		player.Looking_around.connect(mob._on_player_looking_around)
+		player.camera_position.connect(mob._receive_camera_position)
 		mob.targeted.connect(player._on_targeted)
-	
+		
