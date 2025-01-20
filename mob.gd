@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	Target = check_closest()
+	check_closest.rpc()
 	Players = get_tree().get_nodes_in_group("Players")
 	
 	if is_on_floor() and is_instance_valid(Target):
@@ -91,6 +91,7 @@ func die() -> void:
 	if Health <= 0:
 		remove_from_group("Mobs")
 		queue_free()
+@rpc("any_peer", "call_local")
 func check_closest():
 	var list_of_players = []
 	if Players.size() > 0:
@@ -101,7 +102,7 @@ func check_closest():
 			list_of_players.append([player, check_distance])
 
 		list_of_players.sort()
-		return list_of_players[0][0]
+		Target = list_of_players[0][0]
 
 
 #signals

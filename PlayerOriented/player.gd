@@ -71,7 +71,7 @@ func _process(_delta):
 func _physics_process(delta):
 	if not is_multiplayer_authority():
 		return
-	camera_position.emit(get_camera_position())
+	get_camera_position.rpc()
 	if Input.is_action_just_released("select"):
 		select_pressed.emit()
 		var is_any_selected = false
@@ -204,6 +204,6 @@ func _on_actions_received(actions) -> void:
 
 func get_id():
 	return self.name
+@rpc("authority", "call_local")
 func get_camera_position():
-	return camera.global_transform.origin
-	 
+	camera_position.emit(camera.global_transform.origin)

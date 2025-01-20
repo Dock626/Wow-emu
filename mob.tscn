@@ -70,10 +70,11 @@ size = Vector2i(1157, 447)
 [node name="HealthBar" parent="SubViewport" instance=ExtResource("3_oofvw")]
 
 [node name="HealthBar" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.999658, 0.0261769, 0, -0.0261769, -0.999658, 0, 3.33452, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 3.33452, 0)
 top_level = true
 material_override = SubResource("StandardMaterial3D_ro3ub")
 transparency = 0.1
+gi_mode = 0
 mesh = SubResource("QuadMesh_bbi13")
 skeleton = NodePath("")
 script = ExtResource("4_c5ca4")
