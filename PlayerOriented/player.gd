@@ -20,7 +20,8 @@ signal camera_position
 
 @onready var _animation_tree = $AnimationTree
 @onready var UI = $UI
-@onready var health_bar = $UI/ProgressBar
+@onready var health_bar = $UI/HealthBar
+@onready var _target_health_bar = $UI/TargetHealthBar
 @onready var camera = $CameraBase/Pivot/SpringArm3D/Camera3D
 @onready var _player_model = $PlayerModel
 @onready var _spellbook = $SpellHandler/SpellBook
@@ -67,7 +68,11 @@ func _process(_delta):
 	else:
 		UI.get_node("CastBar").hide()
 	health_bar.value = Health
-
+	if is_instance_valid(current_target):
+		_target_health_bar.show()
+		_target_health_bar.value = current_target.Health
+	else:
+		_target_health_bar.hide()
 func _physics_process(delta):
 	if not is_multiplayer_authority():
 		return
@@ -205,5 +210,7 @@ func _on_actions_received(actions) -> void:
 func get_id():
 	return self.name
 func get_camera_position():
+	if not is_multiplayer_authority():
+		return
 	return camera.global_transform.origin
 	 

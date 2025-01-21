@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dwf0wftfinjum"]
+[gd_scene load_steps=14 format=3 uid="uid://dwf0wftfinjum"]
 
 [ext_resource type="PackedScene" uid="uid://c8qitepmbdxgj" path="res://Models/Barbarian.glb" id="1_cwnmw"]
 [ext_resource type="Script" path="res://mob.gd" id="1_nh8ue"]
@@ -39,6 +39,9 @@ albedo_texture = SubResource("ViewportTexture_ry6b1")
 resource_local_to_scene = true
 size = Vector2(2.36, 0.315)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cpoav"]
+billboard_mode = 1
+
 [node name="Mob" type="CharacterBody3D" groups=["Mobs"]]
 collision_layer = 4
 collision_mask = 3
@@ -70,12 +73,14 @@ size = Vector2i(1157, 447)
 [node name="HealthBar" parent="SubViewport" instance=ExtResource("3_oofvw")]
 
 [node name="HealthBar" type="MeshInstance3D" parent="."]
+physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, -0.999658, 0.0261769, 0, -0.0261769, -0.999658, 0, 3.33452, 0)
-top_level = true
+visible = false
 material_override = SubResource("StandardMaterial3D_ro3ub")
 transparency = 0.1
 mesh = SubResource("QuadMesh_bbi13")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_cpoav")
 script = ExtResource("4_c5ca4")
 
 [connection signal="targeted" from="." to="." method="_on_targeted"]

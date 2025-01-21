@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bjw84c3d4d6fs"]
 
-[ext_resource type="PackedScene" uid="uid://b1wnx0m0gccvw" path="res://spell_book.tscn" id="1_fcxv7"]
+[ext_resource type="PackedScene" uid="uid://b1wnx0m0gccvw" path="res://Spells/spell_book.tscn" id="1_fcxv7"]
 [ext_resource type="Script" path="res://PlayerOriented/ui.gd" id="1_vgyi0"]
 [ext_resource type="Script" path="res://PlayerOriented/action_container.gd" id="2_81fa8"]
 
@@ -49,10 +49,18 @@ offset_top = 9.0
 offset_right = 78.66
 offset_bottom = 31.002
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 21.0
 offset_right = 192.0
 offset_bottom = 72.0
+value = 100.0
+
+[node name="TargetHealthBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 25.0
+offset_right = 431.0
+offset_bottom = 76.0
 value = 100.0
