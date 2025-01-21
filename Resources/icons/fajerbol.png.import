@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blq2ay1hj27yd"
-path="res://.godot/imported/fajerbol.png-1176697bf5a0ea45917a8868ad0b5c49.ctex"
+path="res://.godot/imported/fajerbol.png-2764284ee2feda7bff5c5e887bd4870e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spells/fajerbol.png"
-dest_files=["res://.godot/imported/fajerbol.png-1176697bf5a0ea45917a8868ad0b5c49.ctex"]
+source_file="res://Resources/icons/fajerbol.png"
+dest_files=["res://.godot/imported/fajerbol.png-2764284ee2feda7bff5c5e887bd4870e.ctex"]
 
 [params]
 

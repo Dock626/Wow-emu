@@ -1,13 +1,12 @@
 extends GridContainer
-const SpellBookButton = preload("res://Spells/spellbook_button.tscn")
-
+const SPELLBOOK_BUTTON = preload("res://UI_Spells/Spell_book/spellbook_button.tscn")
 #@onready var SpellList = Global.get_SpellHandler()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#print(SpellList)
 	for i in range(1, 9):
-		var spellbook_button = SpellBookButton.instantiate()
+		var spellbook_button = SPELLBOOK_BUTTON.instantiate()
 		spellbook_button.button_id = i
 		spellbook_button.spell = SpellDatabase.get_spell("Firebolt")
 		#spellbook_button.spell = SpellList.return_spell("Firebolt")

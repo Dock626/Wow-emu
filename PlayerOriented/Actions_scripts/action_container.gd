@@ -1,5 +1,5 @@
 extends GridContainer
-const ACTION_BUTTON = preload("res://action_button.tscn")
+const ACTION_BUTTON = preload("res://PlayerOriented/Actions_scripts/action_button.tscn")
 var action_buttons = self.get_children()
 # Called when the node enters the scene tree for the first time.
 
@@ -9,4 +9,4 @@ func _ready() -> void:
 		action_button.button_id = i
 		action_button.text = str(i)
 		self.add_child(action_button)
-		
+	

@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3 uid="uid://dwf0wftfinjum"]
 
 [ext_resource type="PackedScene" uid="uid://c8qitepmbdxgj" path="res://Models/Barbarian.glb" id="1_cwnmw"]
-[ext_resource type="Script" path="res://mob.gd" id="1_nh8ue"]
-[ext_resource type="PackedScene" uid="uid://6tlpu42ody0v" path="res://health_bar.tscn" id="3_oofvw"]
-[ext_resource type="Script" path="res://health_bar.gd" id="4_c5ca4"]
+[ext_resource type="Script" path="res://Mob/mob.gd" id="1_nh8ue"]
+[ext_resource type="PackedScene" uid="uid://6tlpu42ody0v" path="res://Mob/health_bar.tscn" id="3_oofvw"]
+[ext_resource type="Script" path="res://Mob/health_bar.gd" id="4_c5ca4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m21oj"]
 size = Vector3(1, 2.005, 1)

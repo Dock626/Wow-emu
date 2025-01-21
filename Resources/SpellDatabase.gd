@@ -9,7 +9,7 @@ var Spell_List : Array [SpellResource] = [
 	"A quick flash of light that cures wounds", #description
 	15, #energy
 	2,  #charge
-	preload("res://Spells/fajerbol.png"), #icon
+	preload("res://Resources/icons/fajerbol.png"), #icon
 	[
 		HealAction.new(20)
 	]),
@@ -17,7 +17,7 @@ var Spell_List : Array [SpellResource] = [
 	"A quick bolt of fire",
 	15,
 	2,
-	preload("res://Spells/fajerbol.png"),
+	preload("res://Resources/icons/fajerbol.png"),
 	[
 		DamageAction.new(20)
 	])

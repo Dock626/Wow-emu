@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7iewrt5nvrpg"]
 
-[ext_resource type="Script" path="res://PlayerOriented/Action_button.gd" id="1_marlt"]
+[ext_resource type="Script" path="res://PlayerOriented/Actions_scripts/Action_button.gd" id="1_marlt"]
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(48, 48)

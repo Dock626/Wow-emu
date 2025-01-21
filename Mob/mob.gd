@@ -17,8 +17,7 @@ signal targeted(value)
 #@onready var Agro_range = $Area3D
 #@onready var Agro_table : Array
 
-@onready var Attack = preload("res://Attack_area.tscn")
-
+const Attack = preload("res://addons/Attack_area.tscn")
 
 var Looking_around : bool
 var _mouse_on = false

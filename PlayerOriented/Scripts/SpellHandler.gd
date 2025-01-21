@@ -1,11 +1,10 @@
 extends Node
 @onready var Player = get_parent()
 @onready var _spell_timer = $CastTimer
-var fireball = preload("res://Spells/fireball.tscn")
-var aoe_indicator = preload("res://Spells/aoe.tscn")
 var _casting := false
 var Spells := [SpellDatabase.get_spell("Firebolt")]
-
+const fireball = preload("res://Resources/spell_scenes/fireball.tscn")
+const aoe_indicator = preload("res://UI_Spells/UI_Player/aoe.tscn")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

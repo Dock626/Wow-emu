@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dv3mndf7jo61u"]
 
 [ext_resource type="Script" path="res://global.gd" id="1_jrf87"]
-[ext_resource type="PackedScene" uid="uid://dwf0wftfinjum" path="res://mob.tscn" id="2_x5ufh"]
+[ext_resource type="PackedScene" uid="uid://dwf0wftfinjum" path="res://Mob/mob.tscn" id="2_x5ufh"]
 [ext_resource type="Script" path="res://Resources/SpellDatabase.gd" id="4_o8sg2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f1bto"]
