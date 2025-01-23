@@ -9,4 +9,4 @@ func _ready() -> void:
 		action_button.button_id = i
 		action_button.text = str(i)
 		self.add_child(action_button)
-	
+		

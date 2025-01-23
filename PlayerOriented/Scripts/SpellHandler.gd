@@ -3,11 +3,9 @@ extends Node
 @onready var _spell_timer = $CastTimer
 var _casting := false
 var Spells := [SpellDatabase.get_spell("Firebolt")]
-const fireball = preload("res://Resources/spell_scenes/fireball.tscn")
+const fireball = preload("res://Resources/spell_scenes/Projectile.tscn")
 const aoe_indicator = preload("res://UI_Spells/UI_Player/aoe.tscn")
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+signal actions(value)
 
 func _on_player_casting_started(spell: SpellResource) -> void:
 	if _casting or spell == null or Player.current_target == null:
@@ -24,16 +22,23 @@ func _on_cast_timer_timeout() -> void:
 		_casting = false
 		return
 	
+	if Player.current_spell.type == "Projectile":
+		projectile()
+	elif Player.current_spell.type == "Instant":
+		instant()
+	_casting = false
+
+func projectile():
 	var Casted = fireball.instantiate()
 	Casted.Spell = Player.current_spell
 	Casted.spawnPos = Player.global_transform.origin
 	Casted.target = Player.Cast_target
 	Player.get_parent().add_child(Casted)
 	#_sync_cast_fireball.rpc(Casted.spawnPos, Player.Cast_target.get_path())
-	_casting = false
-
-
-@rpc("any_peer", "call_remote", "unreliable")
+func instant():
+	self.actions.connect(Player.Cast_target._on_actions_received)
+	actions.emit(Player.current_spell.actions)
+@rpc("any_peer", "call_remote", "reliable")
 func _sync_cast_fireball(spawn_pos, id) -> void:
 	# Recreate the fireball on clients for synchronization
 	var Casted = fireball.instantiate()

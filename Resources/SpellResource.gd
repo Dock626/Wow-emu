@@ -13,14 +13,16 @@ enum spellclass {
 var actions: Array[BaseSpellAction] = []
 var name : String
 var description: String
+var type : String
 var energy : int
 var cast_time : float
 var icon
 
-func _init(name: String, description: String, energy: int, charge: float, icon, actions: Array[BaseSpellAction]) -> void:
+func _init(name: String, description: String, type: String, energy: int, charge: float, icon, actions: Array[BaseSpellAction]) -> void:
 	self.actions.append_array(actions)
 	self.name = name
 	self.description = description
+	self.type = type
 	self.energy = energy
 	self.cast_time = charge
 	self.icon = icon

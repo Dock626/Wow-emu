@@ -7,6 +7,7 @@ const DamageAction = preload("res://Resources/Actions/DamageAction.gd")
 var Spell_List : Array [SpellResource] = [
 	SpellResource.new("Flash Heal",             #name
 	"A quick flash of light that cures wounds", #description
+	"Instant", #type
 	15, #energy
 	2,  #charge
 	preload("res://Resources/icons/fajerbol.png"), #icon
@@ -15,6 +16,7 @@ var Spell_List : Array [SpellResource] = [
 	]),
 	SpellResource.new("Firebolt",
 	"A quick bolt of fire",
+	"Projectile", #type
 	15,
 	2,
 	preload("res://Resources/icons/fajerbol.png"),

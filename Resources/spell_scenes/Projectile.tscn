@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dqbmpyk8sfcmg"]
 
-[ext_resource type="Script" path="res://Resources/Actions/projectile.gd" id="1_kda32"]
+[ext_resource type="Script" path="res://Resources/Spell_logic/projectile.gd" id="1_i6bxi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0w21"]
 albedo_color = Color(1, 0, 0, 1)
@@ -20,7 +20,7 @@ collision_layer = 7
 collision_mask = 7
 gravity_scale = 0.0
 contact_monitor = true
-script = ExtResource("1_kda32")
+script = ExtResource("1_i6bxi")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
