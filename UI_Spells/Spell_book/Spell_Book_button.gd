@@ -4,10 +4,10 @@ var spell : SpellResource = SpellDatabase.get_spell("FireBolt")
 var button_id : int
 
 func _ready() -> void:
-	#self.icon = spell.icon
-	#self.tooltip_text = spell.description
-	#name_display.text = spell.name
-	pass
+	if spell:
+		self.icon = spell.icon
+		self.tooltip_text = spell.description
+		name_display.text = spell.name
 func _get_drag_data(position):
 	var drag_data = spell
 	var preview = TextureRect.new()

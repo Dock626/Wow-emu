@@ -10,9 +10,8 @@ func _ready() -> void:
 		spellbook_button.button_id = i
 		if i == 1:
 			spellbook_button.spell = SpellDatabase.get_spell("Firebolt")
-		if i == 2:
+		elif i == 2:
 			spellbook_button.spell = SpellDatabase.get_spell("Flash Heal")
-		#spellbook_button.spell = SpellList.return_spell("Firebolt")
 		self.add_child(spellbook_button)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
