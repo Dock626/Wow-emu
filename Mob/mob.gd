@@ -2,7 +2,7 @@ extends CharacterBody3D
 signal targeted(value)
 
 @export var selected = false
-@export var SPEED = 8
+@export var SPEED : float = 8
 @export var stop_distance: float = 2.5  # Distance to stop near the player
 @export var Target : Node
 @export var attacking = false
@@ -22,6 +22,7 @@ const Attack = preload("res://addons/Attack_area.tscn")
 var Looking_around : bool
 var _mouse_on = false
 var _check_players : int
+var buffs = []
 
 func _ready():
 	add_to_group("Mobs")
@@ -41,7 +42,7 @@ func _physics_process(delta: float) -> void:
 	
 	Target = check_closest()
 	Players = get_tree().get_nodes_in_group("Players")
-	
+	use_buffs()
 	if is_on_floor() and is_instance_valid(Target):
 		
 		var direction = (Target.global_transform.origin - global_transform.origin).normalized()
@@ -101,7 +102,9 @@ func check_closest():
 
 		list_of_players.sort()
 		return list_of_players[0][0]
-
+func use_buffs():
+	for buff in buffs:
+		buff.effect(self)
 
 #signals
 func _on_player_select_pressed() -> void:

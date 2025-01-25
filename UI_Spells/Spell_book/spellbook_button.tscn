@@ -8,9 +8,9 @@ script = ExtResource("1_fibtv")
 
 [node name="TextEdit" type="TextEdit" parent="."]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 8.0
-offset_right = 144.0
-offset_bottom = 48.0
+offset_left = 62.0
+offset_top = 5.0
+offset_right = 174.0
+offset_bottom = 45.0
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

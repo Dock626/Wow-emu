@@ -19,6 +19,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if !is_instance_valid(target):
+		queue_free()
 		return
 	
 	
@@ -30,7 +31,5 @@ func _physics_process(delta: float) -> void:
 	if distance_to_target < 1:  # Adjust the threshold as needed
 		actions.emit(Spell.actions)
 		queue_free()  # Remove the missile
-	#else:
-		#queue_free()
 		
 		

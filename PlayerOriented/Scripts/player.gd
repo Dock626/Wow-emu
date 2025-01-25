@@ -15,12 +15,13 @@ signal camera_position
 @export var JUMP_VELOCITY = 6
 @export var sensitivity = 0.4
 @export var Health = 100
-@export var SPEED = 11
+@export var SPEED : float = 11
 
 
 @onready var _animation_tree = $AnimationTree
 @onready var UI = $UI
 @onready var health_bar = $UI/HealthBar
+@onready var _cast_bar = $UI/CastBar
 @onready var _target_health_bar = $UI/TargetHealthBar
 @onready var camera = $CameraBase/Pivot/SpringArm3D/Camera3D
 @onready var _player_model = $PlayerModel
@@ -39,6 +40,7 @@ var mouse_position := Vector3(0, 0, 0)
 var selected := false
 var mouse_on: bool
 var Spell_list = [] #spells on action bars
+var buffs = []
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -61,12 +63,12 @@ func _process(_delta):
 	if not is_multiplayer_authority():
 		return
 	die()
+	#buffs()
 	if _spell_handler._casting:
-		var Castbar = UI.get_node("CastBar")
-		Castbar.visible = true
-		Castbar.value = _spell_handler.progress()
+		_cast_bar.visible = true
+		_cast_bar.value = _spell_handler.progress()
 	else:
-		UI.get_node("CastBar").hide()
+		_cast_bar.hide()
 	health_bar.value = Health
 	if is_instance_valid(current_target):
 		_target_health_bar.show()
@@ -180,7 +182,9 @@ func die():
 		$Pivot.rotation.x = 90
 		SPEED = 0
 		_spell_handler._casting = true
-
+#func buffs():
+	#for buff in buffs:
+		
 
 func _on_targeted(value: Variant) -> void:
 	current_target = value
@@ -213,4 +217,4 @@ func get_camera_position():
 	if not is_multiplayer_authority():
 		return
 	return camera.global_transform.origin
-	 
+	
