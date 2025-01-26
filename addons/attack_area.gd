@@ -14,13 +14,10 @@ func _process(delta: float) -> void:
 	var bodies = get_overlapping_bodies()
 
 func attack():
-	_parent_speed = parent.SPEED
-	parent.SPEED = 0
 	parent.attacking = true
 	Attack_timer.start()
 
 func _on_timer_timeout() -> void:
-	parent.SPEED = _parent_speed
 	$MeshInstance3D.transparency = 1
 	parent.attacking = false
 	var bodies = get_overlapping_bodies()

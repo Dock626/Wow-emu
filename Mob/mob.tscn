@@ -46,7 +46,6 @@ billboard_mode = 1
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_nh8ue")
-SPEED = 6
 
 [node name="Node3D" type="Node3D" parent="."]
 

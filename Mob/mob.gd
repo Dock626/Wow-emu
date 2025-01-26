@@ -51,7 +51,9 @@ func _physics_process(delta: float) -> void:
 		var distance = global_transform.origin.distance_to(Target.global_transform.origin)
 		
 		# Move towards the player if further than the stop distance
-		if distance > stop_distance:
+		if attacking == true:
+			velocity = Vector3.ZERO
+		elif distance > stop_distance:
 			velocity = direction * SPEED
 		else:
 			velocity = Vector3.ZERO
