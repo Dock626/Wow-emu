@@ -12,5 +12,6 @@ offset_left = 62.0
 offset_top = 5.0
 offset_right = 174.0
 offset_bottom = 45.0
+editable = false
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

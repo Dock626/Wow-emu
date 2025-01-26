@@ -12,26 +12,31 @@ var Spell_List : Array [SpellResource] = [
 	"Instant", #type
 	15, 	   #energy
 	2,  	   #charge
+	true,	   #GCD
 	preload("res://Resources/icons/fajerbol.png"), #icon
 	[
 		HealAction.new(20),
 		BuffSpeedAction.new(1.5, 5)
 	]),
+	
 	SpellResource.new("Firebolt",
 	"A quick bolt of fire",
 	"Projectile", #type
 	15,
-	1,
+	0,
+	true,	   #GCD
 	preload("res://Resources/icons/fajerbol.png"),
 	[
 		DamageAction.new(20),
 		DispelAction.new()
 	]),
+	
 	SpellResource.new("Dispel",
 	"Remove a positive effect from enemy",
 	"Instant",
 	15,
 	2,
+	true,
 	preload("res://Resources/icons/fajerbol.png"),
 	[
 		DispelAction.new()

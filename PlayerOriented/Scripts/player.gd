@@ -15,7 +15,8 @@ signal camera_position
 @export var JUMP_VELOCITY = 6
 @export var sensitivity = 0.4
 @export var Health = 100
-@export var SPEED : float = 11
+@export var unbuffed_SPEED : float = 11
+@export var SPEED : float
 
 
 @onready var _animation_tree = $AnimationTree
@@ -53,7 +54,7 @@ func _ready():
 	$UI.show()
 	self.add_to_group("Players")
 	self.Casting_started.connect(_spell_handler._on_player_casting_started)
-
+	SPEED = unbuffed_SPEED
 func _unhandled_input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return

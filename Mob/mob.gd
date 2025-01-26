@@ -3,7 +3,7 @@ signal targeted(value)
 
 @export var selected = false
 @export var unbuffed_SPEED : float = 8
-@export var SPEED : float = 8
+@export var SPEED : float
 @export var stop_distance: float = 2.5  # Distance to stop near the player
 @export var Target : Node
 @export var attacking = false
@@ -27,7 +27,7 @@ var buffs := []
 
 func _ready():
 	add_to_group("Mobs")
-	
+	SPEED = unbuffed_SPEED
 	
 	
 	#var stuffik = get_node("Area_stuff")

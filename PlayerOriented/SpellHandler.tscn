@@ -6,7 +6,14 @@
 script = ExtResource("1_yc17j")
 
 [node name="CastTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 1.5
+one_shot = true
+
+[node name="Global_cd" type="Timer" parent="."]
+process_callback = 0
 wait_time = 1.5
 one_shot = true
 
 [connection signal="timeout" from="CastTimer" to="." method="_on_cast_timer_timeout"]
+[connection signal="timeout" from="Global_cd" to="." method="_on_cast_timer_timeout"]
