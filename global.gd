@@ -11,8 +11,7 @@ var enet_peer = ENetMultiplayerPeer.new()
 @onready var Players = get_tree().get_nodes_in_group("Players")
 @onready var Mobs = get_tree().get_nodes_in_group("Mobs")
 @onready var Spell_database : SpellDatabase = $Spell_database
-
-
+@export var Spell_id : int = 0
 func _ready():
 	pass
 func _process(delta):
@@ -54,3 +53,6 @@ func add_player(peer_id):
 		player.camera_position.connect(mob._receive_camera_position)
 		mob.targeted.connect(player._on_targeted)
 		
+func generate_spell_id():
+	Spell_id += 1
+	return Spell_id

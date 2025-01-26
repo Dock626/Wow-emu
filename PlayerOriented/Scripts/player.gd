@@ -154,7 +154,7 @@ func _input(event):
 
 		if in_sight.size() > 0:
 			var yea = in_sight[was_targeted][0]
-			if yea == current_target:
+			if yea == current_target and in_sight.size() != 1:
 				yea = in_sight[was_targeted + 1][0]
 			yea.selected = true
 			current_target = yea
