@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7118xkndec8t"]
+
+[ext_resource type="Script" path="res://Resources/Spell_logic/aoe_collision.gd" id="1_g8evh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rs2on"]
+height = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6tup"]
+albedo_color = Color(0.804749, 0.461294, 0.894669, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_655u2"]
+material = SubResource("StandardMaterial3D_a6tup")
+top_radius = 1.175
+bottom_radius = 0.0
+height = 0.001
+
+[node name="Area3D" type="Area3D"]
+script = ExtResource("1_g8evh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_rs2on")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.133612, 0)
+mesh = SubResource("CylinderMesh_655u2")

@@ -1,11 +1,15 @@
 extends Node
 
+@onready var SpellHandler = $"../.."
+const AOE_COLLISION = preload("res://Resources/Spell_logic/aoe_collision.tscn")
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func aoe():
+	var aoe_position = SpellHandler.Player.current_spell.cast_position
+	var aoe_radius = SpellHandler.Player.current_spell.cast_radius
+	var aoe = AOE_COLLISION.instantiate()
+	var main = Global.get_main()
+	aoe.position = aoe_position
+	aoe.collision_radius = aoe_radius
+	var mesh = aoe.get_node("MeshInstance3D").mesh
+	mesh.top_radius = aoe_radius
+	main.add_child(aoe)

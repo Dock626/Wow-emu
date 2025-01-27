@@ -21,9 +21,9 @@ var icon
 
 #AoE properties
 var cast_position : Vector3
-var cast_radius
+var cast_radius : float
 
-func _init(name: String, description: String, type: String, energy: int, charge: float, GCD: bool, icon, actions: Array[BaseSpellAction]) -> void:
+func _init(name: String, description: String, type: String, energy: int, charge: float, GCD: bool, icon, actions: Array[BaseSpellAction], aoe_radius : float) -> void:
 	self.actions.append_array(actions)
 	self.name = name
 	self.description = description
@@ -32,3 +32,5 @@ func _init(name: String, description: String, type: String, energy: int, charge:
 	self.cast_time = charge
 	self.GCD = GCD
 	self.icon = icon
+	self.cast_radius = aoe_radius
+	print(typeof(icon))

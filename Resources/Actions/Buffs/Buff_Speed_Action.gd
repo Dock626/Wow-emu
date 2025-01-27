@@ -15,6 +15,9 @@ func _init(speed_bonus: float, expire: float) -> void:
 func use(user):
 	var Buff = BuffSpeed.new(user,user.unbuffed_SPEED,speed_bonus,Global.generate_spell_id(), self.expire)
 	Buff.use(user)
+	
+	
+	
 	'self._buff_id = Global.generate_spell_id()
 	self.user = user
 	var speed_buffed = user.SPEED * speed_bonus

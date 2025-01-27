@@ -35,6 +35,8 @@ func _on_cast_timer_timeout() -> void:
 		projectile._projectile_scene_init()
 	elif Player.current_spell.type == "Instant":
 		instant._instant()
+	elif Player.current_spell.type == "AoE":
+		aoe.aoe()
 	_casting = false
 
 func progress() -> float:

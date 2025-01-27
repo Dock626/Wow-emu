@@ -52,7 +52,10 @@ func add_player(peer_id):
 		player.Looking_around.connect(mob._on_player_looking_around)
 		player.camera_position.connect(mob._receive_camera_position)
 		mob.targeted.connect(player._on_targeted)
-		
+
+func get_main():
+	return self
+
 func generate_spell_id():
 	Spell_id += 1
 	return Spell_id

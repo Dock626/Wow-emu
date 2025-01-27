@@ -206,7 +206,7 @@ func _on_Action_pressed(spell : SpellResource):
 func _on_input_action(id : int):
 	for spell in Spell_list:
 		if spell[0] == id:
-			if spell[1].type == "AoE":
+			if spell[1] != null and spell[1].type == "AoE":
 				var indicator = AOE.instantiate()
 				indicator.spell = spell[1]
 				add_child(indicator)
