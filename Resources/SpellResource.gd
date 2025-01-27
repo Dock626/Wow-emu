@@ -19,6 +19,10 @@ var cast_time : float
 var GCD : bool
 var icon
 
+#AoE properties
+var cast_position : Vector3
+var cast_radius
+
 func _init(name: String, description: String, type: String, energy: int, charge: float, GCD: bool, icon, actions: Array[BaseSpellAction]) -> void:
 	self.actions.append_array(actions)
 	self.name = name

@@ -24,5 +24,3 @@ mesh = SubResource("CylinderMesh_2cyl2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConcavePolygonShape3D_184wq")
-
-[node name="RayCast3D" type="RayCast3D" parent="."]

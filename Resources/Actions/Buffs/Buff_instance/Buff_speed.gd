@@ -20,15 +20,12 @@ func _init(user : Node, original_speed : float, buff_amount : float, _buff_id : 
 
 func use(user):
 	buffed_speed = (original_speed * buff_amount) - original_speed
-	print(buffed_speed, "bs")
 	user.SPEED += buffed_speed
 	user.buffs.append(self)
 	_timer_start(user)
 
 
 func _timer_start(user):
-	print("Speed added")
-	print(user.buffs, " speed: ", user.SPEED)
 	var timer = Timer.new()
 	timer.name = str(_buff_id)
 	_timer_name = timer.name
@@ -39,15 +36,11 @@ func _timer_start(user):
 	timer.start()
 
 func _on_timer_timeout():
-	print("Speed removed")
-	print(buffed_speed)
 	user.SPEED -= buffed_speed
 	user.buffs.erase(self)
-	print(user.SPEED)
 	user.get_node(str(_timer_name)).queue_free()
 
 func dispel():
-	print("dispel")
 	user.SPEED -= buffed_speed
 	for buff in user.buffs:
 		if buff == self:

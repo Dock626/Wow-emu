@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfnhkcbu4khdx"]
+[gd_scene load_steps=5 format=3 uid="uid://bfnhkcbu4khdx"]
 
 [ext_resource type="Script" path="res://PlayerOriented/Scripts/SpellHandler.gd" id="1_yc17j"]
+[ext_resource type="Script" path="res://PlayerOriented/Spell_types_scripts/projectile_script.gd" id="2_g3itr"]
+[ext_resource type="Script" path="res://PlayerOriented/Spell_types_scripts/instant_script.gd" id="3_cr7ex"]
+[ext_resource type="Script" path="res://PlayerOriented/Spell_types_scripts/aoe_script.gd" id="4_i40d3"]
 
 [node name="SpellHandler" type="Node"]
 script = ExtResource("1_yc17j")
@@ -14,6 +17,17 @@ one_shot = true
 process_callback = 0
 wait_time = 1.5
 one_shot = true
+
+[node name="Spell_types" type="Node" parent="."]
+
+[node name="Projectile" type="Node" parent="Spell_types"]
+script = ExtResource("2_g3itr")
+
+[node name="Instant" type="Node" parent="Spell_types"]
+script = ExtResource("3_cr7ex")
+
+[node name="AoE" type="Node" parent="Spell_types"]
+script = ExtResource("4_i40d3")
 
 [connection signal="timeout" from="CastTimer" to="." method="_on_cast_timer_timeout"]
 [connection signal="timeout" from="Global_cd" to="." method="_on_cast_timer_timeout"]

@@ -6,4 +6,3 @@ func _init() -> void:
 func use(user):
 	for buff in user.buffs:
 		buff.dispel()
-	print(user.buffs)

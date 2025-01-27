@@ -17,7 +17,7 @@ signal camera_position
 @export var Health = 100
 @export var unbuffed_SPEED : float = 11
 @export var SPEED : float
-
+const AOE = preload("res://UI_Spells/UI_Player/aoe.tscn")
 
 @onready var _animation_tree = $AnimationTree
 @onready var UI = $UI
@@ -206,7 +206,12 @@ func _on_Action_pressed(spell : SpellResource):
 func _on_input_action(id : int):
 	for spell in Spell_list:
 		if spell[0] == id:
-			Casting_started.emit(spell[1])
+			if spell[1].type == "AoE":
+				var indicator = AOE.instantiate()
+				indicator.spell = spell[1]
+				add_child(indicator)
+			else:
+				Casting_started.emit(spell[1])
 
 func _on_actions_received(actions) -> void:
 	for action in actions:

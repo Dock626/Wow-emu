@@ -23,11 +23,11 @@ var Spell_List : Array [SpellResource] = [
 	"A quick bolt of fire",
 	"Projectile", #type
 	15,
-	0,
+	2,
 	true,	   #GCD
 	preload("res://Resources/icons/fajerbol.png"),
 	[
-		DamageAction.new(20),
+		DamageAction.new(10),
 		DispelAction.new()
 	]),
 	
@@ -40,6 +40,18 @@ var Spell_List : Array [SpellResource] = [
 	preload("res://Resources/icons/fajerbol.png"),
 	[
 		DispelAction.new()
+	]
+	),
+	
+	SpellResource.new("Flamestrike",
+	"Unleash a wave of flames",
+	"AoE",
+	15,
+	2,
+	true,
+	preload("res://Resources/icons/fajerbol.png"),
+	[
+		DamageAction.new(20)
 	]
 	)
 ]

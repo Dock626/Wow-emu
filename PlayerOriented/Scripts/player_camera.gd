@@ -16,10 +16,6 @@ func _process(delta: float) -> void:
 		player.mouse_position = hit_position
 
 func _input(event: InputEvent) -> void:
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		shoot_ray() # mouse tracking
-		var indicator = AOE.instantiate()
-		player.add_child(indicator)
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and event is InputEventMouseMotion:
 		player.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		player.Looking_around.emit(true)
