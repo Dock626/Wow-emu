@@ -16,11 +16,13 @@ var Spells := [SpellDatabase.get_spell("Firebolt")]
 
 
 func _on_player_casting_started(spell: SpellResource) -> void:
+	if spell == null: return
+	
 	if spell.GCD == false:
 		_on_cast_timer_timeout()
 		return
 		
-	if _casting or spell == null or Player.current_target == null or !GCD.is_stopped():
+	if _casting or Player.current_target == null or !GCD.is_stopped():
 		return
 	
 	GCD.start()

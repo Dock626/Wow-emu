@@ -5,17 +5,21 @@ extends Camera3D
 @onready var sensitivity = player.sensitivity
 @onready var _Looking_from = $"../.."
 @onready var CameraBase = $"../../.."
+
+const AOE = preload("res://UI_Spells/UI_Player/aoe.tscn")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	shootray = shoot_ray()
 	if shootray.has("position"):
 		var hit_position = shootray["position"]
-		player.mouse_position.z = hit_position.z
-		player.mouse_position.x = hit_position.x
+		player.mouse_position = hit_position
 
 func _input(event: InputEvent) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		shoot_ray() # mouse tracking
+		var indicator = AOE.instantiate()
+		player.add_child(indicator)
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and event is InputEventMouseMotion:
 		player.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
 		player.Looking_around.emit(true)
@@ -43,6 +47,7 @@ func shoot_ray():
 	var to = from + project_ray_normal(mouse_pos) * ray_length
 	var space = get_world_3d().direct_space_state
 	var ray_query = PhysicsRayQueryParameters3D.new()
+	ray_query.collision_mask = 1
 	ray_query.from = from
 	ray_query.to = to
 	var raycast_result = space.intersect_ray(ray_query)

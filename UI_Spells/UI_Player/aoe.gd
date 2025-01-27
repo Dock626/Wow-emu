@@ -4,3 +4,4 @@ extends Area3D
 @onready var player = get_parent()
 func _physics_process(delta: float) -> void:
 	global_transform.origin = player.mouse_position
+	

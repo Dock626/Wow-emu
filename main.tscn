@@ -24,8 +24,10 @@ ambient_light_source = 3
 script = ExtResource("1_jrf87")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" groups=["Ground"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -0.524)
 shape = SubResource("BoxShape3D_f1bto")
 
@@ -82,6 +84,7 @@ spawn_path = NodePath("../..")
 
 [node name="Mob2" parent="." instance=ExtResource("2_x5ufh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 43.3396)
+collision_mask = 1
 SPEED = 2.0
 
 [node name="Spell_database" type="Node" parent="."]

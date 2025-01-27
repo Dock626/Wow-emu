@@ -44,7 +44,6 @@ billboard_mode = 1
 
 [node name="Mob" type="CharacterBody3D" groups=["Mobs"]]
 collision_layer = 4
-collision_mask = 3
 script = ExtResource("1_nh8ue")
 
 [node name="Node3D" type="Node3D" parent="."]
