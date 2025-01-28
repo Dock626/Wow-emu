@@ -14,7 +14,7 @@ top_radius = 1.175
 bottom_radius = 0.0
 height = 0.001
 
-[node name="Area3D" type="Area3D"]
+[node name="aoe_collision" type="Area3D"]
 script = ExtResource("1_g8evh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

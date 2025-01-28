@@ -10,6 +10,8 @@ signal Looking_around
 signal action_pressed
 signal camera_position
 
+const AOE = preload("res://UI_Spells/UI_Player/aoe_indicator.tscn")
+
 @export var Fly_manouver = 0.1
 @export var fall_acceleration = 75
 @export var JUMP_VELOCITY = 6
@@ -17,7 +19,7 @@ signal camera_position
 @export var Health = 100
 @export var unbuffed_SPEED : float = 11
 @export var SPEED : float
-const AOE = preload("res://UI_Spells/UI_Player/aoe.tscn")
+
 
 @onready var _animation_tree = $AnimationTree
 @onready var UI = $UI

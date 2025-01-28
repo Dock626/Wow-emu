@@ -23,7 +23,7 @@ func _ready():
 		.get_spell())
 	Spell_List.append(SpellBuilder.new()
 		.create()
-		.set_name("FlameStrike")
+		.set_name("Flame Strike")
 		.set_description("Quick wave of flames")
 		.set_energy_cost(15)
 		.set_cast_time(0)

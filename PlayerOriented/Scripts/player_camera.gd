@@ -6,8 +6,6 @@ extends Camera3D
 @onready var _Looking_from = $"../.."
 @onready var CameraBase = $"../../.."
 
-const AOE = preload("res://UI_Spells/UI_Player/aoe.tscn")
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	shootray = shoot_ray()

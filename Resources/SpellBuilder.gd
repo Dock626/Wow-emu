@@ -49,4 +49,6 @@ func set_radius(cast_radius : float = 1) -> SpellBuilder:
 	return self
 
 func get_spell() -> SpellResource:
+	if _sr.type == SpellResource.cast_type.AoE and _sr.cast_radius == 0:
+		print_debug("aoe spell "+ _sr.name+ " has radius of 0")
 	return _sr

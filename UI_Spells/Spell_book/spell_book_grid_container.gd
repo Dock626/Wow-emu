@@ -13,7 +13,7 @@ func _ready() -> void:
 			spellbook_button.spell = SpellDatabase.get_spell("Firebolt")
 		elif i == 2:
 			
-			spellbook_button.spell = SpellDatabase.get_spell("FlameStrike")
+			spellbook_button.spell = SpellDatabase.get_spell("Flame Strike")
 		self.add_child(spellbook_button)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

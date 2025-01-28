@@ -2,7 +2,7 @@ extends Node
 
 signal actions(value)
 
-const aoe_indicator = preload("res://UI_Spells/UI_Player/aoe.tscn")
+const aoe_indicator = preload("res://UI_Spells/UI_Player/aoe_indicator.tscn")
 
 @onready var projectile: Node = $Spell_types/Projectile
 @onready var instant: Node = $Spell_types/Instant
