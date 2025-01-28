@@ -6,13 +6,47 @@ const DamageAction = preload("res://Resources/Actions/DamageAction.gd")
 const BuffSpeedAction = preload("res://Resources/Actions/Buffs/Buff_Speed_Action.gd")
 const DispelAction = preload("res://Resources/Actions/DispelAction.gd")
 const AoeProperties = preload("res://Resources/Actions/aoe_properties.gd")
-var Spell_List : Array [SpellResource] = [
+
+var Spell_List : Array [SpellResource] = []
+
+func _ready():
+	Spell_List.append(SpellBuilder.new()
+		.create()
+		.set_name("Firebolt")
+		.set_description("BIGGGG FIREBOLT")
+		.set_energy_cost(15)
+		.set_cast_time(2)
+		.is_GCD(true)
+		.set_icon(preload("res://Resources/icons/fajerbol.png"))
+		.set_type(SpellResource.cast_type.Projectile)
+		.add_action(DamageAction.new(20))
+		.get_spell())
+	Spell_List.append(SpellBuilder.new()
+		.create()
+		.set_name("FlameStrike")
+		.set_description("Quick wave of flames")
+		.set_energy_cost(15)
+		.set_cast_time(0)
+		.is_GCD(true)
+		.set_icon(preload("res://Resources/icons/fajerbol.png"))
+		.set_type(SpellResource.cast_type.AoE)
+		.add_action(DamageAction.new(20))
+		.set_radius(3)
+		.get_spell())
+	
+
+func get_spell(spell_name: String) -> SpellResource:
+	for spell in Spell_List:
+		if spell.name == spell_name:
+			return spell
+	return null
+'[
 	SpellResource.new("Flash Heal",             #name
 	"A quick flash of light that cures wounds", #description
-	"Instant", #type
+	SpellResource.cast_type.Instant, #type
 	15, 	   #energy
-	2,  	   #charge
-	true,	   #GCD
+	2,  	   #cast_time
+	true,	   #is_GCD
 	preload("res://Resources/icons/fajerbol.png"), #icon
 	[
 		HealAction.new(20),
@@ -23,10 +57,10 @@ var Spell_List : Array [SpellResource] = [
 	
 	SpellResource.new("Firebolt",
 	"A quick bolt of fire",
-	"Projectile", #type
+	SpellResource.cast_type.Projectile, #type
 	15,
 	2,
-	true,	   #GCD
+	true,	   #is_GCD
 	preload("res://Resources/icons/fajerbol.png"),
 	[
 		DamageAction.new(10),
@@ -37,7 +71,7 @@ var Spell_List : Array [SpellResource] = [
 	
 	SpellResource.new("Dispel",
 	"Remove a positive effect from enemy",
-	"Instant",
+	SpellResource.cast_type.Instant,
 	15,
 	2,
 	true,
@@ -50,7 +84,7 @@ var Spell_List : Array [SpellResource] = [
 	
 	SpellResource.new("Flamestrike",
 	"Unleash a wave of flames",
-	"AoE",
+	SpellResource.cast_type.AoE,
 	15,
 	2,
 	true,
@@ -61,10 +95,4 @@ var Spell_List : Array [SpellResource] = [
 	],
 	3
 	)
-]
-
-func get_spell(spell_name: String) -> SpellResource:
-	for spell in Spell_List:
-		if spell.name == spell_name:
-			return spell
-	return null
+]'

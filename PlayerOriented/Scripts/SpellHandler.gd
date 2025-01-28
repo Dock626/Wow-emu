@@ -7,7 +7,7 @@ const aoe_indicator = preload("res://UI_Spells/UI_Player/aoe.tscn")
 @onready var projectile: Node = $Spell_types/Projectile
 @onready var instant: Node = $Spell_types/Instant
 @onready var aoe: Node = $Spell_types/AoE
-@onready var GCD = $Global_cd
+@onready var is_GCD = $Global_cd
 @onready var Player = get_parent()
 @onready var _spell_timer = $CastTimer
 
@@ -19,7 +19,7 @@ var Spells := [SpellDatabase.get_spell("Firebolt")]
 func _on_player_casting_started(spell: SpellResource) -> void:
 	if spell == null or _casting:
 		return
-	elif !GCD.is_stopped() and spell.GCD == false:
+	elif !is_GCD.is_stopped() and spell.is_GCD == false:
 		return
 	Player.Cast_target = Player.current_target
 	Player.current_spell = spell
@@ -31,11 +31,11 @@ func _on_player_casting_started(spell: SpellResource) -> void:
 		_spell_timer.start()
 
 func _on_cast_timer_timeout() -> void:
-	if Player.current_spell.type == "Projectile":
+	if Player.current_spell.type == SpellResource.cast_type.Projectile:
 		projectile._projectile_scene_init()
-	elif Player.current_spell.type == "Instant":
+	elif Player.current_spell.type == SpellResource.cast_type.Instant:
 		instant._instant()
-	elif Player.current_spell.type == "AoE":
+	elif Player.current_spell.type == SpellResource.cast_type.AoE:
 		aoe.aoe()
 	_casting = false
 
