@@ -82,20 +82,8 @@ alignment = 1
 _spawnable_scenes = PackedStringArray("res://PlayerOriented/player.tscn")
 spawn_path = NodePath("../..")
 
-[node name="Mob2" parent="." instance=ExtResource("2_x5ufh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 43.3396)
-unbuffed_SPEED = 0.0
-SPEED = 2.0
-
 [node name="Mob3" parent="." instance=ExtResource("2_x5ufh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 53.7098)
-unbuffed_SPEED = 0.0
-SPEED = 2.0
-
-[node name="Mob4" parent="." instance=ExtResource("2_x5ufh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.08105, 0, 43.3396)
-unbuffed_SPEED = 0.0
-SPEED = 2.0
 
 [node name="Spell_database" type="Node" parent="."]
 script = ExtResource("4_o8sg2")

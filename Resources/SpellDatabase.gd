@@ -33,7 +33,17 @@ func _ready():
 		.add_action(DamageAction.new(20))
 		.set_radius(3)
 		.get_spell())
-	
+	Spell_List.append(SpellBuilder.new()
+		.create()
+		.set_name("Haste")
+		.set_description("Speedy speed")
+		.set_energy_cost(15)
+		.set_cast_time(0)
+		.is_GCD(false)
+		.set_icon(preload("res://Resources/icons/fajerbol.png"))
+		.set_type(SpellResource.cast_type.Instant)
+		.add_action(BuffSpeedAction.new(2, 5))
+		.get_spell())
 
 func get_spell(spell_name: String) -> SpellResource:
 	for spell in Spell_List:
