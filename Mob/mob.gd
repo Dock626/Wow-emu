@@ -36,6 +36,7 @@ func _ready():
 func _process(delta: float) -> void:
 	die()
 	set_selected(selected)
+	print(SPEED)
 	_Health_bar.value = Health
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

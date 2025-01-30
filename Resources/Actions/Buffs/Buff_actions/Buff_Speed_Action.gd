@@ -4,14 +4,18 @@ class_name Speed_buff
 
 var original_speed: float
 var buff_amount: float
-var type: buff_type
+var type: buff_type = buff_type.buff
 
 func _init(buff_amount: float, expire: float) -> void:
 	self.expire = expire
 	self.buff_amount = buff_amount
 
+	if buff_amount == 1:
+		print_debug("Speed_buff is set to 1, are you sure it's correct?")
+	elif buff_amount < 1:
+		type = buff_type.debuff
+		
 func use(user):
-	print(user.SPEED)
 	var Use_Buff = Speed_buff.new(buff_amount, expire)
 	Use_Buff.user = user
 	Use_Buff.apply_buff(user)
@@ -27,4 +31,3 @@ func dispel():
 		if buffs == self:
 			user.buffs.erase(buffs)
 	user.get_node(str(_timer_name)).queue_free()
-	print(user.SPEED)

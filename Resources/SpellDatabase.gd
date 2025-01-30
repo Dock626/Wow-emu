@@ -1,5 +1,4 @@
 extends Node
-var Spell_id : int = 0
 
 const HealAction = preload("res://Resources/Actions/HealAction.gd")
 const DamageAction = preload("res://Resources/Actions/DamageAction.gd")
@@ -42,7 +41,7 @@ func _ready():
 		.is_GCD(false)
 		.set_icon(preload("res://Resources/icons/fajerbol.png"))
 		.set_type(SpellResource.cast_type.Instant)
-		.add_action(BuffSpeedAction.new(10, 2))
+		.add_action(BuffSpeedAction.new(1.5, 2))
 		.get_spell())
 
 func get_spell(spell_name: String) -> SpellResource:
