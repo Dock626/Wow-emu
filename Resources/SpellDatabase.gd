@@ -3,7 +3,7 @@ var Spell_id : int = 0
 
 const HealAction = preload("res://Resources/Actions/HealAction.gd")
 const DamageAction = preload("res://Resources/Actions/DamageAction.gd")
-const BuffSpeedAction = preload("res://Resources/Actions/Buffs/Buff_Speed_Action.gd")
+const BuffSpeedAction = preload("res://Resources/Actions/Buffs/Buff_actions/Buff_Speed_Action.gd")
 const DispelAction = preload("res://Resources/Actions/DispelAction.gd")
 const AoeProperties = preload("res://Resources/Actions/aoe_properties.gd")
 
@@ -42,7 +42,7 @@ func _ready():
 		.is_GCD(false)
 		.set_icon(preload("res://Resources/icons/fajerbol.png"))
 		.set_type(SpellResource.cast_type.Instant)
-		.add_action(BuffSpeedAction.new(2, 5))
+		.add_action(BuffSpeedAction.new(10, 2))
 		.get_spell())
 
 func get_spell(spell_name: String) -> SpellResource:

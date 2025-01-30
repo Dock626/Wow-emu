@@ -84,6 +84,8 @@ spawn_path = NodePath("../..")
 
 [node name="Mob3" parent="." instance=ExtResource("2_x5ufh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 53.7098)
+unbuffed_SPEED = 4.0
+SPEED = 4.0
 
 [node name="Spell_database" type="Node" parent="."]
 script = ExtResource("4_o8sg2")
