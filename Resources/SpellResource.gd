@@ -27,7 +27,7 @@ var default_icon = preload("res://Resources/icons/fajerbol.png")
 #AoE properties
 var cast_position : Vector3
 var cast_radius : float
-
+var effect_time : float
 func _init(name: String= "", description: String = "", type: cast_type = cast_type.Instant, energy: int = 0, cast_time: float = 0, is_GCD: bool = true, icon = self.default_icon, actions: Array[BaseSpellAction] = [], aoe_radius : float = 0) -> void:
 	self.actions.append_array(actions)
 	self.name = name

@@ -9,7 +9,13 @@ func aoe():
 	var aoe = AOE_COLLISION.instantiate()
 	var main = Global.get_main()
 	aoe.position = aoe_position
-	aoe.collision_radius = aoe_radius
+	var radius = aoe.get_node("CollisionShape3D").shape
 	var mesh = aoe.get_node("MeshInstance3D").mesh
+	aoe.effect_time = SpellHandler.Player.current_spell.effect_time
+	aoe.actions = SpellHandler.Player.current_spell.actions
+	
+	
 	mesh.top_radius = aoe_radius
+	radius.radius = aoe_radius
 	main.add_child(aoe)
+		

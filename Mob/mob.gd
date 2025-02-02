@@ -36,7 +36,6 @@ func _ready():
 func _process(delta: float) -> void:
 	die()
 	set_selected(selected)
-	print(SPEED)
 	_Health_bar.value = Health
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -109,6 +108,8 @@ func check_closest():
 	for buff in buffs:
 		buff.effect(self)
 '
+func get_attribute(attribute):
+	pass
 #signals
 func _on_player_select_pressed() -> void:
 	if _mouse_on == false and Looking_around == false:

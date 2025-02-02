@@ -4,8 +4,7 @@ const HealAction = preload("res://Resources/Actions/HealAction.gd")
 const DamageAction = preload("res://Resources/Actions/DamageAction.gd")
 const BuffSpeedAction = preload("res://Resources/Actions/Buffs/Buff_actions/Buff_Speed_Action.gd")
 const DispelAction = preload("res://Resources/Actions/DispelAction.gd")
-const AoeProperties = preload("res://Resources/Actions/aoe_properties.gd")
-
+#const BuffAction = preload("res://Resources/Actions/Buffs/Buff_actions/Buff_Action.gd")
 var Spell_List : Array [SpellResource] = []
 
 func _ready():
@@ -31,6 +30,8 @@ func _ready():
 		.set_type(SpellResource.cast_type.AoE)
 		.add_action(DamageAction.new(20))
 		.set_radius(3)
+		.set_effect_time(3)
+		#.set_tick_rate(1)
 		.get_spell())
 	Spell_List.append(SpellBuilder.new()
 		.create()

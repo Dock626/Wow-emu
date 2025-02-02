@@ -12,7 +12,7 @@ var caster: Node
 var expire: float
 var _timer_name: String
 
-func _init(value, expire: float) -> void:
+func _init(attribute, value, expire: float) -> void:
 	pass
 func use(user):
 	pass
@@ -25,7 +25,6 @@ func _timer_start(user):
 	timer.timeout.connect(self._on_timer_timeout)
 	user.add_child(timer)
 	timer.start()
-
 func _on_timer_timeout():
 	for buffs in user.buffs:
 		if buffs == self:
