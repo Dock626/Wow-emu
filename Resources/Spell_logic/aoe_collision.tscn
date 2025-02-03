@@ -27,7 +27,11 @@ shape = SubResource("CylinderShape3D_rs2on")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.133612, 0)
 mesh = SubResource("CylinderMesh_655u2")
 
+[node name="action_emitter" type="Timer" parent="."]
+wait_time = 1.5
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.051
 
+[connection signal="timeout" from="action_emitter" to="." method="_on_actions_emit_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
