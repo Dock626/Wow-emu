@@ -10,6 +10,9 @@ var button_id : int
 func _ready():
 	self.Action_pressed.connect(UI._on_Action_pressed)
 	UI.Spell_list.append([button_id, Spell])
+	if Spell:
+		self.icon = Spell.icon
+		Spell.caster = UI
 func _can_drop_data(position, data):
 	return data is SpellResource
 
@@ -23,6 +26,7 @@ func _update(spell) -> void:
 	
 	icon = spell.icon
 	self.Spell = spell
+	Spell.caster = UI
 	
 	UI.Spell_list.append([button_id, Spell])
 func _get_drag_data(position):

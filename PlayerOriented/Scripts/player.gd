@@ -16,10 +16,9 @@ const AOE = preload("res://UI_Spells/UI_Player/aoe_indicator.tscn")
 @export var fall_acceleration = 75
 @export var JUMP_VELOCITY = 6
 @export var sensitivity = 0.4
-@export var unbuffed_SPEED : float = 11
 
 @export var Health = 100
-@export var SPEED : float
+@export var SPEED : float = 11
 
 @onready var _animation_tree = $AnimationTree
 @onready var UI = $UI
@@ -44,7 +43,6 @@ var buffs = []
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
-	
 
 func _ready():
 	if not is_multiplayer_authority():
@@ -53,11 +51,9 @@ func _ready():
 	$UI.show()
 	self.add_to_group("Players")
 	self.Casting_started.connect(_spell_handler._on_player_casting_started)
-	SPEED = unbuffed_SPEED
 func _unhandled_input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
-
 
 func _process(_delta):
 	if not is_multiplayer_authority():
@@ -113,18 +109,9 @@ func _mouse_exit() -> void:
 func _on_Action_pressed(spell : SpellResource):
 	Casting_started.emit(spell)
 
-func _on_actions_received(actions) -> void:
+func _on_actions_received(actions: Array) -> void:
 	for action in actions:
 		action.use(self)
 
-func _get(property: StringName) -> Variant:
-	if property == "Health":
-		return Health
-	if property == "SPEED":
-		return unbuffed_SPEED
-	return null
-
 func get_id():
 	return self.name
-
-	

@@ -2,10 +2,6 @@ extends Node
 @onready var Player = $"../.."
 var was_targeted := 0
 var in_sight : Array
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 
 func _input(event):
 	if not is_multiplayer_authority():
@@ -15,8 +11,13 @@ func _input(event):
 		Player.Looking_around.emit(false)
 		was_targeted = 0
 
+	if Input.is_action_just_pressed("Spellbook"):
+		if not Player._spellbook.visible:
+			Player._spellbook.show()
+		else:
+			Player._spellbook.hide()
+	
 	if Input.is_action_just_released("Tab_target"):
-		#was_targeted
 		in_sight = []
 		for i in get_tree().get_nodes_in_group("Mobs"):
 			i.selected = false
@@ -41,9 +42,3 @@ func _input(event):
 			yea.selected = true
 			Player.current_target = yea
 		was_targeted += 1
-
-	if Input.is_action_just_pressed("Spellbook"):
-		if not Player._spellbook.visible:
-			Player._spellbook.show()
-		else:
-			Player._spellbook.hide()

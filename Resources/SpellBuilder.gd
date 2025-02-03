@@ -42,20 +42,23 @@ func add_action(action: BaseSpellAction) -> SpellBuilder:
 	_sr.add_action(action)
 	return self
 
+func proc_name(name: String) -> SpellBuilder:
+	_sr.proc_name = name
+	return self
 #AoE properties
 
-func set_radius(cast_radius : float = 1) -> SpellBuilder:
+func set_radius(cast_radius: float = 1) -> SpellBuilder:
 	_sr.cast_radius = cast_radius
 	return self
 
-func set_effect_time(effect_time : float = 0): #for example, how long will a slow trap last on map
+func set_effect_time(effect_time: float = 0): # for example, how long will a slow trap last on map
 	_sr.effect_time = effect_time
 	return self
-'func set_tick_rate(tick_rate : float = 2):
+func set_tick_rate(tick_rate: float = 2):
 	_sr.tick_rate = tick_rate
-	return self'
-	
+	return self
+
 func get_spell() -> SpellResource:
 	if _sr.type == SpellResource.cast_type.AoE and _sr.cast_radius == 0:
-		print_debug("aoe spell "+ _sr.name+ " has radius of 0")
+		print_debug("aoe spell " + _sr.name + " has radius of 0")
 	return _sr

@@ -1,6 +1,6 @@
 extends Resource
 
-class_name SpellResource 
+class_name SpellResource
 
 enum spellclass {
 	MAGE = 1,
@@ -14,21 +14,24 @@ enum cast_type {
 
 @export var spellClass: spellclass = 1
 @export var spellIcon: CompressedTexture2D
-
+var caster: Node
 var actions: Array[BaseSpellAction] = []
-var name : String
+var name: String
 var description: String
-var type : cast_type
-var energy_cost : int
-var cast_time : float = 0
-var is_GCD : bool = true
+var type: cast_type
+var energy_cost: int
+var cast_time: float = 0
+var is_GCD: bool = true
 var icon
 var default_icon = preload("res://Resources/icons/fajerbol.png")
 #AoE properties
-var cast_position : Vector3
-var cast_radius : float
-var effect_time : float
-func _init(name: String= "", description: String = "", type: cast_type = cast_type.Instant, energy: int = 0, cast_time: float = 0, is_GCD: bool = true, icon = self.default_icon, actions: Array[BaseSpellAction] = [], aoe_radius : float = 0) -> void:
+var cast_position: Vector3
+var cast_radius: float
+var effect_time: float
+var tick_rate: float
+var proc_name: String
+func _init(name: String = "", description: String = "", type: cast_type = cast_type.Instant, energy: int = 0, cast_time: float = 0,
+			is_GCD: bool = true, icon = self.default_icon, actions: Array[BaseSpellAction] = [], aoe_radius: float = 0) -> void:
 	self.actions.append_array(actions)
 	self.name = name
 	self.description = description

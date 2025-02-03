@@ -4,14 +4,15 @@ class_name Buff
 
 enum buff_type {
 	debuff = 0,
-	buff = 1
+	buff = 1,
+	proc = 2
 }
 
 var user: Node
 var caster: Node
 var expire: float
 var _timer_name: String
-
+var name:String
 func _init(attribute, value, expire: float) -> void:
 	pass
 func use(user):
@@ -25,6 +26,7 @@ func _timer_start(user):
 	timer.timeout.connect(self._on_timer_timeout)
 	user.add_child(timer)
 	timer.start()
+
 func _on_timer_timeout():
 	for buffs in user.buffs:
 		if buffs == self:

@@ -6,7 +6,13 @@ var action_buttons = self.get_children()
 func _ready() -> void:
 	for i in range(1, 9):
 		var action_button = ACTION_BUTTON.instantiate()
-		action_button.button_id = i
+		action_button.button_id = i	
 		action_button.text = str(i)
+		if i == 1:
+			action_button.Spell = SpellDatabase.get_spell("Firebolt")
+		elif i == 2:
+			action_button.Spell = SpellDatabase.get_spell("Flame Strike")
+		elif i == 3:
+			action_button.Spell = SpellDatabase.get_spell("Haste")
 		self.add_child(action_button)
 		

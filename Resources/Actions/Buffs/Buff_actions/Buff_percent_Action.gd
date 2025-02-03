@@ -6,6 +6,7 @@ var original_speed: float
 var buff_amount: float
 var type: buff_type = buff_type.buff
 var attribute: String
+
 func _init(attribute, buff_amount: float, expire: float) -> void:
 	self.expire = expire
 	self.buff_amount = buff_amount
@@ -14,7 +15,7 @@ func _init(attribute, buff_amount: float, expire: float) -> void:
 		print_debug(attribute, " buff is set to 1, are you sure it's correct?")
 	elif buff_amount < 1:
 		type = buff_type.debuff
-		
+
 func use(user):
 	var Use_Buff = Attribute_buff.new(attribute, buff_amount, expire)
 	Use_Buff.user = user
@@ -22,12 +23,19 @@ func use(user):
 	user.buffs.append(Use_Buff)
 
 func apply_buff(user):
-	#user.get(attribute) += user.get(attribute) * buff_amount - user.get(attribute)
-	var user_attribute = user._get(attribute)
+	var user_attribute = user.get(attribute)
+	var var_original = user_attribute
+	user_attribute += (user_attribute * buff_amount) - user_attribute
+	user.set(attribute, user_attribute)
+	buff_amount = user_attribute - var_original
 	_timer_start(user)
 
+
 func dispel():
-	user.SPEED -= user.unbuffed_SPEED * buff_amount - user.unbuffed_SPEED
+	var user_attribute = user.get(attribute)
+	user_attribute -= buff_amount
+	user.set(attribute, user_attribute)
+	print(user_attribute)
 	for buffs in user.buffs:
 		if buffs == self:
 			user.buffs.erase(buffs)

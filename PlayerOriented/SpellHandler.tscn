@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://PlayerOriented/Scripts/SpellHandler.gd" id="1_yc17j"]
 [ext_resource type="Script" path="res://PlayerOriented/Spell_types_scripts/projectile_script.gd" id="2_g3itr"]
-[ext_resource type="Script" path="res://PlayerOriented/Spell_types_scripts/instant_script.gd" id="3_cr7ex"]
+[ext_resource type="Script" path="res://PlayerOriented/Spell_types_scripts/no_projectile.gd" id="3_cr7ex"]
 [ext_resource type="Script" path="res://PlayerOriented/Spell_types_scripts/aoe_script.gd" id="4_i40d3"]
 
 [node name="SpellHandler" type="Node"]
@@ -23,7 +23,7 @@ one_shot = true
 [node name="Projectile" type="Node" parent="Spell_types"]
 script = ExtResource("2_g3itr")
 
-[node name="Instant" type="Node" parent="Spell_types"]
+[node name="no_projectile" type="Node" parent="Spell_types"]
 script = ExtResource("3_cr7ex")
 
 [node name="AoE" type="Node" parent="Spell_types"]

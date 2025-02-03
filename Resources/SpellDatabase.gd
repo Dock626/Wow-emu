@@ -2,10 +2,12 @@ extends Node
 
 const HealAction = preload("res://Resources/Actions/HealAction.gd")
 const DamageAction = preload("res://Resources/Actions/DamageAction.gd")
-const BuffSpeedAction = preload("res://Resources/Actions/Buffs/Buff_actions/Buff_Speed_Action.gd")
 const DispelAction = preload("res://Resources/Actions/DispelAction.gd")
-#const BuffAction = preload("res://Resources/Actions/Buffs/Buff_actions/Buff_Action.gd")
-var Spell_List : Array [SpellResource] = []
+const BuffAction = preload("res://Resources/Actions/Buffs/Buff_actions/Buff_percent_Action.gd")
+const BuffProc = preload("res://Resources/Actions/Buffs/Buff_actions/Buff_proc.gd")
+
+
+var Spell_List: Array[SpellResource] = []
 
 func _ready():
 	Spell_List.append(SpellBuilder.new()
@@ -30,7 +32,7 @@ func _ready():
 		.set_type(SpellResource.cast_type.AoE)
 		.add_action(DamageAction.new(20))
 		.set_radius(3)
-		.set_effect_time(3)
+		.set_effect_time(0)
 		#.set_tick_rate(1)
 		.get_spell())
 	Spell_List.append(SpellBuilder.new()
@@ -42,7 +44,9 @@ func _ready():
 		.is_GCD(false)
 		.set_icon(preload("res://Resources/icons/fajerbol.png"))
 		.set_type(SpellResource.cast_type.Instant)
-		.add_action(BuffSpeedAction.new(1.5, 2))
+		.add_action(BuffAction.new("SPEED", 1.5, 2))
+		.add_action(DamageAction.new(10))
+		.add_action(BuffProc.new("Quick_Firebolt", 10))
 		.get_spell())
 
 func get_spell(spell_name: String) -> SpellResource:
