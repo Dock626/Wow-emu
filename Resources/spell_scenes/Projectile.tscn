@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqbmpyk8sfcmg"]
+[gd_scene load_steps=8 format=3 uid="uid://dqbmpyk8sfcmg"]
 
 [ext_resource type="Script" path="res://Resources/Spell_logic/projectile.gd" id="1_i6bxi"]
 
@@ -7,13 +7,21 @@ albedo_color = Color(1, 0, 0, 1)
 albedo_texture_force_srgb = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_2sl8p"]
-radius = 0.52
-height = 1.015
+radius = 0.26
+height = 0.507
 
 [sub_resource type="Skin" id="Skin_j5f4v"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dg3ws"]
 radius = 0.845
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37seg"]
+albedo_color = Color(1, 0.215686, 0.0431373, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g1ieg"]
+material = SubResource("StandardMaterial3D_37seg")
+radius = 0.063
+height = 0.125
 
 [node name="Projectile" type="RigidBody3D"]
 collision_layer = 7
@@ -23,7 +31,7 @@ contact_monitor = true
 script = ExtResource("1_i6bxi")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(0.57, 0, 0, 0, -2.49155e-08, -0.57, 0, 0.57, -2.49155e-08, 0, 0.120904, 0.186132)
 material_overlay = SubResource("StandardMaterial3D_p0w21")
 mesh = SubResource("SphereMesh_2sl8p")
 skin = SubResource("Skin_j5f4v")
@@ -32,3 +40,24 @@ skin = SubResource("Skin_j5f4v")
 transform = Transform3D(0.645, 0, 0, 0, -2.81938e-08, -0.645, 0, 0.645, -2.81938e-08, 0, 0, 0)
 shape = SubResource("SphereShape3D_dg3ws")
 disabled = true
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(0.52, 0, 0, 0, 0.52, 0, 0, 0, 0.52, -0.0555072, 0.0613674, 0.335262)
+amount = 7
+lifetime = 0.35
+mesh = SubResource("SphereMesh_g1ieg")
+gravity = Vector3(0, 0, 10)
+
+[node name="CPUParticles3D3" type="CPUParticles3D" parent="."]
+transform = Transform3D(0.52, 0, 0, 0, 0.52, 0, 0, 0, 0.52, 0.00848997, 0.185044, 0.335262)
+amount = 7
+lifetime = 0.35
+mesh = SubResource("SphereMesh_g1ieg")
+gravity = Vector3(0, 0, 10)
+
+[node name="CPUParticles3D4" type="CPUParticles3D" parent="."]
+transform = Transform3D(0.52, 0, 0, 0, 0.52, 0, 0, 0, 0.52, 0.0923213, 0.0613674, 0.335262)
+amount = 7
+lifetime = 0.35
+mesh = SubResource("SphereMesh_g1ieg")
+gravity = Vector3(0, 0, 10)

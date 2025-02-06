@@ -18,4 +18,3 @@ func aoe():
 	mesh.top_radius = aoe_radius
 	radius.radius = aoe_radius
 	main.add_child(aoe)
-		

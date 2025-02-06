@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1wnx0m0gccvw"]
+[gd_scene load_steps=3 format=3 uid="uid://b1wnx0m0gccvw"]
 
-[ext_resource type="Script" path="res://PlayerOriented/Scripts/spell_book.gd" id="1_cwymt"]
 [ext_resource type="Texture2D" uid="uid://c4x74ft0jblcl" path="res://UI_Spells/Spell_book/scroll.jpg" id="1_f7n28"]
 [ext_resource type="Script" path="res://UI_Spells/Spell_book/spell_book_grid_container.gd" id="2_pdr4f"]
 
@@ -10,7 +9,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 334.04
 offset_bottom = 401.04
-script = ExtResource("1_cwymt")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 light_mask = 2

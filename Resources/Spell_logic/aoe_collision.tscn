@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7118xkndec8t"]
+[gd_scene load_steps=10 format=3 uid="uid://b7118xkndec8t"]
 
 [ext_resource type="Script" path="res://Resources/Spell_logic/aoe_collision.gd" id="1_g8evh"]
+[ext_resource type="Script" path="res://Resources/Spell_logic/cylinder.gd" id="2_iijax"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_rs2on"]
 height = 3.0
@@ -15,6 +16,33 @@ top_radius = 2.995
 bottom_radius = 0.0
 height = 0.001
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ol534"]
+albedo_color = Color(1, 0.239216, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ymk6k"]
+material = SubResource("StandardMaterial3D_ol534")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 8.0
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mwgfa"]
+material = SubResource("StandardMaterial3D_ol534")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 4.5
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eoq0j"]
+material = SubResource("StandardMaterial3D_ol534")
+top_radius = 0.35
+bottom_radius = 0.35
+height = 3.0
+cap_top = false
+cap_bottom = false
+
 [node name="aoe_collision" type="Area3D"]
 collision_mask = 7
 script = ExtResource("1_g8evh")
@@ -25,6 +53,8 @@ shape = SubResource("CylinderShape3D_rs2on")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.133612, 0)
+visible = false
+layers = 3
 mesh = SubResource("CylinderMesh_655u2")
 
 [node name="action_emitter" type="Timer" parent="."]
@@ -32,6 +62,23 @@ wait_time = 1.5
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.051
+
+[node name="cylinder1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95146, 0)
+mesh = SubResource("CylinderMesh_ymk6k")
+script = ExtResource("2_iijax")
+
+[node name="cylinder2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.36927, 0)
+mesh = SubResource("CylinderMesh_mwgfa")
+skeleton = NodePath("../cylinder1")
+script = ExtResource("2_iijax")
+
+[node name="cylinder3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00914907, 0.691052, -0.0155954)
+mesh = SubResource("CylinderMesh_eoq0j")
+skeleton = NodePath("../cylinder2")
+script = ExtResource("2_iijax")
 
 [connection signal="timeout" from="action_emitter" to="." method="_on_actions_emit_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -18,9 +18,9 @@ signal targeted(value)
 #@onready var Agro_table : Array
 
 const Attack = preload("res://addons/Attack_area.tscn")
-
+var aoe_targeting : bool
 var Looking_around : bool
-var _mouse_on = false
+'var _mouse_on = false'
 var _check_players : int
 var buffs := []
 
@@ -31,12 +31,10 @@ func _ready():
 	
 func _process(delta: float) -> void:
 	die()
-	set_selected(selected)
 	_Health_bar.value = Health
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
 	Target = check_closest()
 	Players = get_tree().get_nodes_in_group("Players")
 	if is_on_floor() and is_instance_valid(Target):
@@ -62,12 +60,12 @@ func _physics_process(delta: float) -> void:
 			var Area_stuff = Attack.instantiate()
 			add_child(Area_stuff)
 			Area_stuff.attack()
-	if _mouse_on and not selected:
+	'if _mouse_on and not selected:
 		box.transparency = 0.75
 	elif selected:
 		box.transparency = 0.25
 	else:
-		box.transparency = 1
+		box.transparency = 1'
 	move_and_slide()
 	
 func _input_event(camera: Camera3D, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int):
@@ -76,20 +74,12 @@ func _input_event(camera: Camera3D, event: InputEvent, event_position: Vector3, 
 			i.selected = false
 		selected = true
 		targeted.emit(self)
-func _mouse_enter() -> void:
-	_mouse_on = true
-func _mouse_exit() -> void:
-	_mouse_on = false
 
-
-func set_selected(value):
-	#portrait.visible = value
-	pass#$HealthBar.visible = value
 func die() -> void:
 	if Health <= 0:
 		remove_from_group("Mobs")
 		queue_free()
-func check_closest():
+func check_closest(): # maybe move to mob logic or some other component
 	var list_of_players = []
 	if Players.size() > 0:
 		# Calculate the direction to the player
@@ -100,20 +90,7 @@ func check_closest():
 
 		list_of_players.sort()
 		return list_of_players[0][0]
-'func use_buffs():
-	for buff in buffs:
-		buff.effect(self)
-'
-func get_attribute(attribute):
-	pass
-#signals
-func _on_player_select_pressed() -> void:
-	if _mouse_on == false and Looking_around == false:
-		selected = false
-func _on_player_looking_around(value) -> void:
-	Looking_around = value
+
 func _on_actions_received(actions: Array) -> void:
 	for action in actions:
 		action.use(self)
-func _receive_camera_position(value):
-	_Health_bar_mesh.camera_pos = value

@@ -1,6 +1,6 @@
 extends Node
 @onready var Player = $"../.."
-var was_targeted := 0
+var tab_target_index := 0
 var in_sight : Array
 
 func _input(event):
@@ -8,8 +8,7 @@ func _input(event):
 		return
 
 	if Input.is_action_just_pressed("select") and event is not InputEventMouseMotion:
-		Player.Looking_around.emit(false)
-		was_targeted = 0
+		tab_target_index = 0
 
 	if Input.is_action_just_pressed("Spellbook"):
 		if not Player._spellbook.visible:
@@ -26,19 +25,19 @@ func _input(event):
 				in_sight.append([i, check_distance])
 				in_sight.sort()
 
-		if was_targeted >= in_sight.size():
-			was_targeted = 0
+		if tab_target_index >= in_sight.size():
+			tab_target_index = 0
 
-		if in_sight[was_targeted][0] == Player.current_target:
-			was_targeted += 1
+		if in_sight[tab_target_index][0] == Player.current_target:
+			tab_target_index += 1
 
-		if was_targeted >= in_sight.size():
-			was_targeted = 0
+		if tab_target_index >= in_sight.size():
+			tab_target_index = 0
 
 		if in_sight.size() > 0:
-			var yea = in_sight[was_targeted][0]
-			if yea == Player.current_target and in_sight.size() != 1:
-				yea = in_sight[was_targeted + 1][0]
-			yea.selected = true
-			Player.current_target = yea
-		was_targeted += 1
+			var target = in_sight[tab_target_index][0]
+			if target == Player.current_target and in_sight.size() != 1:
+				target = in_sight[tab_target_index + 1][0]
+			target.selected = true
+			Player.current_target = target
+		tab_target_index += 1

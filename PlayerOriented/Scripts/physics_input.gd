@@ -5,16 +5,16 @@ var has_slowed_down : bool = false
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 			return
-	Player.camera_position.emit(get_camera_position())
-	if Input.is_action_just_released("select"):
-		Player.select_pressed.emit()
+	'if Input.is_action_just_released("select"):
+		if Player.aoe_targeting:
+			return
 		var is_any_selected = false
 		var mobs = get_tree().get_nodes_in_group("Mobs")
 		for mob in mobs:
 			if mob.selected == true:
 				is_any_selected = true
 		if is_any_selected == false:
-			Player.current_target = null
+			Player.current_target = null'
 	# Add the gravity.
 
 	if not Player.is_on_floor():

@@ -44,14 +44,6 @@ func add_player(peer_id):
 	player.name = str(peer_id)
 	add_child(player)
 	player.add_to_group("Players")
-	
-	Mobs = get_tree().get_nodes_in_group("Mobs")
-	for mob in Mobs:
-		
-		player.select_pressed.connect(mob._on_player_select_pressed)
-		player.Looking_around.connect(mob._on_player_looking_around)
-		player.camera_position.connect(mob._receive_camera_position)
-		mob.targeted.connect(player._on_targeted)
 
 func get_main():
 	return self

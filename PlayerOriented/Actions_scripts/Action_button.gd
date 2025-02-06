@@ -9,7 +9,7 @@ var button_id : int
 
 func _ready():
 	self.Action_pressed.connect(UI._on_Action_pressed)
-	UI.Spell_list.append([button_id, Spell])
+	UI.Action_bar.append([button_id, Spell])
 	if Spell:
 		self.icon = Spell.icon
 		Spell.caster = UI
@@ -22,13 +22,13 @@ func _drop_data(position, data):
 		
 	
 func _update(spell) -> void:
-	UI.Spell_list.erase([button_id, Spell])
+	UI.Action_bar.erase([button_id, Spell])
 	
 	icon = spell.icon
 	self.Spell = spell
 	Spell.caster = UI
 	
-	UI.Spell_list.append([button_id, Spell])
+	UI.Action_bar.append([button_id, Spell])
 func _get_drag_data(position):
 	var drag_data = Spell
 	var preview = TextureRect.new()

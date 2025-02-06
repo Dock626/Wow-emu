@@ -1,15 +1,9 @@
-#<source object>.<signal>.connect(<target_object>.<name of function on the target object>)
-#self.select_pressed.connect(self._on_player_select_pressed)
 extends CharacterBody3D
 
 class_name Player_Base
 
 signal Casting_started
-signal select_pressed
-signal Looking_around
 signal action_pressed
-signal camera_position
-
 const AOE = preload("res://UI_Spells/UI_Player/aoe_indicator.tscn")
 
 @export var Fly_manouver = 0.1
@@ -38,8 +32,9 @@ var Cast_target
 var mouse_position := Vector3(0, 0, 0)
 var selected := false
 var mouse_on: bool
-var Spell_list = [] #spells on action bars
+var Action_bar = [] #spells on action bars
 var buffs = []
+var aoe_targeting : bool = false
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -51,6 +46,7 @@ func _ready():
 	$UI.show()
 	self.add_to_group("Players")
 	self.Casting_started.connect(_spell_handler._on_player_casting_started)
+
 func _unhandled_input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -71,23 +67,7 @@ func _process(_delta):
 	else:
 		_target_health_bar.hide()
 
-func _on_input_action(id : int):
-	for spell in Spell_list:
-		if spell[0] == id:
-			if spell[1] != null and spell[1].type == SpellResource.cast_type.AoE:
-				var indicator = AOE.instantiate()
-				indicator.spell = spell[1]
-				add_child(indicator)
-			else:
-				Casting_started.emit(spell[1])
 
-@rpc("call_local")
-func get_damage(value):
-	Health -= value
-
-func set_selected():
-	if Input.is_action_just_released("select") and mouse_on:
-		selected = !selected
 
 func die():
 	if Health <= 0:
@@ -95,23 +75,22 @@ func die():
 		SPEED = 0
 		_spell_handler._casting = true
 
-func _on_targeted(value: Variant) -> void:
-	current_target = value
-
-func _mouse_enter() -> void:
-	mouse_on = true
-	$Selected.transparency = .5
-
-func _mouse_exit() -> void:
-	mouse_on = false
-	$Selected.transparency = 1
-
 func _on_Action_pressed(spell : SpellResource):
 	Casting_started.emit(spell)
 
 func _on_actions_received(actions: Array) -> void:
 	for action in actions:
 		action.use(self)
+
+func _on_input_action(id : int):
+	for spell in Action_bar:
+		if spell[0] == id:
+			if spell[1] != null and spell[1].type == SpellResource.cast_type.AoE:
+				var indicator = AOE.instantiate()
+				indicator.spell = spell[1]
+				add_child(indicator)
+			else:
+				Casting_started.emit(spell[1])
 
 func get_id():
 	return self.name
