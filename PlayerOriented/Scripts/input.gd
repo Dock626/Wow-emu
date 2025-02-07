@@ -15,7 +15,10 @@ func _input(event):
 			Player._spellbook.show()
 		else:
 			Player._spellbook.hide()
-	
+	if Input.is_key_pressed(KEY_ESCAPE):
+		if is_instance_valid(Player.current_target):
+				Player.current_target.is_targeted = false
+		Player.current_target = null
 	if Input.is_action_just_released("Tab_target"):
 		in_sight = []
 		for i in get_tree().get_nodes_in_group("Mobs"):
