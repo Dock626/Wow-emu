@@ -10,7 +10,7 @@ const aoe_indicator = preload("res://UI_Spells/UI_Player/aoe_indicator.tscn")
 @onready var is_GCD = $Global_cd
 @onready var Player = get_parent()
 @onready var _spell_timer = $CastTimer
-
+	
 var _casting := false
 var Spells := [SpellDatabase.get_spell("Firebolt")]
 
@@ -48,13 +48,6 @@ func _on_cast_timer_timeout() -> void:
 func progress() -> float:
 	return (1 - _spell_timer.time_left / _spell_timer.wait_time) * 100
 
-#adding spells for the player
-func return_spell(spell_name):
-	for spell in Spells:
-		if spell.name == spell_name:
-			return spell
-	return null
-
 func use_procs():
 	var procs : Array = []
 	for action in Player.current_spell.actions:
@@ -69,5 +62,13 @@ func use_procs():
 	actions.connect(Player._on_actions_received)
 	actions.emit(procs)
 	actions.disconnect(Player._on_actions_received)
+
+#adding spells for the player
+func return_spell(spell_name):
+	for spell in Spells:
+		if spell.name == spell_name:
+			return spell
+	return null
+
 func add_spell(Spell):
 	Spells.append(Spell)

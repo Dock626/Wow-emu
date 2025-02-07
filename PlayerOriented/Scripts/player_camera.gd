@@ -12,7 +12,6 @@ func _process(delta: float) -> void:
 	if shootray.has("position"):
 		var hit_position = shootray["position"]
 		player.mouse_position = hit_position
-
 func _input(event: InputEvent) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) and event is InputEventMouseMotion:
 		player.rotate_y(deg_to_rad(-event.relative.x * sensitivity))
@@ -32,7 +31,7 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("zoom_out") and _Looking_from.position.z != -5.5:
 		_Looking_from.position.y += 0.25
 		_Looking_from.position.z -= 0.5
-
+			
 func shoot_ray():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var ray_length = 1000

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwf0wftfinjum"]
+[gd_scene load_steps=17 format=3 uid="uid://dwf0wftfinjum"]
 
 [ext_resource type="PackedScene" uid="uid://c8qitepmbdxgj" path="res://Models/Barbarian.glb" id="1_cwnmw"]
 [ext_resource type="Script" path="res://Mob/mob.gd" id="1_nh8ue"]
 [ext_resource type="PackedScene" uid="uid://6tlpu42ody0v" path="res://Mob/health_bar.tscn" id="3_oofvw"]
 [ext_resource type="Script" path="res://Mob/health_bar.gd" id="4_c5ca4"]
+[ext_resource type="Script" path="res://PlayerOriented/targeting.gd" id="5_8komy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m21oj"]
 size = Vector3(1, 2.005, 1)
@@ -42,7 +43,16 @@ size = Vector2(2.36, 0.315)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cpoav"]
 billboard_mode = 1
 
-[node name="Mob" type="CharacterBody3D" groups=["Mobs"]]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqqok"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fsupd"]
+material = SubResource("StandardMaterial3D_iqqok")
+top_radius = 0.3
+bottom_radius = 1.0
+height = 0.3
+
+[node name="Mob" type="CharacterBody3D" groups=["Mobs", "Targetable"]]
 collision_layer = 4
 script = ExtResource("1_nh8ue")
 
@@ -80,5 +90,10 @@ mesh = SubResource("QuadMesh_bbi13")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_cpoav")
 script = ExtResource("4_c5ca4")
+
+[node name="Targeting" type="MeshInstance3D" parent="."]
+transparency = 1.0
+mesh = SubResource("CylinderMesh_fsupd")
+script = ExtResource("5_8komy")
 
 [connection signal="targeted" from="." to="." method="_on_targeted"]

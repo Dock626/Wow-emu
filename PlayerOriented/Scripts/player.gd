@@ -6,14 +6,15 @@ signal Casting_started
 signal action_pressed
 const AOE = preload("res://UI_Spells/UI_Player/aoe_indicator.tscn")
 
+
 @export var Fly_manouver = 0.1
 @export var fall_acceleration = 75
 @export var JUMP_VELOCITY = 6
 @export var sensitivity = 0.4
-
 @export var Health = 100
 @export var SPEED : float = 11
 
+@onready var targeting: MeshInstance3D = $Targeting
 @onready var _animation_tree = $AnimationTree
 @onready var UI = $UI
 @onready var health_bar = $UI/HealthBar
@@ -31,11 +32,10 @@ var current_target: Node
 var Cast_target
 var mouse_position := Vector3(0, 0, 0)
 var selected := false
-var mouse_on: bool
 var Action_bar = [] #spells on action bars
 var buffs = []
 var aoe_targeting : bool = false
-
+var is_targeted : bool = false
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
@@ -66,8 +66,11 @@ func _process(_delta):
 		_target_health_bar.value = current_target.Health
 	else:
 		_target_health_bar.hide()
-
-
+	
+	if is_targeted:
+		targeting.transparency = 0.2
+	else:
+		targeting.transparency = 1
 
 func die():
 	if Health <= 0:
@@ -94,3 +97,12 @@ func _on_input_action(id : int):
 
 func get_id():
 	return self.name
+
+func _mouse_enter() -> void:
+	if is_targeted == true:
+		return
+	targeting.transparency = 0.6
+func _mouse_exit() -> void:
+	if is_targeted == true:
+		return
+	targeting.transparency = 1

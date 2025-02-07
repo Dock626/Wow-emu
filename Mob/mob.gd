@@ -12,6 +12,7 @@ signal targeted(value)
 @onready var box = $Selected
 @onready var portrait = $Control/Portrait2D
 @onready var Players = get_tree().get_nodes_in_group("Players")
+@onready var targeting: MeshInstance3D = $Targeting
 
 
 #@onready var Agro_range = $Area3D
@@ -20,10 +21,9 @@ signal targeted(value)
 const Attack = preload("res://addons/Attack_area.tscn")
 var aoe_targeting : bool
 var Looking_around : bool
-'var _mouse_on = false'
 var _check_players : int
 var buffs := []
-
+var is_targeted : bool = false
 func _ready():
 	add_to_group("Mobs")
 	#var stuffik = get_node("Area_stuff")
@@ -32,6 +32,10 @@ func _ready():
 func _process(delta: float) -> void:
 	die()
 	_Health_bar.value = Health
+	if is_targeted:
+		targeting.transparency = 0.2
+	else:
+		targeting.transparency = 1
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -60,12 +64,6 @@ func _physics_process(delta: float) -> void:
 			var Area_stuff = Attack.instantiate()
 			add_child(Area_stuff)
 			Area_stuff.attack()
-	'if _mouse_on and not selected:
-		box.transparency = 0.75
-	elif selected:
-		box.transparency = 0.25
-	else:
-		box.transparency = 1'
 	move_and_slide()
 	
 func _input_event(camera: Camera3D, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int):
@@ -79,6 +77,7 @@ func die() -> void:
 	if Health <= 0:
 		remove_from_group("Mobs")
 		queue_free()
+
 func check_closest(): # maybe move to mob logic or some other component
 	var list_of_players = []
 	if Players.size() > 0:
@@ -89,8 +88,18 @@ func check_closest(): # maybe move to mob logic or some other component
 			list_of_players.append([player, check_distance])
 
 		list_of_players.sort()
+		print(list_of_players[0][0])
 		return list_of_players[0][0]
 
 func _on_actions_received(actions: Array) -> void:
 	for action in actions:
 		action.use(self)
+
+func _mouse_enter() -> void:
+	if is_targeted == true:
+		return
+	targeting.transparency = 0.6
+func _mouse_exit() -> void:
+	if is_targeted == true:
+		return
+	targeting.transparency = 1

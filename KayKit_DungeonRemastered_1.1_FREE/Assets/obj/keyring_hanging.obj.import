@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://3oibvadfk0ct"
+path="res://.godot/imported/keyring_hanging.obj-e5c5a9ffe4d72ac2d5fed436b0d771d3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/keyring_hanging.obj-e5c5a9ffe4d72ac2d5fed436b0d771d3.mesh"]
+
+source_file="res://KayKit_DungeonRemastered_1.1_FREE/Assets/obj/keyring_hanging.obj"
+dest_files=["res://.godot/imported/keyring_hanging.obj-e5c5a9ffe4d72ac2d5fed436b0d771d3.mesh", "res://.godot/imported/keyring_hanging.obj-e5c5a9ffe4d72ac2d5fed436b0d771d3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

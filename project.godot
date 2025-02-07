@@ -35,6 +35,7 @@ enabled=PackedStringArray("res://addons/gdscript_formatter/plugin.cfg")
 Mobs=""
 Players=""
 Ground=""
+Targetable=""
 
 [input]
 
