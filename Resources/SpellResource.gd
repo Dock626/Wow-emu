@@ -55,6 +55,10 @@ func add_action(action):
 func apply_proc():
 	self.cast_time = 0
 
+func is_procced(user, button):
+	for buff in user.buffs:
+		if buff is proc_buff and buff.proc_name == user.current_spell.proc_check and button.Spell.proc_check == user.current_spell.proc_check:
+			return true
 func duplicate_spell() -> SpellResource:
 	# Create a new instance of SpellResource
 	var new_spell = SpellResource.new(self.name, self.description, self.type, self.energy_cost, self.cast_time, self.is_GCD, self.icon, [], [], self.cast_radius)
