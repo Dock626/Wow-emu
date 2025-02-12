@@ -30,4 +30,3 @@ script = ExtResource("3_cr7ex")
 script = ExtResource("4_i40d3")
 
 [connection signal="timeout" from="CastTimer" to="." method="_on_cast_timer_timeout"]
-[connection signal="timeout" from="Global_cd" to="." method="_on_cast_timer_timeout"]
