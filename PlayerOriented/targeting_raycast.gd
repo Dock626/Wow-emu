@@ -5,7 +5,6 @@ extends RayCast3D
 func _input(event):
 	if Input.is_action_just_released("select"):
 		select_target()
-		print(Player.current_target)
 
 func select_target():
 	target_position = (camera.project_local_ray_normal(get_viewport().get_mouse_position()) * 1000)
@@ -17,8 +16,6 @@ func select_target():
 			set_selected_target(collider)
 		'else:
 			set_selected_target(null) '
-
- # Deselect if clicking on nothing
 
 func set_selected_target(target):
 	if is_instance_valid(Player.current_target):

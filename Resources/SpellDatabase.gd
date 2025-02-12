@@ -20,6 +20,7 @@ func _ready():
 		.set_icon(preload("res://Resources/icons/fajerbol.png"))
 		.set_type(SpellResource.cast_type.Projectile)
 		.add_action(DamageAction.new(20))
+		.proc_check("Haste")
 		.get_spell())
 	Spell_List.append(SpellBuilder.new()
 		.create()
@@ -52,5 +53,6 @@ func _ready():
 func get_spell(spell_name: String) -> SpellResource:
 	for spell in Spell_List:
 		if spell.name == spell_name:
-			return spell
+			var spell_return = spell.duplicate_spell()
+			return spell_return
 	return null

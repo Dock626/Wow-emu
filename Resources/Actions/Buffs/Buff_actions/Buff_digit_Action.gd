@@ -17,6 +17,8 @@ func _init(attribute, buff_amount: int, expire: float) -> void:
 		type = buff_type.debuff
 
 func use(user):
+	if check_if_already_applied(user):
+		return
 	var Use_Buff = second_Attribute_buff.new(attribute, buff_amount, expire)
 	Use_Buff.user = user
 	Use_Buff.apply_buff(user)
@@ -33,7 +35,6 @@ func dispel():
 	var user_attribute = user.get(attribute)
 	user_attribute -= buff_amount
 	user.set(attribute, user_attribute)
-	print(user_attribute)
 	for buffs in user.buffs:
 		if buffs == self:
 			user.buffs.erase(buffs)

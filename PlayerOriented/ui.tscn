@@ -28,6 +28,18 @@ offset_bottom = 455.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="gcd" type="ProgressBar" parent="."]
+modulate = Color(0.380392, 0.431373, 0.419608, 1)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 475.0
+offset_top = 454.0
+offset_right = 675.0
+offset_bottom = 491.0
+grow_horizontal = 2
+grow_vertical = 0
+fill_mode = 1
+
 [node name="GridContainer" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 1

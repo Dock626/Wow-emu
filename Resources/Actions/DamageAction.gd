@@ -8,3 +8,4 @@ func _init(damage : int) -> void:
 
 func use(user):
 	user.Health -= damage
+	

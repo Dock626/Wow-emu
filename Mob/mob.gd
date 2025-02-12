@@ -36,6 +36,7 @@ func _process(delta: float) -> void:
 		targeting.transparency = 0.2
 	else:
 		targeting.transparency = 1
+
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -88,13 +89,11 @@ func check_closest(): # maybe move to mob logic or some other component
 			list_of_players.append([player, check_distance])
 
 		list_of_players.sort()
-		print(list_of_players[0][0])
 		return list_of_players[0][0]
 
 func _on_actions_received(actions: Array) -> void:
 	for action in actions:
 		action.use(self)
-
 func _mouse_enter() -> void:
 	if is_targeted == true:
 		return

@@ -4,14 +4,16 @@ class_name proc_buff
 
 var original_speed: float
 var buff_amount: float
-var type: buff_type = buff_type.proc
+var type: buff_type = 2
 var attribute: String
-
+var proc_name: String
 func _init(proc_name: String, expire: float) -> void:
 	self.expire = expire
-	self.name = proc_name
+	self.proc_name = proc_name
 
 func use(user):
+	if check_if_already_applied(user):
+		return
 	var Use_Buff = proc_buff.new(name, expire)
 	Use_Buff.user = user
 	Use_Buff.apply_buff(user)
@@ -28,4 +30,4 @@ func dispel():
 	user.get_node(str(_timer_name)).queue_free()
 
 func _to_string() -> String:
-	return name
+	return proc_name

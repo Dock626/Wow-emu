@@ -9,10 +9,9 @@ enum buff_type {
 }
 
 var user: Node
-var caster: Node
 var expire: float
 var _timer_name: String
-var name:String
+
 func _init(attribute, value, expire: float) -> void:
 	pass
 func use(user):
@@ -32,6 +31,13 @@ func _on_timer_timeout():
 		if buffs == self:
 			buffs.dispel()
 			user.buffs.erase(buffs)
+
+func check_if_already_applied(user):
+	var user_buffs = user.buffs
+	for buff in user_buffs:
+		if buff is proc_buff:
+			if self.proc_name == buff.proc_name:
+				return true
 
 func dispel():
 	pass

@@ -36,6 +36,7 @@ var Action_bar = [] #spells on action bars
 var buffs = []
 var aoe_targeting : bool = false
 var is_targeted : bool = false
+
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
@@ -54,12 +55,20 @@ func _unhandled_input(_event: InputEvent) -> void:
 func _process(_delta):
 	if not is_multiplayer_authority():
 		return
+	if current_spell:
+		if current_spell.cast_time > 0 and current_spell.cast_only_while_standing and velocity != Vector3(0,0,0):
+			_spell_handler._casting = false
 	die()
 	if _spell_handler._casting:
 		_cast_bar.visible = true
 		_cast_bar.value = _spell_handler.progress()
 	else:
 		_cast_bar.hide()
+	if _spell_handler.Global_cd.time_left > 0:
+		UI.gcd.visible = true
+		UI.gcd.value = _spell_handler.progress_gcd()
+	else:
+		UI.gcd.visible = false
 	health_bar.value = Health
 	if is_instance_valid(current_target):
 		_target_health_bar.show()
@@ -71,7 +80,6 @@ func _process(_delta):
 		targeting.transparency = 0.2
 	else:
 		targeting.transparency = 1
-
 func die():
 	if Health <= 0:
 		$Pivot.rotation.x = 90
@@ -90,10 +98,10 @@ func _on_input_action(id : int):
 		if spell[0] == id:
 			if spell[1] != null and spell[1].type == SpellResource.cast_type.AoE:
 				var indicator = AOE.instantiate()
-				indicator.spell = spell[1]
+				indicator.spell = spell[1].duplicate_spell()
 				add_child(indicator)
 			else:
-				Casting_started.emit(spell[1])
+				Casting_started.emit(spell[1].duplicate_spell())
 
 func get_id():
 	return self.name

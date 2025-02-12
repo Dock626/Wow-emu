@@ -52,9 +52,7 @@ func emit_actions():
 		return
 	for body in bodies:
 		if body.is_in_group("Mobs"):
-			self.actions_emit.connect(body._on_actions_received)
-			actions_emit.emit(actions)
-			self.actions_emit.disconnect(body._on_actions_received)
+			body._on_actions_received(actions)
 
 func _on_timer_timeout() -> void:
 	cylinder_1.reset()

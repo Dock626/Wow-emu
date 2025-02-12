@@ -38,13 +38,16 @@ func is_GCD(type: bool) -> SpellBuilder:
 	_sr.is_GCD = type
 	return self
 
+func proc_check(proc_name: String) -> SpellBuilder:
+	_sr.proc_check = proc_name
+	return self
+	
 func add_action(action: BaseSpellAction) -> SpellBuilder:
+	action.set_spell(self)
+	action.name = _sr.name
 	_sr.add_action(action)
 	return self
 
-func proc_name(name: String) -> SpellBuilder:
-	_sr.proc_name = name
-	return self
 #AoE properties
 
 func set_radius(cast_radius: float = 1) -> SpellBuilder:
