@@ -57,7 +57,7 @@ func apply_proc():
 
 func is_procced(user, button):
 	for buff in user.buffs:
-		if buff is proc_buff and buff.proc_name == user.current_spell.proc_check and button.Spell.proc_check == user.current_spell.proc_check:
+		if buff is proc_buff and button.Spell.proc_check == buff.proc_name:
 			return true
 func duplicate_spell() -> SpellResource:
 	# Create a new instance of SpellResource

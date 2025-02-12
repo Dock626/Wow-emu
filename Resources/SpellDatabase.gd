@@ -20,7 +20,7 @@ func _ready():
 		.set_icon(preload("res://Resources/icons/fajerbol.png"))
 		.set_type(SpellResource.cast_type.Projectile)
 		.add_action(DamageAction.new(20))
-		.add_action(BuffProc.new(400, "Quick_Firebolt", 10))
+		.add_action(BuffProc.new(600, "Quick_Firebolt", 10))
 		.proc_check("Quick_Firebolt")
 		.get_spell())
 	Spell_List.append(SpellBuilder.new()

@@ -15,4 +15,3 @@ script = ExtResource("2_mq7nh")
 [node name="ColorRect" parent="." instance=ExtResource("3_3yk1p")]
 visible = false
 layout_mode = 0
-color = Color(1, 1, 1, 0.690196)
