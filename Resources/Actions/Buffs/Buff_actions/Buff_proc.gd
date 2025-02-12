@@ -7,21 +7,28 @@ var buff_amount: float
 var type: buff_type = 2
 var attribute: String
 var proc_name: String
-func _init(proc_name: String, expire: float) -> void:
+var chance: int
+func _init(chance: int, proc_name: String, expire: float) -> void:
 	self.expire = expire
 	self.proc_name = proc_name
+	self.chance = chance
 
 func use(user):
 	if check_if_already_applied(user):
 		return
-	var Use_Buff = proc_buff.new(proc_name, expire)
+	var rng = RandomNumberGenerator.new()
+	var randi = rng.randi_range(0, 1000)
+	if randi > chance:
+		print(randi)
+		return
+	var Use_Buff = proc_buff.new(chance, proc_name, expire)
 	Use_Buff.user = user
 	Use_Buff.apply_buff(user)
 	user.buffs.append(Use_Buff)
-
+	print(randi)
+	rng.is_queued_for_deletion()
 func apply_buff(user):
 	_timer_start(user)
-
 
 func dispel():
 	for buffs in user.buffs:

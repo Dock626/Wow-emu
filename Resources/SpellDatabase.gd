@@ -34,6 +34,7 @@ func _ready():
 		.add_action(DamageAction.new(20))
 		.set_radius(3)
 		.set_effect_time(5)
+		.proc_check("Quick_Firebolt")
 		#.set_tick_rate(1)
 		.get_spell())
 	Spell_List.append(SpellBuilder.new()
@@ -46,7 +47,7 @@ func _ready():
 		.set_icon(preload("res://Resources/icons/fajerbol.png"))
 		.set_type(SpellResource.cast_type.Instant)
 		.add_action(BuffAction.new("SPEED", 1.5, 2))
-		.add_action(BuffProc.new("Quick_Firebolt", 10))
+		.add_action(BuffProc.new(200, "Quick_Firebolt", 10))
 		.get_spell())
 
 func get_spell(spell_name: String) -> SpellResource:
