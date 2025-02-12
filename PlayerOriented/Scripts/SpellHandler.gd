@@ -17,20 +17,12 @@ var Spells := [SpellDatabase.get_spell("Firebolt")]
 func _on_player_casting_started(spell: SpellResource) -> void:
 	if spell == null or _casting:
 		return
-	elif Player.buffs.has(spell.proc_check):
-		spell.apply_proc()
 	elif !Global_cd.is_stopped() and spell.is_GCD == true:
 		return
 	for buff in Player.buffs:
 		if buff is proc_buff and buff.proc_name == spell.proc_check:
 			spell.apply_proc()
 			Player.buffs.erase(buff)
-	'print(spell.proc_check)
-	print(Player.buffs)
-	print(Player.buffs.has(spell.proc_check))'
-	'if Player.current_target == null:
-		print("I need a target first")
-		return'
 	_casting = true
 	Player.Cast_target = Player.current_target
 	Player.current_spell = spell
@@ -44,7 +36,7 @@ func _on_player_casting_started(spell: SpellResource) -> void:
 		_spell_timer.start()
 	if Player.current_spell.is_GCD:
 		Global_cd.start()
-		
+
 func _on_cast_timer_timeout() -> void:
 	use_procs()
 	if _casting != true:

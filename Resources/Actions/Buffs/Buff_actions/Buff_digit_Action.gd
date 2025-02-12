@@ -21,6 +21,7 @@ func use(user):
 		return
 	var Use_Buff = second_Attribute_buff.new(attribute, buff_amount, expire)
 	Use_Buff.user = user
+	Use_Buff.name = self.name #for some mysterious reason the name is erased
 	Use_Buff.apply_buff(user)
 	user.buffs.append(Use_Buff)
 

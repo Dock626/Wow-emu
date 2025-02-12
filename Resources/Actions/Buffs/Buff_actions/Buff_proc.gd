@@ -14,7 +14,7 @@ func _init(proc_name: String, expire: float) -> void:
 func use(user):
 	if check_if_already_applied(user):
 		return
-	var Use_Buff = proc_buff.new(name, expire)
+	var Use_Buff = proc_buff.new(proc_name, expire)
 	Use_Buff.user = user
 	Use_Buff.apply_buff(user)
 	user.buffs.append(Use_Buff)

@@ -20,7 +20,7 @@ func _ready():
 		.set_icon(preload("res://Resources/icons/fajerbol.png"))
 		.set_type(SpellResource.cast_type.Projectile)
 		.add_action(DamageAction.new(20))
-		.proc_check("Haste")
+		.proc_check("Quick_Firebolt")
 		.get_spell())
 	Spell_List.append(SpellBuilder.new()
 		.create()
@@ -46,7 +46,6 @@ func _ready():
 		.set_icon(preload("res://Resources/icons/fajerbol.png"))
 		.set_type(SpellResource.cast_type.Instant)
 		.add_action(BuffAction.new("SPEED", 1.5, 2))
-		.add_action(DamageAction.new(10))
 		.add_action(BuffProc.new("Quick_Firebolt", 10))
 		.get_spell())
 

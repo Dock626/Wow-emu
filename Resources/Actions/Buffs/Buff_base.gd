@@ -35,9 +35,11 @@ func _on_timer_timeout():
 func check_if_already_applied(user):
 	var user_buffs = user.buffs
 	for buff in user_buffs:
-		if buff is proc_buff:
+		if self is proc_buff and buff is proc_buff:
 			if self.proc_name == buff.proc_name:
 				return true
+		elif self.name == buff.name:
+			return true
 
 func dispel():
 	pass
