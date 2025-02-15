@@ -21,6 +21,10 @@ func set_description(description: String) -> SpellBuilder:
 func set_type(type: SpellResource.cast_type) -> SpellBuilder:
 	_sr.type = type
 	return self
+	
+func set_cooldown(CD: float) -> SpellBuilder:
+	_sr.CD = CD
+	return self
 
 func set_cast_time(cast_time: float = 0) -> SpellBuilder:
 	_sr.cast_time = cast_time

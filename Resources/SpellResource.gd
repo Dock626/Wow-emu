@@ -27,7 +27,7 @@ var icon
 var default_icon = preload("res://Resources/icons/fajerbol.png")
 var proc_check: String
 var cast_only_while_standing: bool = true
-
+var CD : float
 #AoE properties
 var cast_position: Vector3
 var cast_radius: float
@@ -49,6 +49,7 @@ func _init(name: String = "", description: String = "", type: cast_type =
 	self.is_GCD = is_GCD
 	self.icon = icon
 	self.cast_radius = aoe_radius
+	
 func add_action(action):
 	self.actions.append(action)
 
@@ -71,6 +72,7 @@ func duplicate_spell() -> SpellResource:
 	new_spell.tick_rate = self.tick_rate
 	new_spell.proc_check = self.proc_check
 	new_spell.cast_only_while_standing = self.cast_only_while_standing
+	new_spell.CD = self.CD
 	# Manually copy actions (ensure they support duplication)
 	for action in self.actions:
 		action.spell = new_spell

@@ -24,6 +24,8 @@ var Looking_around : bool
 var _check_players : int
 var buffs := []
 var is_targeted : bool = false
+func initialize(set_position) -> void:
+	self.global_transform.origin = set_position
 func _ready():
 	add_to_group("Mobs")
 	#var stuffik = get_node("Area_stuff")
@@ -76,6 +78,7 @@ func _input_event(camera: Camera3D, event: InputEvent, event_position: Vector3, 
 
 func die() -> void:
 	if Health <= 0:
+		Global.score += 1
 		remove_from_group("Mobs")
 		queue_free()
 

@@ -20,6 +20,10 @@ func _on_player_casting_started(spell: SpellResource) -> void:
 		return
 	elif !Global_cd.is_stopped() and spell.is_GCD == true:
 		return
+	elif spell.CD > 0:
+		for cooldown in cooldowns.get_children():
+			if spell.name == cooldown.CD_name:
+				return
 	for buff in Player.buffs:
 		if buff is proc_buff and buff.proc_name == spell.proc_check:
 			spell.apply_proc()
@@ -39,6 +43,10 @@ func _on_player_casting_started(spell: SpellResource) -> void:
 func _on_cast_timer_timeout() -> void:
 	if _casting == false:
 		return
+	var cooldown_timer = Cooldown.new()
+	cooldown_timer.on_ready(Player.current_spell)
+	$Cooldowns.add_child(cooldown_timer)
+	cooldown_timer.start()
 	use_procs()
 	if Player.current_spell.type == SpellResource.cast_type.Projectile:
 		projectile._projectile_scene_init()

@@ -7,11 +7,13 @@ const Spelldb = preload("res://Resources/SpellDatabase.gd")
 const Player = preload("res://PlayerOriented/player.tscn")
 const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
-
+var spawn_this_many_mobs = 1
+var score = 0 
 @onready var Players = get_tree().get_nodes_in_group("Players")
 @onready var Mobs = get_tree().get_nodes_in_group("Mobs")
 @onready var Spell_database : SpellDatabase = $Spell_database
 @export var Spell_id : int = 0
+@export var mob_scene: PackedScene
 func _ready():
 	pass
 func _process(delta):
@@ -55,3 +57,33 @@ func get_players():
 func generate_spell_id():
 	Spell_id += 1
 	return Spell_id
+
+
+func _on_mob_timer_timeout() -> void:
+	if mob_scene == null:
+		print("Error: mob_scene is not assigned!")
+		return
+
+	var mob_spawn_location = get_node("SpawnPath/SpawnLocation")
+
+	for i in range(spawn_this_many_mobs):
+		print("Spawning mob:", i)
+
+		var mob = mob_scene.instantiate()
+		if mob == null:
+			print("Error: mob instantiation failed!")
+			continue
+
+		# Assign a new random spawn position
+		mob_spawn_location.progress_ratio = randf()  # Random point along the path
+		var spawn_position = mob_spawn_location.position
+
+		# Add a small random offset to prevent stacking
+		var random_offset = Vector3(randf_range(-150, 150), 0, randf_range(-150, 150))
+		mob.position = spawn_position + random_offset
+
+		add_child(mob)
+
+
+func _on_increment_mobs_timeout() -> void:
+	spawn_this_many_mobs += 1

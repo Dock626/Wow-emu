@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjw84c3d4d6fs"]
+[gd_scene load_steps=5 format=3 uid="uid://bjw84c3d4d6fs"]
 
 [ext_resource type="PackedScene" uid="uid://b1wnx0m0gccvw" path="res://UI_Spells/Spell_book/spell_book.tscn" id="1_fcxv7"]
 [ext_resource type="Script" path="res://PlayerOriented/Scripts/ui.gd" id="1_vgyi0"]
 [ext_resource type="Script" path="res://PlayerOriented/Actions_scripts/action_container.gd" id="2_81fa8"]
+[ext_resource type="Script" path="res://PlayerOriented/text_edit.gd" id="4_ak7f7"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -76,3 +77,15 @@ offset_left = 44.0
 offset_top = 9.0
 offset_right = 92.0
 offset_bottom = 57.0
+
+[node name="TextEdit" type="TextEdit" parent="."]
+light_mask = 8
+visibility_layer = 8
+layout_mode = 0
+offset_left = 41.0
+offset_top = 216.0
+offset_right = 180.0
+offset_bottom = 254.0
+text = "score:"
+editable = false
+script = ExtResource("4_ak7f7")
