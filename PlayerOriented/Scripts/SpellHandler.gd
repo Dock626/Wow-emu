@@ -23,13 +23,11 @@ func _on_player_casting_started(spell: SpellResource) -> void:
 	for buff in Player.buffs:
 		if buff is proc_buff and buff.proc_name == spell.proc_check:
 			spell.apply_proc()
-			Player.buffs.erase(buff)
+			if buff.is_erased_on_use:
+				Player.buffs.erase(buff)
 	_casting = true
 	Player.Cast_target = Player.current_target
 	Player.current_spell = spell
-	spell.caster = Player
-	for action in spell.actions:
-		action.caster = Player
 	if spell.cast_time == 0:
 		_on_cast_timer_timeout()
 	else:

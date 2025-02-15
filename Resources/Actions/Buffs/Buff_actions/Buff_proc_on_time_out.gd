@@ -1,23 +1,16 @@
-extends Buff
+extends proc_buff
 
-class_name proc_buff
+class_name proc_time
 
-var type: buff_type = 2
-var proc_name: String
-var chance: int
-func _init(chance: int, proc_name: String, expire: float) -> void:
+func _init(proc_name: String, expire: float) -> void:
 	self.expire = expire
 	self.proc_name = proc_name
-	self.chance = chance
+	self.is_erased_on_use = false
 
 func use(user):
 	if check_if_already_applied(user):
 		return
-	var rng = RandomNumberGenerator.new()
-	var randi = rng.randi_range(0, 1000)
-	if randi > chance:
-		return
-	var Use_Buff = proc_buff.new(chance, proc_name, expire)
+	var Use_Buff = proc_time.new(proc_name, expire)
 	Use_Buff.user = user
 	Use_Buff.apply_buff(user)
 	user.buffs.append(Use_Buff)

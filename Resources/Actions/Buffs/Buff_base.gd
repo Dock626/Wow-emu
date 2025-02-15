@@ -11,7 +11,7 @@ enum buff_type {
 var user: Node
 var expire: float
 var _timer_name: String
-
+var is_erased_on_use: bool = true
 func _init(attribute, value, expire: float) -> void:
 	pass
 func use(user):

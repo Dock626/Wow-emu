@@ -97,13 +97,19 @@ func _on_actions_received(actions: Array) -> void:
 func _on_input_action(id : int):
 	for spell in Action_bar:
 		if spell[0] == id:
+			if spell[1] == null:
+				return
+			var spell_passer = spell[1].duplicate_spell()
+			spell_passer.caster = self
+			for action in spell_passer.actions:
+				action.caster = self
 			if spell[1] != null and spell[1].type == SpellResource.cast_type.AoE:
 				var indicator = AOE.instantiate()
-				indicator.spell = spell[1].duplicate_spell()
+				indicator.spell = spell_passer
 				add_child(indicator)
 			else:
-				Casting_started.emit(spell[1].duplicate_spell())
-
+				Casting_started.emit(spell_passer)
+			return
 func get_id():
 	return self.name
 

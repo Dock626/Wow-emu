@@ -13,6 +13,7 @@ func _ready():
 	
 	if Spell:
 		self.icon = Spell.icon
+		self.tooltip_text = Spell.description
 		Spell.caster = Player
 	
 func _process(delta: float) -> void:
@@ -31,9 +32,9 @@ func _drop_data(position, data):
 	
 func _update(spell) -> void:
 	Player.Action_bar.erase([button_id, Spell])
+	self.tooltip_text = spell.description
 	icon = spell.icon
 	self.Spell = spell
-	Spell.caster = Player
 	Player.Action_bar.append([button_id, Spell])
 
 func _get_drag_data(position):

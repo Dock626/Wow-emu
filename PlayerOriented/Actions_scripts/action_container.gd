@@ -16,5 +16,7 @@ func _ready() -> void:
 			action_button.Spell = SpellDatabase.get_spell("Flame Strike")
 		elif i == 4:
 			action_button.Spell = SpellDatabase.get_spell("Haste")
+		elif i == 5:
+			action_button.Spell = SpellDatabase.get_spell("Combustion")
 		self.add_child(action_button)
 		
