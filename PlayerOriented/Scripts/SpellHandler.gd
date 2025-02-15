@@ -3,8 +3,8 @@ extends Node
 signal actions(value)
 
 const aoe_indicator = preload("res://UI_Spells/UI_Player/aoe_indicator.tscn")
-
-@onready var projectile: Node = $Spell_types/Projectile
+const projectile_scene = preload("res://Resources/spell_scenes/projectile.tscn")
+@onready var projectile: Node = $Spell_types/projectile
 @onready var no_projectile: Node = $Spell_types/no_projectile
 @onready var aoe: Node = $Spell_types/AoE
 @onready var Global_cd = $Global_cd
@@ -41,6 +41,8 @@ func _on_player_casting_started(spell: SpellResource) -> void:
 		Global_cd.start()
 
 func _on_cast_timer_timeout() -> void:
+	if Player.current_spell == null:
+		return
 	if _casting == false:
 		return
 	var cooldown_timer = Cooldown.new()

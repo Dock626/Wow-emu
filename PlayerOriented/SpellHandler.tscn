@@ -22,7 +22,7 @@ one_shot = true
 
 [node name="Spell_types" type="Node" parent="."]
 
-[node name="Projectile" type="Node" parent="Spell_types"]
+[node name="projectile" type="Node" parent="Spell_types"]
 script = ExtResource("2_g3itr")
 
 [node name="no_projectile" type="Node" parent="Spell_types"]

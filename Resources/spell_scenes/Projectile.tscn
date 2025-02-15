@@ -23,7 +23,7 @@ material = SubResource("StandardMaterial3D_37seg")
 radius = 0.063
 height = 0.125
 
-[node name="Projectile" type="RigidBody3D"]
+[node name="projectile" type="RigidBody3D"]
 collision_layer = 7
 collision_mask = 7
 gravity_scale = 0.0
