@@ -1,16 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7iewrt5nvrpg"]
+[gd_scene load_steps=3 format=3 uid="uid://c7iewrt5nvrpg"]
 
 [ext_resource type="Script" path="res://PlayerOriented/Actions_scripts/Action_button.gd" id="1_marlt"]
-[ext_resource type="Script" path="res://PlayerOriented/Actions_scripts/shader.gd" id="2_mq7nh"]
 [ext_resource type="PackedScene" uid="uid://drw7remokuvpn" path="res://color_rect.tscn" id="3_3yk1p"]
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(48, 48)
 expand_icon = true
 script = ExtResource("1_marlt")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource("2_mq7nh")
 
 [node name="ColorRect" parent="." instance=ExtResource("3_3yk1p")]
 visible = false

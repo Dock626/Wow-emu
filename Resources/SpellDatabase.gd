@@ -73,7 +73,7 @@ func _ready():
 		.set_cooldown(60)
 		.set_cast_time(0)
 		.is_GCD(false)
-		.set_icon(preload("res://Resources/icons/haste.png"))
+		.set_icon(preload("res://Resources/icons/Combustion.png"))
 		.set_type(SpellResource.cast_type.Instant)
 		.add_action(BuffProcOnTimeOut.new("Quick_Firebolt", 15))
 		.is_castable_while_walking()

@@ -21,7 +21,15 @@ func _process(delta: float) -> void:
 		glow_effect.visible = true
 	else: 
 		glow_effect.visible = false
-		
+	if Spell and Spell.CD > 0:
+		for cooldown in Player._spell_handler.cooldowns.get_children():
+			if cooldown.CD_name == Spell.name:
+				self.modulate = Color(1, 1, 1, 0.5)
+				self.text = str(round(cooldown.time_left))
+				break
+	else:
+		self.modulate = Color(1, 1, 1, 1)  # Reset opacity to normal
+		self.text = ""  # Hide the cooldown timer
 func _can_drop_data(position, data):
 	return data is SpellResource
 

@@ -111,12 +111,10 @@ curve = SubResource("Curve3D_enrrg")
 transform = Transform3D(0.994502, -0.00199213, -0.104666, 0, 0.999801, -0.0190301, 0.104684, 0.0189252, 0.994325, -144, 6, 100)
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 10.0
-autostart = true
+wait_time = 6.5
 
 [node name="Increment_mobs" type="Timer" parent="."]
 wait_time = 30.0
-autostart = true
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

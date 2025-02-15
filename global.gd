@@ -30,6 +30,8 @@ func _on_host_button_pressed():
 	
 	add_player(multiplayer.get_unique_id())
 	
+	$MobTimer.start()
+	$Increment_mobs.start()
 	#upnp_setup()
 
 
@@ -79,7 +81,7 @@ func _on_mob_timer_timeout() -> void:
 		var spawn_position = mob_spawn_location.position
 
 		# Add a small random offset to prevent stacking
-		var random_offset = Vector3(randf_range(-150, 150), 0, randf_range(-150, 150))
+		var random_offset = Vector3(randf_range(-100, 100), 0, randf_range(-100, 100))
 		mob.position = spawn_position + random_offset
 
 		add_child(mob)
