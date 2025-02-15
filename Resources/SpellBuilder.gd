@@ -48,6 +48,10 @@ func add_action(action: BaseSpellAction) -> SpellBuilder:
 	_sr.add_action(action)
 	return self
 
+func is_castable_while_walking() -> SpellBuilder:
+	_sr.cast_only_while_standing = false
+	return self
+
 #AoE properties
 
 func set_radius(cast_radius: float = 1) -> SpellBuilder:

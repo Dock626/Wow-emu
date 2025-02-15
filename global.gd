@@ -47,7 +47,11 @@ func add_player(peer_id):
 
 func get_main():
 	return self
-
+func get_players():
+	var players = []
+	for player in get_tree().get_nodes_in_group("Players"):
+		players.append(player)
+	return players
 func generate_spell_id():
 	Spell_id += 1
 	return Spell_id

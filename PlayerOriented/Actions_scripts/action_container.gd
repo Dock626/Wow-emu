@@ -9,10 +9,12 @@ func _ready() -> void:
 		action_button.button_id = i
 		action_button.text = str(i)
 		if i == 1:
-			action_button.Spell = SpellDatabase.get_spell("Firebolt")
+			action_button.Spell = SpellDatabase.get_spell("Scortch")
 		elif i == 2:
-			action_button.Spell = SpellDatabase.get_spell("Flame Strike")
+			action_button.Spell = SpellDatabase.get_spell("Firebolt")
 		elif i == 3:
+			action_button.Spell = SpellDatabase.get_spell("Flame Strike")
+		elif i == 4:
 			action_button.Spell = SpellDatabase.get_spell("Haste")
 		self.add_child(action_button)
 		

@@ -18,6 +18,8 @@ process_callback = 0
 wait_time = 1.5
 one_shot = true
 
+[node name="Cooldowns" type="Node" parent="."]
+
 [node name="Spell_types" type="Node" parent="."]
 
 [node name="Projectile" type="Node" parent="Spell_types"]

@@ -70,7 +70,7 @@ func duplicate_spell() -> SpellResource:
 	new_spell.effect_time = self.effect_time
 	new_spell.tick_rate = self.tick_rate
 	new_spell.proc_check = self.proc_check
-
+	new_spell.cast_only_while_standing = self.cast_only_while_standing
 	# Manually copy actions (ensure they support duplication)
 	for action in self.actions:
 		action.spell = new_spell

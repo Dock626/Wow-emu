@@ -19,14 +19,12 @@ func use(user):
 	var rng = RandomNumberGenerator.new()
 	var randi = rng.randi_range(0, 1000)
 	if randi > chance:
-		print(randi)
 		return
 	var Use_Buff = proc_buff.new(chance, proc_name, expire)
 	Use_Buff.user = user
 	Use_Buff.apply_buff(user)
 	user.buffs.append(Use_Buff)
-	print(randi)
-	rng.is_queued_for_deletion()
+
 func apply_buff(user):
 	_timer_start(user)
 

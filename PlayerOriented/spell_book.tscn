@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1wnx0m0gccvw"]
 
 [ext_resource type="Texture2D" uid="uid://c4x74ft0jblcl" path="res://UI_Spells/Spell_book/scroll.jpg" id="1_f7n28"]
-[ext_resource type="Script" path="res://UI_Spells/Spell_book/Spell_Book_button.gd" id="2_opgvu"]
+[ext_resource type="Script" path="res://UI_Spells/Spell_book/spell_book_grid_container.gd" id="2_mci84"]
 
 [node name="SpellBook" type="Control"]
 custom_minimum_size = Vector2(48, 48)
@@ -31,38 +31,4 @@ offset_bottom = 534.0
 theme_override_constants/h_separation = 120
 theme_override_constants/v_separation = 40
 columns = 2
-
-[node name="Button" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-script = ExtResource("2_opgvu")
-
-[node name="Button2" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-
-[node name="Button3" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-
-[node name="Button5" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-
-[node name="Button6" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-
-[node name="Button7" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-
-[node name="Button8" type="Button" parent="GridContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-
-[connection signal="mouse_entered" from="GridContainer/Button" to="GridContainer/Button" method="_on_mouse_entered"]
+script = ExtResource("2_mci84")

@@ -55,7 +55,10 @@ func _unhandled_input(_event: InputEvent) -> void:
 func _process(delta):
 	if not is_multiplayer_authority():
 		return
-	
+	if current_spell and !current_spell.cast_only_while_standing:
+		pass
+	elif current_spell and current_spell.cast_time != 0 and velocity != Vector3(0,0,0):
+		_spell_handler._casting = false
 	die()
 	if _spell_handler._casting:
 		_cast_bar.visible = true
