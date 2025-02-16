@@ -58,7 +58,8 @@ func _process(delta):
 	if current_spell and !current_spell.cast_only_while_standing:
 		pass
 	elif current_spell and current_spell.cast_time != 0 and velocity != Vector3(0,0,0):
-		current_spell == null
+		current_spell = null
+		$UI/CastFailed/AnimationPlayer.play("new_animation")
 		_spell_handler._casting = false
 	die()
 	if _spell_handler._casting:

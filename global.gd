@@ -65,8 +65,11 @@ func _on_mob_timer_timeout() -> void:
 	if mob_scene == null:
 		print("Error: mob_scene is not assigned!")
 		return
-
+	
 	var mob_spawn_location = get_node("SpawnPath/SpawnLocation")
+	
+	if get_tree().get_node_count_in_group("Mobs") > 15:
+		return
 
 	for i in range(spawn_this_many_mobs):
 		print("Spawning mob:", i)
@@ -88,4 +91,7 @@ func _on_mob_timer_timeout() -> void:
 
 
 func _on_increment_mobs_timeout() -> void:
+	if spawn_this_many_mobs == 5:
+		return
 	spawn_this_many_mobs += 1
+	
