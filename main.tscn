@@ -116,7 +116,16 @@ wait_time = 6.5
 [node name="Increment_mobs" type="Timer" parent="."]
 wait_time = 30.0
 
+[node name="Button" type="Button" parent="."]
+visible = false
+offset_left = 106.0
+offset_top = 194.0
+offset_right = 259.0
+offset_bottom = 234.0
+text = "Start"
+
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="Increment_mobs" to="." method="_on_increment_mobs_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

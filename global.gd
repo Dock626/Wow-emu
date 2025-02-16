@@ -29,9 +29,7 @@ func _on_host_button_pressed():
 	#multiplayer.peer_disconnected.connect(remove_player)
 	
 	add_player(multiplayer.get_unique_id())
-	
-	$MobTimer.start()
-	$Increment_mobs.start()
+	$Button.show()
 	#upnp_setup()
 
 
@@ -95,3 +93,10 @@ func _on_increment_mobs_timeout() -> void:
 		return
 	spawn_this_many_mobs += 1
 	
+
+
+func _on_button_pressed() -> void:
+	_on_mob_timer_timeout()
+	$MobTimer.start()
+	$Increment_mobs.start()
+	$Button.hide()

@@ -76,6 +76,7 @@ func duplicate_spell() -> SpellResource:
 	# Manually copy actions (ensure they support duplication)
 	for action in self.actions:
 		action.spell = new_spell
+		action.name =new_spell.name
 		new_spell.actions.append(action.duplicate_action())
 
 	return new_spell

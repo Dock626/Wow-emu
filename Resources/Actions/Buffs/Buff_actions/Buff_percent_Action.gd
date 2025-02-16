@@ -27,7 +27,7 @@ func use(user):
 	Use_Buff.user = user
 	Use_Buff.name = self.name #for some mysterious reason the name is erased
 	Use_Buff.apply_buff(user)
-	user.buffs.append(Use_Buff)
+	user.buffs.append(self)
 
 func apply_buff(user):
 	var user_attribute = user.get(attribute)
