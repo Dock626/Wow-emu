@@ -10,7 +10,7 @@ var button_id : int
 func _ready():
 	self.Action_pressed.connect(Player._on_Action_pressed)
 	Player.Action_bar.append([button_id, Spell])
-	
+	self.text = str(button_id)
 	if Spell:
 		self.icon = Spell.icon
 		self.tooltip_text = Spell.description
@@ -21,15 +21,25 @@ func _process(delta: float) -> void:
 		glow_effect.visible = true
 	else: 
 		glow_effect.visible = false
+
+func _physics_process(delta: float) -> void:
 	if Spell and Spell.CD > 0:
+		var cooldown_active = false  # Track if we found an active cooldown
+	
 		for cooldown in Player._spell_handler.cooldowns.get_children():
 			if cooldown.CD_name == Spell.name:
-				self.modulate = Color(1, 1, 1, 0.5)
-				self.text = str(round(cooldown.time_left))
-				break
+				cooldown_active = true  # Mark cooldown as active
+				self.modulate = Color(1, 1, 1, 0.5)  # Make button semi-transparent
+				self.text = str(round(cooldown.time_left))  # Show cooldown time
+				break  # Stop checking once we find it
+	
+		if not cooldown_active:  # If no cooldowns were found, reset button
+			self.modulate = Color(1, 1, 1, 1)  # Restore normal visibility
+			self.text = str(button_id)  # Reset button text
+
 	else:
-		self.modulate = Color(1, 1, 1, 1)  # Reset opacity to normal
-		self.text = ""  # Hide the cooldown timer
+		self.modulate = Color(1, 1, 1, 1)  # Ensure full opacity
+		self.text = str(button_id)  # Restore default text
 func _can_drop_data(position, data):
 	return data is SpellResource
 
@@ -37,7 +47,9 @@ func _drop_data(position, data):
 	if data is SpellResource:
 		_update(data)
 		
-	
+func reset():
+	self.text = str(button_id)
+	self.modulate = Color(1, 1, 1, 1)
 func _update(spell) -> void:
 	Player.Action_bar.erase([button_id, Spell])
 	self.tooltip_text = spell.description
