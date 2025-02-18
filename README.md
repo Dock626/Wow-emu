@@ -4,22 +4,27 @@ Wow-Emu is a project aiming to replicate the basic mechanics of *World of Warcra
 
 ## Implemented Features
 
-- **Targeting System** – Select a player or NPC with the right mouse button.  
+- **Targeting System** – Select a player or NPC with the right mouse button or use Tab targeting from WoW.
 - **Spellcasting System** – Cast spells on targets or the ground, with or without projectiles.  
 - **Spell Builder** – Easily create spells using the `SpellDatabase` with a builder pattern.  
 - **Proc System** – Set a percentage chance for instant spell casts instead of their normal cast time.  
 - **Core Mechanics** – Character movement, health display, and other fundamental RPG elements.  
+- **Mage Class** - Play as a mage and see how the game works so far.
+- **Spellbook** - Press P to have fun with buttons, you can move around your binds etc.
 
-## Current Plans  
+## Current Plans and Issues
 
-- Develop a fully functional class with a fun ability rotation.  
-- Create an encounter or implement *Vampire Survivors*-style enemy logic for a showcase.  
-- Implement multiplayer synchronization.  
+- Implement full multiplayer synchronization.
+- Implement line of sight (LoS)
+- Spells should have limited cast range
+- More interesting enemies / better encounter
+- Tab targeting should only take enemies on the screen to consideration
+- Rewrite buffs, they are a little scuffed
 
 ## Future Plans  
 
 - Develop an in-game encounter editor for creating raid bosses and enemies.  
-- Create a dungeon creator.  
+- Make a dungeon creator.  
 - Implement a character creator.  
 - Optimize and rewrite parts of the game in C#/C++ where necessary.  
 
