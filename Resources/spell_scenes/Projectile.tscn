@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dqbmpyk8sfcmg"]
 
-[ext_resource type="Script" path="res://Resources/Spell_logic/projectile.gd" id="1_i6bxi"]
+[ext_resource type="Script" uid="uid://cvbb3gldte6p7" path="res://Resources/Spell_logic/projectile.gd" id="1_i6bxi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0w21"]
 albedo_color = Color(1, 0, 0, 1)

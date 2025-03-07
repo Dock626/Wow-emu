@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://drw7remokuvpn"]
 
-[ext_resource type="Script" path="res://PlayerOriented/Actions_scripts/glow_anim.gd" id="1_lgquo"]
+[ext_resource type="Script" uid="uid://bkfe7uyd24ad1" path="res://PlayerOriented/Actions_scripts/glow_anim.gd" id="1_lgquo"]
 
 [sub_resource type="Animation" id="Animation_6wxc7"]
 resource_name = "Glow"
@@ -36,8 +36,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_84xlq"]
 _data = {
-"Glow": SubResource("Animation_6wxc7"),
-"RESET": SubResource("Animation_rseye")
+&"Glow": SubResource("Animation_6wxc7"),
+&"RESET": SubResource("Animation_rseye")
 }
 
 [node name="ColorRect" type="ColorRect"]

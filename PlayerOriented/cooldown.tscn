@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://blxrmfk03nws1"]
 
-[ext_resource type="Script" path="res://cooldown.gd" id="1_tb2t3"]
+[ext_resource type="Script" uid="uid://blp37ugg7grri" path="res://cooldown.gd" id="1_tb2t3"]
 
 [node name="Cooldown" type="Timer"]
 script = ExtResource("1_tb2t3")

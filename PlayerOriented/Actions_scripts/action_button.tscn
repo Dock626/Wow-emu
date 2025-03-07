@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7iewrt5nvrpg"]
 
-[ext_resource type="Script" path="res://PlayerOriented/Actions_scripts/Action_button.gd" id="1_marlt"]
+[ext_resource type="Script" uid="uid://oc4xwt7xdbf" path="res://PlayerOriented/Actions_scripts/Action_button.gd" id="1_marlt"]
 [ext_resource type="PackedScene" uid="uid://drw7remokuvpn" path="res://color_rect.tscn" id="3_3yk1p"]
 
 [node name="Button" type="Button"]

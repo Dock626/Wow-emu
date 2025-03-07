@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1wnx0m0gccvw"]
 
 [ext_resource type="Texture2D" uid="uid://c4x74ft0jblcl" path="res://UI_Spells/Spell_book/scroll.jpg" id="1_f7n28"]
-[ext_resource type="Script" path="res://UI_Spells/Spell_book/spell_book_grid_container.gd" id="2_pdr4f"]
+[ext_resource type="Script" uid="uid://ppn8hnq1d75v" path="res://UI_Spells/Spell_book/spell_book_grid_container.gd" id="2_pdr4f"]
 
 [node name="SpellBook" type="Control"]
 custom_minimum_size = Vector2(48, 48)

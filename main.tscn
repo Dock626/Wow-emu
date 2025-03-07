@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://dv3mndf7jo61u"]
 
-[ext_resource type="Script" path="res://global.gd" id="1_jrf87"]
+[ext_resource type="Script" uid="uid://cjnu81n6vflyu" path="res://global.gd" id="1_jrf87"]
 [ext_resource type="PackedScene" uid="uid://dwf0wftfinjum" path="res://Mob/mob.tscn" id="2_x5ufh"]
-[ext_resource type="Script" path="res://Resources/SpellDatabase.gd" id="4_o8sg2"]
+[ext_resource type="Script" uid="uid://dj1k1jmpi5tk7" path="res://Resources/SpellDatabase.gd" id="4_o8sg2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxxvp"]
 albedo_color = Color(0.486275, 0.486275, 0.482353, 1)
@@ -91,7 +91,7 @@ alignment = 1
 [node name="Players" type="Node3D" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Players"]
-_spawnable_scenes = PackedStringArray("res://PlayerOriented/player.tscn")
+_spawnable_scenes = PackedStringArray("uid://dirfldwnnfamh")
 spawn_path = NodePath("../..")
 
 [node name="Spell_database" type="Node" parent="."]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://bjw84c3d4d6fs"]
 
 [ext_resource type="PackedScene" uid="uid://b1wnx0m0gccvw" path="res://UI_Spells/Spell_book/spell_book.tscn" id="1_fcxv7"]
-[ext_resource type="Script" path="res://PlayerOriented/Scripts/ui.gd" id="1_vgyi0"]
-[ext_resource type="Script" path="res://PlayerOriented/Actions_scripts/action_container.gd" id="2_81fa8"]
-[ext_resource type="Script" path="res://PlayerOriented/text_edit.gd" id="4_ak7f7"]
+[ext_resource type="Script" uid="uid://cpejok6np01eb" path="res://PlayerOriented/Scripts/ui.gd" id="1_vgyi0"]
+[ext_resource type="Script" uid="uid://g2xq8l375j1a" path="res://PlayerOriented/Actions_scripts/action_container.gd" id="2_81fa8"]
+[ext_resource type="Script" uid="uid://hd1pyyjfjubt" path="res://PlayerOriented/text_edit.gd" id="4_ak7f7"]
 
 [sub_resource type="Animation" id="Animation_njwle"]
 length = 0.001
@@ -61,8 +61,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_csw0y"]
 _data = {
-"RESET": SubResource("Animation_njwle"),
-"new_animation": SubResource("Animation_e6avp")
+&"RESET": SubResource("Animation_njwle"),
+&"new_animation": SubResource("Animation_e6avp")
 }
 
 [node name="UI" type="Control"]
@@ -105,7 +105,7 @@ show_percentage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CastFailed"]
 libraries = {
-"": SubResource("AnimationLibrary_csw0y")
+&"": SubResource("AnimationLibrary_csw0y")
 }
 
 [node name="TextEdit" type="TextEdit" parent="CastFailed"]

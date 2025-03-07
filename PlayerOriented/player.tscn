@@ -1,19 +1,19 @@
 [gd_scene load_steps=54 format=4 uid="uid://dirfldwnnfamh"]
 
-[ext_resource type="Script" path="res://PlayerOriented/Scripts/player.gd" id="1_sl3fj"]
+[ext_resource type="Script" uid="uid://dhc63qnp4gkj0" path="res://PlayerOriented/Scripts/player.gd" id="1_sl3fj"]
 [ext_resource type="Texture2D" uid="uid://dhoryfl73311e" path="res://Models/Barbarian_barbarian_texture.png" id="2_l7smq"]
 [ext_resource type="AnimationLibrary" uid="uid://yy2du65uopg2" path="res://Models/barbanimations.res" id="3_io3j3"]
-[ext_resource type="Script" path="res://PlayerOriented/testing_animation.gd" id="4_85mgi"]
+[ext_resource type="Script" uid="uid://0bfakafcq57k" path="res://PlayerOriented/testing_animation.gd" id="4_85mgi"]
 [ext_resource type="PackedScene" uid="uid://bjw84c3d4d6fs" path="res://PlayerOriented/ui.tscn" id="4_m8t6a"]
-[ext_resource type="Script" path="res://PlayerOriented/Scripts/player_camera.gd" id="4_rtvpv"]
-[ext_resource type="Script" path="res://PlayerOriented/Scripts/animation_tree.gd" id="5_2iya5"]
-[ext_resource type="Script" path="res://PlayerOriented/Actions_scripts/action_inputs.gd" id="5_bj16l"]
-[ext_resource type="Script" path="res://PlayerOriented/targeting_raycast.gd" id="5_q4i20"]
+[ext_resource type="Script" uid="uid://p3wb5dvlgnsi" path="res://PlayerOriented/Scripts/player_camera.gd" id="4_rtvpv"]
+[ext_resource type="Script" uid="uid://ctuhc4b5p7n0t" path="res://PlayerOriented/Scripts/animation_tree.gd" id="5_2iya5"]
+[ext_resource type="Script" uid="uid://dre3nfjk3girf" path="res://PlayerOriented/Actions_scripts/action_inputs.gd" id="5_bj16l"]
+[ext_resource type="Script" uid="uid://b1oq0bhnxjd5k" path="res://PlayerOriented/targeting_raycast.gd" id="5_q4i20"]
 [ext_resource type="PackedScene" uid="uid://bfnhkcbu4khdx" path="res://PlayerOriented/SpellHandler.tscn" id="6_cev28"]
 [ext_resource type="PackedScene" uid="uid://b1wnx0m0gccvw" path="res://UI_Spells/Spell_book/spell_book.tscn" id="7_kx326"]
-[ext_resource type="Script" path="res://PlayerOriented/Scripts/input.gd" id="9_ycov2"]
-[ext_resource type="Script" path="res://PlayerOriented/Scripts/physics_input.gd" id="10_lcpwd"]
-[ext_resource type="Script" path="res://PlayerOriented/targeting.gd" id="12_f0p1l"]
+[ext_resource type="Script" uid="uid://d1mv636l12ily" path="res://PlayerOriented/Scripts/input.gd" id="9_ycov2"]
+[ext_resource type="Script" uid="uid://cjrj7lldsolqv" path="res://PlayerOriented/Scripts/physics_input.gd" id="10_lcpwd"]
+[ext_resource type="Script" uid="uid://rvniijhaqmxj" path="res://PlayerOriented/targeting.gd" id="12_f0p1l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7sdlj"]
 size = Vector3(1, 2.82477, 1)
@@ -1048,7 +1048,7 @@ skin = SubResource("Skin_kuvpr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot/Barbarian"]
 libraries = {
-"": ExtResource("3_io3j3")
+&"": ExtResource("3_io3j3")
 }
 script = ExtResource("4_85mgi")
 

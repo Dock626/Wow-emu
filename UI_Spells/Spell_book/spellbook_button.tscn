@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dp5rn70yc8cr1"]
 
-[ext_resource type="Script" path="res://UI_Spells/Spell_book/Spell_Book_button.gd" id="1_fibtv"]
+[ext_resource type="Script" uid="uid://bt5ilh73ay0qn" path="res://UI_Spells/Spell_book/Spell_Book_button.gd" id="1_fibtv"]
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(48, 48)
