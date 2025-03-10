@@ -3,7 +3,6 @@ extends Buff
 class_name proc_buff
 
 var type: buff_type = 2
-var proc_name: String
 var chance: int
 func _init(chance: int, proc_name: String, expire: float) -> void:
 	self.expire = expire
@@ -30,6 +29,3 @@ func dispel():
 		if buffs == self:
 			user.buffs.erase(buffs)
 	user.get_node(str(_timer_name)).queue_free()
-
-func _to_string() -> String:
-	return proc_name

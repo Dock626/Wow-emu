@@ -62,7 +62,7 @@ func _ready():
 		.is_GCD(false)
 		.set_icon(preload("res://Resources/icons/haste.png"))
 		.set_type(SpellResource.cast_type.Instant)
-		.add_action(BuffAction.new("SPEED", 2, 6))
+		.add_action(BuffAction.new("SPEED", 1.5, 6))
 		.is_castable_while_walking()
 		.get_spell())
 	Spell_List.append(SpellBuilder.new()

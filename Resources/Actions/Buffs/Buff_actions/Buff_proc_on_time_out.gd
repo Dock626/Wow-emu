@@ -23,6 +23,3 @@ func dispel():
 		if buffs == self:
 			user.buffs.erase(buffs)
 	user.get_node(str(_timer_name)).queue_free()
-
-func _to_string() -> String:
-	return proc_name

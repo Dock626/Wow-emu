@@ -12,6 +12,8 @@ var user: Node
 var expire: float
 var _timer_name: String
 var is_erased_on_use: bool = true
+var proc_name = null
+
 func _init(attribute, value, expire: float) -> void:
 	pass
 func use(user):
@@ -43,3 +45,8 @@ func check_if_already_applied(user):
 
 func dispel():
 	pass
+
+func _to_string() -> String:
+	if self.proc_name:
+		return self.proc_name
+	return self.name

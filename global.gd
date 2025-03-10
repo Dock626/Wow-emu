@@ -70,7 +70,6 @@ func _on_mob_timer_timeout() -> void:
 		return
 
 	for i in range(spawn_this_many_mobs):
-		print("Spawning mob:", i)
 
 		var mob = mob_scene.instantiate()
 		if mob == null:
