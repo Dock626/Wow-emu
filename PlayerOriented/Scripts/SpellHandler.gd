@@ -45,10 +45,11 @@ func _on_cast_timer_timeout() -> void:
 		return
 	if _casting == false:
 		return
-	var cooldown_timer = Cooldown.new()
-	cooldown_timer.on_ready(Player.current_spell)
-	$Cooldowns.add_child(cooldown_timer)
-	cooldown_timer.start()
+	if Player.current_spell.CD != null or Player.current_spell.CD != 0:
+		var cooldown_timer = Cooldown.new()
+		cooldown_timer.on_ready(Player.current_spell)
+		$Cooldowns.add_child(cooldown_timer)
+		cooldown_timer.start()
 	use_procs()
 	if Player.current_spell.type == SpellResource.cast_type.Projectile:
 		projectile._projectile_scene_init()
